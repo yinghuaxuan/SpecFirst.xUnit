@@ -9,7 +9,7 @@
 
     public class TestGeneration
     {
-        public string TestFilePath { get; set; }
+        public string TestProject { get; set; }
         public string TestFile { get; set; }
         public string TestImplFile { get; set; }
     }
