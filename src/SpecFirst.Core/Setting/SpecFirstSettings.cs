@@ -10,7 +10,7 @@
     public class TestGeneration
     {
         public string TestProject { get; set; }
-        public string TestFile { get; set; }
-        public string TestImplFile { get; set; }
+        public string TestFileName { get; set; }
+        public string TestImplFileName { get; set; }
     }
 }
