@@ -2,19 +2,19 @@
 {
     using System;
     using Microsoft.CodeAnalysis;
-    using SpecFirst.Setting;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
-    using Microsoft.CodeAnalysis.Text;
     using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
+    using SpecFirst.Core.Setting;
+    using SpecFirst.MarkdownParser;
+    using SpecFirst.TestGenerator.xUnit;
 
     [Generator]
-    public sealed class SpecFirstGenerator : ISourceGenerator
+    public sealed class XUnitGenerator : ISourceGenerator
     {
         private static readonly DiagnosticDescriptor NoMarkdownParserFound = new(
             id: "NO_MARKDOWN_PARSER",
@@ -56,9 +56,13 @@
 
         public void Execute(GeneratorExecutionContext context)
         {
-            _settingManager = new SpecFirstSettingManager(context);
-            _markdownParser = GetMarkdownParser(context)!;
-            _testsGenerator = GetTestGenerator(context)!;
+            AdditionalText settingFile =
+                context
+                    .AdditionalFiles
+                    .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", System.StringComparison.OrdinalIgnoreCase));
+            _settingManager = new SpecFirstSettingManager(settingFile.Path, context.Compilation.AssemblyName);
+            _markdownParser = new DecisionTableMarkdownParser();
+            _testsGenerator = new XUnitTestsGenerator()!;
 
             IEnumerable<AdditionalText> markdownFiles =
                 context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
@@ -66,28 +70,6 @@
             {
                 ProcessMarkdownFile(file, context);
             }
-        }
-
-        private ITestsGenerator? GetTestGenerator(GeneratorExecutionContext context)
-        {
-            var testsGenerator = GetTypeFromReference<ITestsGenerator>(context);
-            if (testsGenerator == null)
-            {
-                context.ReportDiagnostic(Diagnostic.Create(NoTestsGeneratorFound, Location.None, context.Compilation.AssemblyName));
-            }
-
-            return testsGenerator;
-        }
-
-        private IDecisionTableMarkdownParser? GetMarkdownParser(GeneratorExecutionContext context)
-        {
-            var markdownParser = GetTypeFromReference<IDecisionTableMarkdownParser>(context);
-            if (markdownParser == null)
-            {
-                context.ReportDiagnostic(Diagnostic.Create(NoMarkdownParserFound, Location.None, context.Compilation.AssemblyName));
-            }
-
-            return markdownParser;
         }
 
         private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context)
@@ -140,7 +122,7 @@
 
         private void PersistTestFiles(AdditionalText markdownFile, IEnumerable<string> sources, GeneratorExecutionContext context)
         {
-            var filePath = _settingManager.GetTestFilePath(markdownFile);
+            var filePath = _settingManager.GetTestFilePath(markdownFile.Path);
 
             Directory.CreateDirectory(filePath); // create the directory in case it doesn't exist
 
@@ -151,7 +133,7 @@
 
         private void PersistTestFile(AdditionalText markdownFile, string filePath, string tests, GeneratorExecutionContext context)
         {
-            string testFileName = _settingManager.GetTestFile(markdownFile);
+            string testFileName = _settingManager.GetTestFileName(markdownFile.Path);
             //context.AddSource($"{testFileName}", SourceText.From(tests, Encoding.UTF8));
             var testFile = Path.Combine(filePath, testFileName);
             File.WriteAllText(testFile, tests, Encoding.UTF8);
@@ -159,39 +141,13 @@
 
         private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string implementations, GeneratorExecutionContext context)
         {
-            string implementationFileName = _settingManager.GetTestImplFile(markdownFile);
+            string implementationFileName = _settingManager.GetTestImplFileName(markdownFile.Path);
             var implementationFile = Path.Combine(filePath, implementationFileName);
             if (!File.Exists(implementationFile))
             {
                 //context.AddSource($"{implementationFileName}", SourceText.From(implementations, Encoding.UTF8));
                 File.WriteAllText(implementationFile, implementations, Encoding.UTF8);
             }
-        }
-
-        private static T? GetTypeFromReference<T>(GeneratorExecutionContext context)
-        {
-            var allReferencedAssemblies = context.Compilation.References;
-            foreach (var assembly in allReferencedAssemblies)
-            {
-                if (assembly.Display.IndexOf("SpecFirst", StringComparison.OrdinalIgnoreCase) != -1)
-                {
-                    try
-                    {
-                        var loadFrom = Assembly.LoadFrom(assembly.Display);
-                        var type = loadFrom.GetTypes().FirstOrDefault(p =>
-                            typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract);
-                        if (type != null)
-                        {
-                            return (T)Activator.CreateInstance(type);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-
-            return default;
         }
     }
 }
