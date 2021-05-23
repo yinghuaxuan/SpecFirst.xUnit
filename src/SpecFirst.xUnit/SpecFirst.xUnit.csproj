@@ -5,19 +5,21 @@
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <AssemblyName>SpecFirst</AssemblyName>
-    <RootNamespace>SpecFirst</RootNamespace>
+    <AssemblyName>SpecFirst.xUnit</AssemblyName>
+    <RootNamespace>SpecFirst.xUnit</RootNamespace>
     <IncludeSymbols>False</IncludeSymbols>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
-    <Description>The source generator to auto generate tests from decision tables written in markdown files. It requires two more packages to work: the package to parse markdown decision tables into decision table objects; and the package to generate tests for the target testing framework</Description>
+    <Description>The source generator to auto generate tests in xUnit from decision tables written in markdown files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.30.0</Version>
+    <Version>1.0.0-rc.5</Version>
     <Company></Company>
-    <Product></Product>
+    <Product>SpecFirst.xUnit</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/yinghuaxuan/spec-first</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yinghuaxuan/SpecFirst.xUnit</RepositoryUrl>
     <PackageTags>source generator</PackageTags>
+    <Authors>yinghuaxuan</Authors>
+    <PackageId>SpecFirst.xUnit</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,8 +85,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Handlebars.Net" Version="1.10.1" />
-    <PackageReference Include="Jurassic" Version="3.1.0" />
+    <PackageReference Include="Handlebars.Net" Version="1.10.1" PrivateAssets="all"/>
+    <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all"/>
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.8.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
     <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
@@ -107,6 +109,8 @@
 
   <ItemGroup>
     <Content Include="..\SpecFirst.MarkdownParser\src\SpecFirst.MarkdownParser\Script\bundle.js" Link="Script\bundle.js">
+      <Pack>true</Pack>
+      <PackagePath>analyzers\dotnet\cs\Script</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
