@@ -3,11 +3,11 @@
     using System;
     using System.Linq;
 
-    public static class ScalaValueTypeResolver
+    public static class PrimitiveTypeResolver
     {
         private static readonly TypeDecisionTree _typeDecisionTree;
 
-        static ScalaValueTypeResolver()
+        static PrimitiveTypeResolver()
         {
             _typeDecisionTree = new TypeDecisionTree();
         }

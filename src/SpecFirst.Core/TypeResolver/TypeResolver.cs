@@ -21,7 +21,7 @@
             }
             else
             {
-                type = ScalaValueTypeResolver.Resolve(value, out var collectionValue);
+                type = PrimitiveTypeResolver.Resolve(value, out var collectionValue);
                 parsedValue = collectionValue;
             }
 
