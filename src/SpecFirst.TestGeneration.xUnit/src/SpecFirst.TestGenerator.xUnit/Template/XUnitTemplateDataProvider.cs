@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using SpecFirst.Core.DecisionTable;
-    using SpecFirst.Core.Serialization;
+    using SpecFirst.Core.NamingStrategy;
     using SpecFirst.TestGenerator.xUnit.Converter;
     using SpecFirst.TestGenerator.xUnit.Serialization;
 
