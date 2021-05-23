@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/yinghuaxuan/spec-first</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
     <PackageTags>source generator</PackageTags>
-    <PackageLicenseExpression>BSD-2</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
