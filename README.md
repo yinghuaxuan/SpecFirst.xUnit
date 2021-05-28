@@ -1,3 +1,5 @@
+#### [![CI](https://github.com/yinghuaxuan/SpecFirst.xUnit/workflows/ci/badge.svg)](https://github.com/yinghuaxuan/SpecFirst.xUnit/actions?query=workflow%3ACI) [![Nuget](https://img.shields.io/nuget/v/SpecFirst.xUnit)](https://www.nuget.org/packages/SpecFirst.xUnit/)
+
 # SpecFirst.xUnit
 SpecFirst.xUnit is a .NET [source generator](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/) to automatically generate xUnit tests from [decision tables](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/DecisionTable/Validator/DecisionTable.spec.md) authored in markdown.
 
@@ -13,3 +15,6 @@ To see more about this project:
 - [Known Issues](https://github.com/yinghuaxuan/SpecFirst#known-issues)
 - [Extending SpecFirst](https://github.com/yinghuaxuan/SpecFirst#extending-specfirst)
 - [Credits](https://github.com/yinghuaxuan/SpecFirst#credits)
+
+
+
