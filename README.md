@@ -6,10 +6,10 @@ It is a combined package of the following three individual packages (so that you
 - SpecFirst.MarkdownParser
 - SpecFirst.TestGenerator.xUnit
 
-## Usage
-- Add a spec file (.spec.md) containing some decision tables to the current project 
-- Mark the file as 'C# analyzer additional file' in 'Build Action'
-- Install SpecFirst.xUnit nuget package
-- Add a config file named [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/specfirst.config) (optional - [default settings](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst/Setting/SpecFirstSettingManager.cs#L11) will be used instead)
-- Rebuild the current project  
-- Two test files will be auto-generated for each spec file containing at least one decision table: one for the skeleton of the tests and the other for the implementation of the tests.  
+To see more about this project:
+- [The goal](https://github.com/yinghuaxuan/SpecFirst#the-goal)
+- [How to use it](https://github.com/yinghuaxuan/SpecFirst#how-to-use-it)
+- [How does it work](https://github.com/yinghuaxuan/SpecFirst#how-does-it-work)
+- [Known Issues](https://github.com/yinghuaxuan/SpecFirst#known-issues)
+- [Extending SpecFirst](https://github.com/yinghuaxuan/SpecFirst#extending-specfirst)
+- [Credits](https://github.com/yinghuaxuan/SpecFirst#credits)
