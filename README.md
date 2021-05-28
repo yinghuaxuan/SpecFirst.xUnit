@@ -1,7 +1,7 @@
 # SpecFirst.xUnit
 SpecFirst.xUnit is a .NET [source generator](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/) to automatically generate xUnit tests from [decision tables](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/DecisionTable/Validator/DecisionTable.spec.md) authored in markdown.
 
-It is a combination of the following three packages:
+It is a combined package of the following three individual packages (so that you just need to install one package instead of three if you don't need extensions):
 - SpecFirst
 - SpecFirst.MarkdownParser
 - SpecFirst.TestGenerator.xUnit
