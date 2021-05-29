@@ -5,6 +5,8 @@ SpecFirst.MarkdownParser is the markdown parser part of the SpecFirst source gen
 
 To see how SpecFirst.MarkdownParser should be used, see [How to use it](https://github.com/yinghuaxuan/SpecFirst/blob/master/README.md#how-to-use-it) 
 
+To see how the SpecFirst source generator works, see [SpecFirst](https://github.com/yinghuaxuan/SpecFirst)
+
 ## Technical Details
 The SpecFirst.MarkdownParser package uses the [markdown-it](https://github.com/markdown-it/markdown-it) parser with [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) support for its intuitive way to author decision tables. 
 
