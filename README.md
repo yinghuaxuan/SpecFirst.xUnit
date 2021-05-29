@@ -1,3 +1,5 @@
+#### [![CI](https://github.com/yinghuaxuan/SpecFirst.TestGenerator.xUnit/workflows/ci/badge.svg)](https://github.com/yinghuaxuan/SpecFirst.TestGenerator.xUnit/actions?query=workflow%3ACI) [![Nuget](https://img.shields.io/nuget/v/SpecFirst.TestGenerator.xUnit)](https://www.nuget.org/packages/SpecFirst.TestGenerator.xUnit/)
+
 # SpecFirst.TestGenerator.xUnit
 SpecFirst.TestGenerator.xUnit is the test generator part of the SpecFirst source generator. It is reponsible for genrating xUnit tests from the decision table objects.  
 
