@@ -1,3 +1,5 @@
+#### [![CI](https://github.com/yinghuaxuan/SpecFirst.MarkdownParser/workflows/ci/badge.svg)](https://github.com/yinghuaxuan/SpecFirst.MarkdownParser/actions?query=workflow%3ACI) [![Nuget](https://img.shields.io/nuget/v/SpecFirst.MarkdownParser)](https://www.nuget.org/packages/SpecFirst.MarkdownParser/)
+
 # SpecFirst.MarkdownParser
 SpecFirst.MarkdownParser is the markdown parser part of the SpecFirst source generator. It is reponsible for converting the decision tables written in markdown text to decision table objects.
 
