@@ -5,6 +5,8 @@ SpecFirst.TestGenerator.xUnit is the test generator part of the SpecFirst source
 
 To see how SpecFirst.TestGenerator.xUnit should be used, see [How to use it](https://github.com/yinghuaxuan/SpecFirst/blob/master/README.md#how-to-use-it) 
 
+To see how the SpecFirst source generator works, see [SpecFirst](https://github.com/yinghuaxuan/SpecFirst)
+
 ## Technical Details
 A test generator must implement the [ITestsGenerator](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/src/SpecFirst.Core/ITestsGenerator.cs) interface from [SpecFirst.Core](https://www.nuget.org/packages/SpecFirst.Core/) package.    
 
