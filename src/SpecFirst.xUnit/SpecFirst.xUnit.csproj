@@ -57,7 +57,7 @@
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\TypeDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\TypeDecisionTree.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DoubleType.cs" Link="SpecFirst.Core\TypeResolver\DoubleType.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\IntType.cs" Link="SpecFirst.Core\TypeResolver\IntType.cs" />
-    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\ScalaValueTypeResolver.cs" Link="SpecFirst.Core\TypeResolver\ScalaValueTypeResolver.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\PrimitiveTypeResolver.cs" Link="SpecFirst.Core\TypeResolver\PrimitiveTypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeResolver.cs" Link="SpecFirst.Core\TypeResolver\TypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeValuePair.cs" Link="SpecFirst.Core\TypeResolver\TypeValuePair.cs" />
     <Compile Include="..\SpecFirst.MarkdownParser\src\SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" Link="SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" />
@@ -85,8 +85,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Handlebars.Net" Version="1.10.1" PrivateAssets="all"/>
-    <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all"/>
+    <PackageReference Include="Handlebars.Net" Version="1.10.1" PrivateAssets="all" />
+    <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.8.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
     <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
