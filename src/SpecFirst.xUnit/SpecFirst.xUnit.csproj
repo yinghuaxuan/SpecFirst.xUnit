@@ -61,27 +61,27 @@
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeResolver.cs" Link="SpecFirst.Core\TypeResolver\TypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeValuePair.cs" Link="SpecFirst.Core\TypeResolver\TypeValuePair.cs" />
     <Compile Include="..\SpecFirst.MarkdownParser\src\SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" Link="SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\CSharpTypeAlias.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\CSharpTypeAlias.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\ITableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\ITableHeaderToParameterConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableDataToCommentsConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableDataToCommentsConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableDataToTestDataConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableDataToTestDataConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\IArrayDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\IArrayDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\IPrimitiveDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\IPrimitiveDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\NumberDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\NumberDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\StringDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\StringDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplate.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplate.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateData.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateData.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateDataProvider.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateDataProvider.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\Parameter.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\Parameter.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\ParameterDirection.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\ParameterDirection.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\TestGeneration.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\TestGeneration.cs" />
-    <Compile Include="..\SpecFirst.TestGeneration.xUnit\src\SpecFirst.TestGenerator.xUnit\XUnitTestsGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\XUnitTestsGenerator.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\CSharpTypeAlias.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\CSharpTypeAlias.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\ITableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\ITableHeaderToParameterConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableDataToCommentsConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableDataToCommentsConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableDataToTestDataConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableDataToTestDataConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\IArrayDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\IArrayDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\IPrimitiveDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\IPrimitiveDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\NumberDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\NumberDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\StringDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\StringDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplate.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplate.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateData.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateData.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateDataProvider.cs" Link="SpecFirst.TestGenerator.xUnit\Template\XUnitTemplateDataProvider.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\Parameter.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\Parameter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\ParameterDirection.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\ParameterDirection.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\TestGeneration\TestGeneration.cs" Link="SpecFirst.TestGenerator.xUnit\TestGeneration\TestGeneration.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\XUnitTestsGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\XUnitTestsGenerator.cs" />
   </ItemGroup>
 
   <ItemGroup>
