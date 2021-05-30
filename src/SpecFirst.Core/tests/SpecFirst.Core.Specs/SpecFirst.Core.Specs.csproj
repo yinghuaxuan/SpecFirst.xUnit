@@ -15,7 +15,7 @@
   <ItemGroup>
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTable.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
-	  <AdditionalFiles Include="TypeResolver\ScalaValueTypeResolver.spec.md" />
+	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />
 	</ItemGroup>
 
