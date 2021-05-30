@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
     using SpecFirst.Core.DecisionTable;
-    using SpecFirst.Core.Serialization;
+    using SpecFirst.Core.NamingStrategy;
     using SpecFirst.TestGenerator.xUnit.TestGeneration;
 
     public class TableHeaderToParameterConverter : ITableHeaderToParameterConverter
