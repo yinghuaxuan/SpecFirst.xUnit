@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Description>The source generator to auto generate tests in xUnit from decision tables written in markdown files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-rc.5</Version>
+    <Version>1.0.0-rc.10</Version>
     <Company></Company>
     <Product>SpecFirst.xUnit</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
