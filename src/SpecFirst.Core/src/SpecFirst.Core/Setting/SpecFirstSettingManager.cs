@@ -13,9 +13,9 @@
         public const string DefaultImplementationFileName = "{spec_name}Tests.impl.g.cs";
         public const string DefaultSpecFileExtension = ".spec.md";
 
-        private readonly string _specProject;
+        private readonly string? _specProject;
 
-        public SpecFirstSettingManager(string settingFile, string specProject)
+        public SpecFirstSettingManager(string? settingFile, string? specProject)
         {
             _specProject = specProject;
             if (settingFile != null)

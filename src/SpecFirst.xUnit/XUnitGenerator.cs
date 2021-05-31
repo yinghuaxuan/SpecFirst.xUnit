@@ -17,17 +17,24 @@
     public sealed class XUnitGenerator : ISourceGenerator
     {
         private static readonly DiagnosticDescriptor UnableParseMarkdownText = new(
-            id: "MARKDOWN_PARSER_ERROR",
+            id: "SF002",
             title: "Couldn't parse markdown text",
             messageFormat: "Couldn't process the markdown file {0} due to error {1}",
             category: "MarkdownParser",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
         private static readonly DiagnosticDescriptor UnableGenerateTests = new(
-            id: "TESTS_GENERATOR_ERROR",
+            id: "SF003",
             title: "Couldn't generate tests",
             messageFormat: "Couldn't generate tests for the markdown file {0} due to error {1}",
             category: "MarkdownParser",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor UnexpectedError = new(
+            id: "SF001",
+            title: "Unexpected error",
+            messageFormat: "Unexpected error when running SpecFirst.xUnit source generator - {0}",
+            category: "SpecFirst.xUnit",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
 
@@ -42,19 +49,26 @@
 
         public void Execute(GeneratorExecutionContext context)
         {
-            AdditionalText settingFile =
-                context
-                    .AdditionalFiles
-                    .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", System.StringComparison.OrdinalIgnoreCase));
-            _settingManager = new SpecFirstSettingManager(settingFile.Path, context.Compilation.AssemblyName);
-            _markdownParser = new DecisionTableMarkdownParser();
-            _testsGenerator = new XUnitTestsGenerator()!;
-
-            IEnumerable<AdditionalText> markdownFiles =
-                context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
-            foreach (AdditionalText file in markdownFiles)
+            try
             {
-                ProcessMarkdownFile(file, context);
+                AdditionalText settingFile =
+                    context
+                        .AdditionalFiles
+                        .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", StringComparison.OrdinalIgnoreCase));
+                _settingManager = new SpecFirstSettingManager(settingFile?.Path, context.Compilation?.AssemblyName);
+                _markdownParser = new DecisionTableMarkdownParser();
+                _testsGenerator = new XUnitTestsGenerator()!;
+
+                IEnumerable<AdditionalText> markdownFiles =
+                    context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
+                foreach (AdditionalText file in markdownFiles)
+                {
+                    ProcessMarkdownFile(file, context);
+                }
+            }
+            catch (Exception e)
+            {
+                context.ReportDiagnostic(Diagnostic.Create(UnexpectedError, e.ToString()));
             }
         }
 
