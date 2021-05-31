@@ -16,20 +16,6 @@
     [Generator]
     public sealed class XUnitGenerator : ISourceGenerator
     {
-        private static readonly DiagnosticDescriptor NoMarkdownParserFound = new(
-            id: "NO_MARKDOWN_PARSER",
-            title: "Couldn't find a valid markdown parser",
-            messageFormat: "Couldn't find a markdown parser implementing IDecisionTableMarkdownParser interface from referenced assemblies of project {0}",
-            category: "MarkdownParser",
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true);
-        private static readonly DiagnosticDescriptor NoTestsGeneratorFound = new(
-            id: "NO_TESTS_GENERATOR",
-            title: "Couldn't find a valid tests generator",
-            messageFormat: "Couldn't find a tests generator implementing ITestsGenerator interface from referenced assemblies of project {0}",
-            category: "TestsGenerator",
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true);
         private static readonly DiagnosticDescriptor UnableParseMarkdownText = new(
             id: "MARKDOWN_PARSER_ERROR",
             title: "Couldn't parse markdown text",
