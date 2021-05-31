@@ -21,16 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Script\bundle.js">
-      <Pack>true</Pack>
-      <PackagePath>lib\netstandard2.0\Script</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Script\bundle.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all" />
-    <PackageReference Include="SpecFirst.Core" Version="1.0.0-rc.8" />
+    <PackageReference Include="SpecFirst.Core" Version="1.0.0" />
   </ItemGroup>
 
   <Target Name="AddNuGetDlls" BeforeTargets="_GetPackageFiles">
