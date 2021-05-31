@@ -70,7 +70,7 @@ namespace SpecFirst.MarkdownParser
             {
                 var engine = new ScriptEngine();
                 engine.SetGlobalValue("markdownTable", markdownText);
-                engine.ExecuteFile(GetScriptFile());
+                engine.Execute(GetScript());
                 html = engine.GetGlobalValue("result").ToString();
             }
             catch (Exception e)
@@ -81,11 +81,13 @@ namespace SpecFirst.MarkdownParser
             return html;
         }
 
-        private static string GetScriptFile()
+        private static string GetScript()
         {
-            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
-            var directory = Path.GetDirectoryName(assemblyLocation);
-            return Path.Combine(directory!, "Script\\bundle.js");
+            var assembly = Assembly.GetExecutingAssembly();
+            string resourcePath = "SpecFirst.MarkdownParser.Script.bundle.js";
+            using Stream stream = assembly.GetManifestResourceStream(resourcePath)!;
+            using StreamReader reader = new StreamReader(stream!);
+            return reader.ReadToEnd();
         }
     }
 }
