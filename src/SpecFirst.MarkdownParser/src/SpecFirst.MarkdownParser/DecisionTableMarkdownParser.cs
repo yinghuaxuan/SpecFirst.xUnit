@@ -84,10 +84,11 @@ namespace SpecFirst.MarkdownParser
         private static string GetScript()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            string resourcePath = "SpecFirst.MarkdownParser.Script.bundle.js";
+            string resourcePath = $"{assembly.GetName().Name}.Script.bundle.js";
             using Stream stream = assembly.GetManifestResourceStream(resourcePath)!;
             using StreamReader reader = new StreamReader(stream!);
-            return reader.ReadToEnd();
+            var script = reader.ReadToEnd();
+            return script;
         }
     }
 }
