@@ -4,6 +4,8 @@
 
     public interface IDecisionTableMarkdownParser
     {
-        IEnumerable<DecisionTable.DecisionTable> Parse(string markdownText);
+        IEnumerable<DecisionTable.DecisionTable> Parse(
+            string markdownText,
+            out IEnumerable<DecisionTable.DecisionVariable> variables);
     }
 }
