@@ -8,14 +8,14 @@ If the text inside the decision table begin with a $ symbol, it will be interpre
 
 Outside Link and Decision table, the $ symbol won't be interpreted as variable.
 
-| Parse decision variable from links                                                                                                                                    ||||||
-| #Description                                         | Text                                     | Contain variable? | Variable name? | Variable type? | Variable value?    |
-| ---------------------------------------------------- | ---------------------------------------- | ----------------- | -------------- | -------------- | ------------------ |
-| variable must start with $ symbol followed by letter | [this is a variable](# "$variable_name") | true              | variable_name  | string         | this is a variable |
-| variable must start with $ symbol followed by letter | [this is a variable](# "$variable123")   | true              | variable_name  | string         | this is a variable |
-| variable immediately followed by digit               | [this is a variable](# "$123")           | fase              |                |                |                    |
-| variable not start with $ symbol                     | [this is a variable](# "variable_name")  | false             |                |                |                    |
-| variable with $ symbol not at the start              | [this is a variable](# "variable_$name") | false             |                |                |                    |
+| Parse decision variable from links                                                                                                                                                                 ||||||
+| #Description                                         | Text                                                                  | Contain variable? | Variable name? | Variable type? | Variable value?    |
+| ---------------------------------------------------- | --------------------------------------------------------------------- | ----------------- | -------------- | -------------- | ------------------ |
+| variable must start with $ symbol followed by letter | <a href="" title="$variable_name" data-href="">this is a variable</a> | true              | variable_name  | string         | this is a variable |
+| variable must start with $ symbol followed by letter | <a href="" title="$variable123" data-href="">this is a variable</a>   | true              | variable123    | string         | this is a variable |
+| variable immediately followed by digit is not valid  | <a href="" title="$123" data-href="">this is a variable</a>           | false             |                |                |                    |
+| variable not start with $ symbol is not valid        | <a href="" title="variable_name" data-href="">this is a variable</a>  | false             |                |                |                    |
+| variable with $ symbol not at the start is not valid | <a href="" title="variable_$name" data-href="">this is a variable</a> | false             |                |                |                    |
 
 
 | Parse decision variable from tables                                                                                                                  |||||||
@@ -23,9 +23,9 @@ Outside Link and Decision table, the $ symbol won't be interpreted as variable.
 | ---------------------------------------------------- | -------------- | ---------- | ----------------- | -------------- | -------------- | --------------- |
 | variable must start with $ symbol followed by letter | $variable_name | true       | true              | variable_name  | object         |                 |
 | variable must start with $ symbol followed by letter | $variable123   | true       | true              | variable123    | object         |                 |
-| variable immediately followed by digit               | $123           | true       | false             |                |                |                 |
-| variable not start with $ symbol                     | variable_name  | true       | false             |                |                |                 |
-| variable with $ symbol not at the start              | variable_$name | true       | false             |                |                |                 |
+| variable immediately followed by digit is not valid  | $123           | true       | false             |                |                |                 |
+| variable not start with $ symbol is not valid        | variable_name  | true       | false             |                |                |                 |
+| variable with $ symbol not at the start is not valid | variable_$name | true       | false             |                |                |                 |
 
 
 

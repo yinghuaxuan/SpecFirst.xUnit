@@ -15,7 +15,14 @@
 	  <None Remove="DecisionTable\Validator\**" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="DecisionTable\DecisionTable.spec.md" />
+	  <None Remove="DecisionTable\DecisionVariable.spec.md" />
+	</ItemGroup>
+
   <ItemGroup>
+	  <AdditionalFiles Include="DecisionTable\DecisionTable.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\DecisionVariable.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />
