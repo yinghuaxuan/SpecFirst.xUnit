@@ -44,7 +44,7 @@ namespace SpecFirst.Core.DecisionVariable.Validator
             {
                 errorList.Add("A decision variable must have at least 1 character after $ symbol");
             }
-            else if (char.IsLetter(value.Skip(1).Take(1).First()))
+            else if (!char.IsLetter(value.Skip(1).Take(1).First()))
             {
                 errorList.Add("A decision variable must have a letter following the $ symbol");
             }
