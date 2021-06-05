@@ -6,6 +6,6 @@
     {
         IEnumerable<DecisionTable.DecisionTable> Parse(
             string markdownText,
-            out IEnumerable<DecisionTable.DecisionVariable> variables);
+            out IEnumerable<DecisionVariable.DecisionVariable> variables);
     }
 }
