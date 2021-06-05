@@ -4,54 +4,39 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using SpecFirst.Core.DecisionVariable.Validator;
     using SpecFirst.Core.TypeResolver;
 
     public sealed class TableDataParser
     {
-        public object[,] Parse(XElement decisionTable, out Type[] types)
+        public object[,] Parse(XElement decisionTable, out Type[,] dataTypes)
         {
             IEnumerable<XElement> rows = decisionTable.Descendants("tr");
             XElement[] dataRows = rows.Skip(2).ToArray();
             string[,] data = GetDecisionData(dataRows);
 
+            dataTypes = new Type[data.GetLength(0), data.GetLength(1)];
             object[,] values = new object[data.GetLength(0), data.GetLength(1)];
-            Type[,] dataTypes = new Type[data.GetLength(0), data.GetLength(1)];
 
             for (int i = 0; i < data.GetLength(0); i++)
             {
                 for (int j = 0; j < data.GetLength(1); j++)
                 {
-                    Type type = TypeResolver.Resolve(data[i, j], out object value);
-                    dataTypes[i, j] = type;
-                    values[i, j] = value;
+                    if (new DecisionVariableValidator().Validate(data[i, j], out var _))
+                    {
+                        dataTypes[i, j] = typeof(DecisionVariable.DecisionVariable);
+                        values[i, j] = new DecisionVariable.DecisionVariable(data[i, j].TrimStart('$'), null, null);
+                    }
+                    else
+                    {
+                        Type type = TypeResolver.Resolve(data[i, j], out object value);
+                        dataTypes[i, j] = type;
+                        values[i, j] = value;
+                    }
                 }
             }
 
-            types = ResolveColumnTypes(dataTypes);
             return values;
-        }
-
-        private Type[] ResolveColumnTypes(Type[,] dataTypes)
-        {
-            var columns = dataTypes.GetLength(1);
-            var columnTypes = new Type[columns];
-            for (int i = 0; i < columns; i++)
-            {
-                columnTypes[i] = CollectionTypeResolver.Resolve(ExtractColumnTypes(dataTypes, i));
-            }
-
-            return columnTypes;
-        }
-
-        public static Type[] ExtractColumnTypes(Type[,] dataTypes, int column)
-        {
-            var rows = dataTypes.GetLength(0);
-            var array = new Type[rows];
-            for (int i = 0; i < rows; ++i)
-            {
-                array[i] = dataTypes[i, column];
-            }
-            return array;
         }
 
         private static string[,] GetDecisionData(XElement[] dataRows)

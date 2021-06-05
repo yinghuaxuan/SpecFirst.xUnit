@@ -10,11 +10,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="DecisionTable\Validator\DecisionTable.spec.md" />
+	  <Compile Remove="DecisionTable\Validator\**" />
+	  <EmbeddedResource Remove="DecisionTable\Validator\**" />
+	  <None Remove="DecisionTable\Validator\**" />
 	</ItemGroup>
 
   <ItemGroup>
-	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTable.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />

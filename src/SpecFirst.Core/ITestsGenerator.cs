@@ -8,6 +8,6 @@
         IEnumerable<string> Generate(
             SpecFirstSettings settings,
             IEnumerable<DecisionTable.DecisionTable> decisionTables,
-            IEnumerable<DecisionTable.DecisionVariable> variables);
+            IEnumerable<DecisionVariable.DecisionVariable> variables);
     }
 }
