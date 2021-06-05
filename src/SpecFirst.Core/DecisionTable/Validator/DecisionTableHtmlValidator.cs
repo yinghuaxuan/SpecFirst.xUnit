@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Xml.Linq;
 
-    public sealed class DecisionTableHtmlValidator
+    public sealed class DecisionTableHtmlValidator : IDecisionTableHtmlValidator
     {
         public bool Validate(XElement document, out IEnumerable<string> errors)
         {
