@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Xml.Linq;
 
-    public sealed class DecisionTableParser
+    public sealed class DecisionTableParser : IDecisionTableParser
     {
         private readonly TableNameParser _tableNameParser;
         private readonly TableHeadersParser _tableHeadersParser;
