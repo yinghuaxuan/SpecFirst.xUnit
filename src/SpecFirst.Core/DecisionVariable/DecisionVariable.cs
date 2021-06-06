@@ -11,13 +11,13 @@
             Name = name;
             Type = type;
             Value = value;
-            AssociatedTableHeader = new HashSet<TableHeader>();
+            AssociatedTableHeaders = new HashSet<TableHeader>();
         }
 
         public string Name { get; }
         public Type? Type { get; set; }
         public object? Value { get; set; }
-        public HashSet<TableHeader> AssociatedTableHeader { get; }
+        public HashSet<TableHeader> AssociatedTableHeaders { get; }
 
         public override bool Equals(object? obj)
         {
