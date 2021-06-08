@@ -7,7 +7,6 @@
     {
         IEnumerable<string> Generate(
             SpecFirstSettings settings,
-            IEnumerable<DecisionTable.DecisionTable> decisionTables,
-            IEnumerable<DecisionVariable.DecisionVariable> variables);
+            IEnumerable<DecisionTable.DecisionTable> decisionTables);
     }
 }
