@@ -13,6 +13,8 @@
         private readonly TableDataToTestDataConverter _tableDataToTestDataConverter;
         private readonly TableHeaderToTestSignatureConverter _tableHeaderToTestSignatureConverter;
         private readonly TableDataToCommentsConverter _tableDataToCommentsConverter;
+        private readonly TableNameToTestNameConverter _tableNameToTestNameConverter;
+        private readonly TableVariableToClassVariableConverter _tableVariableConverter;
 
         public XUnitTemplateDataProvider()
         {
@@ -26,6 +28,7 @@
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             _tableHeaderToTestSignatureConverter = new TableHeaderToTestSignatureConverter(parameterConverter);
             _tableDataToCommentsConverter = new TableDataToCommentsConverter();
+            _tableNameToTestNameConverter = new TableNameToTestNameConverter(_namingStrategy);
         }
 
         public XUnitTemplateData[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
@@ -49,30 +52,31 @@
                 _tableDataToTestDataConverter.Convert(decisionTable.TableHeaders, decisionTable.TableData);
             var comments =
                 _tableDataToCommentsConverter.Convert(decisionTable.TableHeaders.ToArray(), decisionTable.TableData);
+            var classVariables =
+                _tableVariableConverter.Convert(decisionTable.DecisionVariables);
             XUnitTemplateData templateData = new XUnitTemplateData
             {
-                ClassName = _namingStrategy.Resolve(decisionTable.TableName),
+                ClassName = _tableNameToTestNameConverter.Convert(decisionTable.TableName),
                 TestMethodParameters = signature.TestMethodInputParameters,
                 ImplMethodParameters = signature.ImplMethodInputParameters,
                 ImplMethodArguments = signature.ImplMethodInputArguments,
                 ImplMethodReturnTypes = signature.ImplMethodReturnTypes,
                 ImplMethodReturnValues = signature.ImplMethodReturnValues,
                 AssertStatements = signature.AssertStatements,
-                TestDataAndComments = GetTestDataAndComments(testData, comments)
+                TestDataAndComments = GetTestDataAndComments(testData, comments),
+                ClassVariables = classVariables
             };
 
             return templateData;
         }
 
-        private List<TestDataAndComment> GetTestDataAndComments(string[] testData, string[] comments)
+        private IEnumerable<TestDataAndComment> GetTestDataAndComments(string[] testData, string[] comments)
         {
-            var testDataAndComments = new List<TestDataAndComment>();
             for (int i = 0; i < testData.Length; i++)
             {
-                testDataAndComments.Add(new TestDataAndComment{TestData = testData[i], Comment = comments[i]});
+                yield return new TestDataAndComment{TestData = testData[i], Comment = comments[i]};
             }
 
-            return testDataAndComments;
         }
     }
 }
