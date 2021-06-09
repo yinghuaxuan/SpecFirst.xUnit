@@ -15,6 +15,7 @@
             if (rows.Count() < 3)
             {
                 errorList.Add("Decision table must have at least three rows");
+                goto end;
             }
 
             XElement firstRow = rows.First();
@@ -22,13 +23,16 @@
             if (columns.Count() != 1)
             {
                 errorList.Add("The first row of the decision table must have a single column");
+                goto end;
             }
 
             if (columns.ElementAt(0).Value.TrimStart().StartsWith("comment", StringComparison.OrdinalIgnoreCase))
             {
                 errorList.Add("The first row is a comment row");
+                goto end;
             }
 
+        end:
             errors = errorList;
             return !errors.Any();
         }
