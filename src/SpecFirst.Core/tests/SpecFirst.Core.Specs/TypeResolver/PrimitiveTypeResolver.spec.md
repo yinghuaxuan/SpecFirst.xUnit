@@ -63,7 +63,7 @@ interpret it as string.
 Convert text to boolean and ignore cases.
 
 | Infer type from boolean text                                              ||||
-| #CommDescriptionent                     | Text Value | Actual Type? | Serialized Value? |
+| #Description                     | Text Value | Actual Type? | Serialized Value? |
 | ---------------------------- | ---------- | ------------ | ----------------- |
 | bool, camel case             | "True"     | bool         | "true"            |
 | bool, lower case             | "true"     | bool         | "true"            |
