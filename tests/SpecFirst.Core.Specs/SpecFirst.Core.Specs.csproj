@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<LangVersion>9.0</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -22,13 +23,18 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
-		<PackageReference Include="SpecFirst" Version="1.0.0-rc" />
-		<PackageReference Include="SpecFirst.MarkdownParser" Version="1.0.0-rc" />
-		<PackageReference Include="SpecFirst.xUnit" Version="1.0.0-rc" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.0.0-rc.6" />
 	</ItemGroup>
 
   <ItemGroup>
 	  <Folder Include="Serialization\" />
 	</ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="D:\DEV\Projects\spec-first\SpecFirst.xUnit\src\SpecFirst.xUnit\SpecFirst.xUnit.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>-->
+
 
 </Project>
