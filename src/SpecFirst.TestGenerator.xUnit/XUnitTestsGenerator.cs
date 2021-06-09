@@ -6,6 +6,7 @@
     using HandlebarsDotNet;
     using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
+    using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.Setting;
     using SpecFirst.TestGenerator.xUnit.Template;
 
@@ -18,7 +19,9 @@
             _templateDataProvider = new XUnitTemplateDataProvider();
         }
 
-        public IEnumerable<string> Generate(SpecFirstSettings settings, IEnumerable<DecisionTable> decisionTables)
+        public IEnumerable<string> Generate(
+            SpecFirstSettings settings,
+            IEnumerable<DecisionTable> decisionTables)
         {
             XUnitTemplateData[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
@@ -33,7 +36,8 @@
                     impl_return_values = t.ImplMethodReturnValues,
                     impl_return_types = t.ImplMethodReturnTypes,
                     assert_statements = t.AssertStatements,
-                    test_data_and_comments = t.TestDataAndComments
+                    test_data_and_comments = t.TestDataAndComments,
+                    class_variables = t.ClassVariables
                 })
             };
 

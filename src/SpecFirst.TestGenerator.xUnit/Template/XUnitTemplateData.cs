@@ -12,6 +12,7 @@
         public string ImplMethodReturnTypes { get; set; }
         public IEnumerable<TestDataAndComment> TestDataAndComments { get; set; }
         public IEnumerable<string> AssertStatements { get; set; }
+        public IEnumerable<string> ClassVariables { get; set; }
     }
 
     public class TestDataAndComment
