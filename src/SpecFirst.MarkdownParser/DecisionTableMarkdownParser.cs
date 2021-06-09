@@ -11,28 +11,52 @@ namespace SpecFirst.MarkdownParser
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionTable.Parser;
     using SpecFirst.Core.DecisionTable.Validator;
+    using SpecFirst.Core.DecisionVariable;
+    using SpecFirst.Core.DecisionVariable.Parser;
+    using SpecFirst.Core.DecisionVariable.Validator;
 
     public sealed class DecisionTableMarkdownParser : IDecisionTableMarkdownParser
     {
+        private readonly DecisionVariableParser _variableParser;
+        private readonly DecisionVariableValidator _variableValidator;
         private readonly IDecisionTableParser _tableParser;
         private readonly IDecisionTableHtmlValidator _tableValidator;
 
         public DecisionTableMarkdownParser()
         {
+            _variableParser = new DecisionVariableParser();
+            _variableValidator = new DecisionVariableValidator();
             _tableParser = new DecisionTableParser();
             _tableValidator = new DecisionTableHtmlValidator();
         }
 
-        public IEnumerable<DecisionTable> Parse(string markdownText)
+        public IEnumerable<DecisionTable> Parse(string markdownText, out IEnumerable<DecisionVariable> variables)
         {
             string html = ParseMarkdownToHtml(markdownText);
             html = html.Replace("<br>", "<br/>");
             XDocument document = ParseHtmlToXml(html);
-            List<DecisionTable> decisionTables = ExtractDecisionTables(document);
+            variables = ParseDeisionVariables(document);
+            List<DecisionTable> decisionTables = ParseDecisionTables(document, variables);
             return decisionTables;
         }
 
-        private List<DecisionTable> ExtractDecisionTables(XDocument document)
+        private List<DecisionVariable> ParseDeisionVariables(XDocument document)
+        {
+            List<DecisionVariable> decisionVariables = new List<DecisionVariable>();
+            IEnumerable<XElement> links = document.Descendants("a");
+            foreach (XElement link in links)
+            {
+                if (_variableValidator.Validate(link, out _))
+                {
+                    DecisionVariable decisionVariable = _variableParser.Parse(link);
+                    decisionVariables.Add(decisionVariable);
+                }
+            }
+
+            return decisionVariables;
+        }
+
+        private List<DecisionTable> ParseDecisionTables(XDocument document, IEnumerable<DecisionVariable> variables)
         {
             List<DecisionTable> decisionTables = new List<DecisionTable>();
             IEnumerable<XElement> tables = document.Descendants("table");
@@ -40,7 +64,7 @@ namespace SpecFirst.MarkdownParser
             {
                 if (_tableValidator.Validate(table, out _))
                 {
-                    DecisionTable decisionTable = _tableParser.Parse(table);
+                    DecisionTable decisionTable = _tableParser.Parse(table, variables);
                     decisionTables.Add(decisionTable);
                 }
             }
