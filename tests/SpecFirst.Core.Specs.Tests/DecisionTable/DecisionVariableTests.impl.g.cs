@@ -36,13 +36,4 @@ namespace SpecFirst.Core.Specs.Tests
             );
         }
     }
-
-    public partial class parse_decision_variable_from_tables
-    {
-        private partial (bool, bool, string, string, string) parse_decision_variable_from_tables_implementation(string text)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
 }

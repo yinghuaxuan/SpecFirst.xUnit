@@ -18,15 +18,4 @@ Outside Link and Decision table, the $ symbol won't be interpreted as variable.
 | variable with $ symbol not at the start is not valid | <a href="" title="variable_$name" data-href="">this is a variable</a> | false             |                |                |                    |
 
 
-| Parse decision variable from tables                                                                                                                  |||||||
-| #Description                                         | Text           | In header? | Contain variable? | Variable name? | Variable type? | Variable value? |
-| ---------------------------------------------------- | -------------- | ---------- | ----------------- | -------------- | -------------- | --------------- |
-| variable must start with $ symbol followed by letter | $variable_name | true       | true              | variable_name  | object         |                 |
-| variable must start with $ symbol followed by letter | $variable123   | true       | true              | variable123    | object         |                 |
-| variable immediately followed by digit is not valid  | $123           | true       | false             |                |                |                 |
-| variable not start with $ symbol is not valid        | variable_name  | true       | false             |                |                |                 |
-| variable with $ symbol not at the start is not valid | variable_$name | true       | false             |                |                |                 |
-
-
-
 

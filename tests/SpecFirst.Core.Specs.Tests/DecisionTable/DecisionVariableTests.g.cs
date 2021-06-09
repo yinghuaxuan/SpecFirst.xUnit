@@ -44,35 +44,4 @@ namespace SpecFirst.Core.Specs.Tests
         private partial (bool, string, string, string) parse_decision_variable_from_links_implementation(string text);
     }
 
-    public partial class parse_decision_variable_from_tables
-    {
-        [Theory]
-        [MemberData(nameof(get_test_data))]
-        public void parse_decision_variable_from_tables_tests(string text, bool in_header, bool contain_variable, string variable_name, string variable_type, string variable_value)
-        {
-            (bool in_header_output, bool contain_variable_output, string variable_name_output, string variable_type_output, string variable_value_output) = parse_decision_variable_from_tables_implementation(text);
-            Assert.Equal(in_header_output, in_header);
-            Assert.Equal(contain_variable_output, contain_variable);
-            Assert.Equal(variable_name_output, variable_name);
-            Assert.Equal(variable_type_output, variable_type);
-            Assert.Equal(variable_value_output, variable_value);
-        }
-
-        public static IEnumerable<object[]> get_test_data()
-        {
-            var data = new List<object[]>
-            {
-                new object[] { "$variable_name", true, true, "variable_name", "object", "" }, // variable must start with $ symbol followed by letter
-                new object[] { "$variable123", true, true, "variable123", "object", "" }, // variable must start with $ symbol followed by letter
-                new object[] { "$123", true, false, "", "", "" }, // variable immediately followed by digit is not valid
-                new object[] { "variable_name", true, false, "", "", "" }, // variable not start with $ symbol is not valid
-                new object[] { "variable_$name", true, false, "", "", "" }, // variable with $ symbol not at the start is not valid
-            };
-
-            return data;
-        }
-
-        private partial (bool, bool, string, string, string) parse_decision_variable_from_tables_implementation(string text);
-    }
-
 }
