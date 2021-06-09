@@ -34,6 +34,9 @@
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\TableHeaderType.cs" Link="SpecFirst.Core\DecisionTable\TableHeaderType.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\Validator\DecisionTableHtmlValidator.cs" Link="SpecFirst.Core\DecisionTable\Validator\DecisionTableHtmlValidator.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\Validator\IDecisionTableHtmlValidator.cs" Link="SpecFirst.Core\DecisionTable\Validator\IDecisionTableHtmlValidator.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionVariable\DecisionVariable.cs" Link="SpecFirst.Core\DecisionVariable\DecisionVariable.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionVariable\Parser\DecisionVariableParser.cs" Link="SpecFirst.Core\DecisionVariable\Parser\DecisionVariableParser.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionVariable\Validator\DecisionVariableValidator.cs" Link="SpecFirst.Core\DecisionVariable\Validator\DecisionVariableValidator.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\IDecisionTableMarkdownParser.cs" Link="SpecFirst.Core\IDecisionTableMarkdownParser.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\ITestsGenerator.cs" Link="SpecFirst.Core\ITestsGenerator.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\NamingStrategy\INamingStrategy.cs" Link="SpecFirst.Core\NamingStrategy\INamingStrategy.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToParameterConverter.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableHeaderToTestSignatureConverter.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableNameToTestNameConverter.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Converter\TableVariableToClassVariableConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Converter\TableVariableToClassVariableConverter.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\ArrayDataSerializer.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\BooleanDataSerializer.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\DateTimeDataSerializer.cs" />
@@ -96,6 +100,8 @@
     <Folder Include="Script\" />
     <Folder Include="SpecFirst.Core\DecisionTable\Parser\" />
     <Folder Include="SpecFirst.Core\DecisionTable\Validator\" />
+    <Folder Include="SpecFirst.Core\DecisionVariable\Parser\" />
+    <Folder Include="SpecFirst.Core\DecisionVariable\Validator\" />
     <Folder Include="SpecFirst.Core\NamingStrategy\" />
     <Folder Include="SpecFirst.Core\Serialization\" />
     <Folder Include="SpecFirst.Core\Setting\" />
