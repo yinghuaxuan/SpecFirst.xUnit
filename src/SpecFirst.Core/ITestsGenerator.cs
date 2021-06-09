@@ -5,6 +5,8 @@
 
     public interface ITestsGenerator
     {
-        IEnumerable<string> Generate(SpecFirstSettings settings, IEnumerable<DecisionTable.DecisionTable> decisionTables);
+        IEnumerable<string> Generate(
+            SpecFirstSettings settings,
+            IEnumerable<DecisionTable.DecisionTable> decisionTables);
     }
 }
