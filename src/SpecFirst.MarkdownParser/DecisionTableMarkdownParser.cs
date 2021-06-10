@@ -30,12 +30,12 @@ namespace SpecFirst.MarkdownParser
             _tableValidator = new DecisionTableHtmlValidator();
         }
 
-        public IEnumerable<DecisionTable> Parse(string markdownText, out IEnumerable<DecisionVariable> variables)
+        public IEnumerable<DecisionTable> Parse(string markdownText)
         {
             string html = ParseMarkdownToHtml(markdownText);
             html = html.Replace("<br>", "<br/>");
             XDocument document = ParseHtmlToXml(html);
-            variables = ParseDeisionVariables(document);
+            var variables = ParseDeisionVariables(document);
             List<DecisionTable> decisionTables = ParseDecisionTables(document, variables);
             return decisionTables;
         }
