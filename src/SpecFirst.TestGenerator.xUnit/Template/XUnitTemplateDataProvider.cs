@@ -23,12 +23,14 @@
             var booleanSerializer = new BooleanDataSerializer();
             var numberSerializer = new NumberDataSerializer();
             var arraySerializer = new ArrayDataSerializer(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
-            _tableDataToTestDataConverter = new TableDataToTestDataConverter(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer, arraySerializer);
+            var variableSerializer = new TableVariableSerializer();
+            _tableDataToTestDataConverter = new TableDataToTestDataConverter(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer, arraySerializer, variableSerializer);
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             _tableHeaderToTestSignatureConverter = new TableHeaderToTestSignatureConverter(parameterConverter);
             _tableDataToCommentsConverter = new TableDataToCommentsConverter();
             _tableNameToTestNameConverter = new TableNameToTestNameConverter(_namingStrategy);
+            _tableVariableConverter = new TableVariableToClassVariableConverter();
         }
 
         public XUnitTemplateData[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)

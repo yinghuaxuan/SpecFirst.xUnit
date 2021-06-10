@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using SpecFirst.Core.DecisionTable;
+    using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.TypeResolver;
     using SpecFirst.TestGenerator.xUnit.Serialization;
 
@@ -14,19 +15,22 @@
         private readonly IPrimitiveDataSerializer _datetimeSerializer;
         private readonly IPrimitiveDataSerializer _booleanSerializer;
         private readonly IArrayDataSerializer _arraySerializer;
+        private readonly ITableVariableSerializer _variableSerializer;
 
         public TableDataToTestDataConverter(
             IPrimitiveDataSerializer stringSerializer,
             IPrimitiveDataSerializer numberSerializer,
             IPrimitiveDataSerializer datetimeSerializer,
             IPrimitiveDataSerializer booleanSerializer,
-            IArrayDataSerializer arraySerializer)
+            IArrayDataSerializer arraySerializer,
+            ITableVariableSerializer variableSerializer)
         {
             _stringSerializer = stringSerializer;
             _numberSerializer = numberSerializer;
             _datetimeSerializer = datetimeSerializer;
             _booleanSerializer = booleanSerializer;
             _arraySerializer = arraySerializer;
+            _variableSerializer = variableSerializer;
         }
 
         public string[] Convert(TableHeader[] tableHeaders, object[,] decisionData)
@@ -58,6 +62,10 @@
             if (decisionData[i, j].GetType().IsArray)
             {
                 data = _arraySerializer.Serialize(decisionData[i, j], dataType);
+            }
+            else if (decisionData[i, j] is DecisionVariable)
+            {
+                data = _variableSerializer.Serialize(decisionData[i, j]);
             }
             else
             {

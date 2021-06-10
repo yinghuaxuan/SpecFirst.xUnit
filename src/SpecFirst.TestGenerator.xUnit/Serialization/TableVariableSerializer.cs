@@ -3,7 +3,7 @@
     using SpecFirst.Core.DecisionVariable;
     using System.Diagnostics;
 
-    public class TableVariableSerializer : IPrimitiveDataSerializer
+    public class TableVariableSerializer : ITableVariableSerializer
     {
         public string Serialize(object data)
         {
