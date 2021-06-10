@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all" />
-    <PackageReference Include="SpecFirst.Core" Version="1.0.0-rc.3" />
+    <PackageReference Include="SpecFirst.Core" Version="1.1.0-rc1" />
   </ItemGroup>
 
   <Target Name="AddNuGetDlls" BeforeTargets="_GetPackageFiles">
