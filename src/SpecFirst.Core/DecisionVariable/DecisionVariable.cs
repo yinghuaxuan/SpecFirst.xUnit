@@ -21,13 +21,31 @@
 
         public override bool Equals(object? obj)
         {
-            return obj is DecisionVariable variable &&
-                   Name == variable.Name;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DecisionVariable)obj);
+        }
+
+        public static bool operator ==(DecisionVariable? left, DecisionVariable? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(DecisionVariable? left, DecisionVariable? right)
+        {
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
         {
-            return 539060726 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return Name.GetHashCode();
         }
+
+        protected bool Equals(DecisionVariable other)
+        {
+            return Name == other.Name;
+        }
+
     }
 }
