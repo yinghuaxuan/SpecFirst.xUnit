@@ -26,9 +26,25 @@
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
             object[,] tableData = _tableDataParser.Parse(table, out Type[,] dataTypes);
-            UpdateColumnTypesFromData(tableHeaders, dataTypes);
             var variables = ParseDecisionVariables(tableData, tableHeaders, decisionVariables);
+            UpdateDataTypesForVariables(dataTypes, tableData, variables);
+            UpdateColumnTypesFromData(tableHeaders, dataTypes);
             return new DecisionTable(tableName, tableHeaders, tableData, variables);
+        }
+
+        private void UpdateDataTypesForVariables(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
+        {
+            for (int i = 0; i < tableData.GetLength(0); i++)
+            {
+                for (int j = 0; j < tableData.GetLength(1); j++)
+                {
+                    if (tableData[i, j] is DecisionVariable variable)
+                    {
+                        var result = variables.First(v => v == variable);
+                        dataTypes[i, j] = result.Type!; // replace with the real type of the data
+                    }
+                }
+            }
         }
 
         private static void UpdateColumnTypesFromData(TableHeader[] headers, Type[,] dataTypes)
@@ -81,10 +97,10 @@
                 {
                     case TableHeaderType.Input:
                     case TableHeaderType.Comment:
-                        UpdateInputVarialbe(definedVariables, variable);
+                        UpdateInputVariable(definedVariables, variable);
                         break;
                     case TableHeaderType.Output:
-                        UpdateOutputVariable(ref definedVariables, variable);
+                        UpdateOutputVariable(definedVariables, variable);
                         break;
                 }
             }
@@ -92,33 +108,26 @@
             return variables.ToArray();
         }
 
-        private static IEnumerable<DecisionVariable> UpdateOutputVariable(ref IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
+        private static void UpdateOutputVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
         {
             if (definedVariables.Contains(variable))
             {
                 throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
             }
-            else
-            {
-                variable.Type = typeof(object);
-                definedVariables = definedVariables.Union(new[] { variable });
-            }
 
-            return definedVariables;
+            variable.Type = typeof(object);
         }
 
-        private static void UpdateInputVarialbe(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
+        private static void UpdateInputVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
         {
             if (!definedVariables.Contains(variable))
             {
                 throw new InvalidOperationException($"{variable.Name} variable is assigned as an input but it is not defined");
             }
-            else
-            {
-                var temp = definedVariables.First(v => v == variable);
-                variable.Type = temp.Type;
-                variable.Value = temp.Value;
-            }
+
+            var temp = definedVariables.First(v => v == variable);
+            variable.Type = temp.Type;
+            variable.Value = temp.Value;
         }
 
         private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object[,] tableData, TableHeader[] tableHeaders)
@@ -134,7 +143,11 @@
                         variables.AddOrUpdate(
                             variable.Name,
                             variable,
-                            (key, value) => { variable.AssociatedTableHeaders.Add(tableHeaders[j]); return variable; });
+                            (key, value) =>
+                            {
+                                value.AssociatedTableHeaders.Add(tableHeaders[j]);
+                                return value;
+                            });
                     }
                 }
             }
@@ -142,4 +155,4 @@
             return variables.Values;
         }
     }
-} 
+}
