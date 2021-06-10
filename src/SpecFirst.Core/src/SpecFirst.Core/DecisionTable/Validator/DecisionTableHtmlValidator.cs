@@ -29,10 +29,9 @@
             if (columns.ElementAt(0).Value.TrimStart().StartsWith("comment", StringComparison.OrdinalIgnoreCase))
             {
                 errorList.Add("The first row is a comment row");
-                goto end;
-            }
-
-        end:
+            } 
+         
+         end:
             errors = errorList;
             return !errors.Any();
         }
