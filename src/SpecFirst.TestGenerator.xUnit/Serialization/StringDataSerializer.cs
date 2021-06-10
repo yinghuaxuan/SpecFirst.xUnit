@@ -1,6 +1,7 @@
 ﻿namespace SpecFirst.TestGenerator.xUnit.Serialization
 {
     using System;
+    using Microsoft.CodeAnalysis.CSharp;
 
     public class StringDataSerializer : IPrimitiveDataSerializer
     {
@@ -51,6 +52,11 @@
             int place = source.LastIndexOf(trim, StringComparison.Ordinal);
             string result = source.Remove(place, trim.Length);
             return result;
+        }
+
+        public static string ToLiteral(this string valueTextForCompiler)
+        {
+            return SymbolDisplay.FormatLiteral(valueTextForCompiler, true);
         }
     }
 }
