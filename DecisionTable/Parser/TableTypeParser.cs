@@ -1,20 +1,21 @@
 ﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
+    using System;
     using System.Linq;
     using System.Xml.Linq;
 
-    public sealed class TableNameParser
+    public sealed class TableTypeParser
     {
-        public string Parse(XElement table)
+        public TableType Parse(XElement table)
         {
             var firstRow = table.Descendants("tr").First();
             var column = firstRow.Descendants("th").Union(firstRow.Descendants("td")).First();
             var splitValue = column.Value.Split(':');
             if (splitValue.Length > 1)
             {
-                return splitValue[1];
+                return (TableType)Enum.Parse(typeof(TableType), splitValue[0], true);
             }
-            return splitValue[0];
+            return TableType.Decision;
         }
     }
 }
