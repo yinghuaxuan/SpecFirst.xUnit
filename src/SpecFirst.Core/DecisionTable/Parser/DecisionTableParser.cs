@@ -10,12 +10,14 @@
 
     public sealed class DecisionTableParser : IDecisionTableParser
     {
+        private readonly TableTypeParser _tableTypeParser;
         private readonly TableNameParser _tableNameParser;
         private readonly TableHeadersParser _tableHeadersParser;
         private readonly TableDataParser _tableDataParser;
 
         public DecisionTableParser()
         {
+            _tableTypeParser = new TableTypeParser();
             _tableNameParser = new TableNameParser();
             _tableHeadersParser = new TableHeadersParser();
             _tableDataParser = new TableDataParser();
@@ -23,16 +25,17 @@
 
         public DecisionTable Parse(XElement table, IEnumerable<DecisionVariable> decisionVariables)
         {
+            var tableType = _tableTypeParser.Parse(table);
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
             object[,] tableData = _tableDataParser.Parse(table, out Type[,] dataTypes);
             var variables = ParseDecisionVariables(tableData, tableHeaders, decisionVariables);
-            UpdateDataTypesForVariables(dataTypes, tableData, variables);
+            ReplaceDataTypesWithRealVariableTypes(dataTypes, tableData, variables);
             UpdateColumnTypesFromData(tableHeaders, dataTypes);
-            return new DecisionTable(tableName, tableHeaders, tableData, variables);
+            return new DecisionTable(tableType, tableName, tableHeaders, tableData, variables);
         }
 
-        private void UpdateDataTypesForVariables(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
+        private void ReplaceDataTypesWithRealVariableTypes(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
         {
             for (int i = 0; i < tableData.GetLength(0); i++)
             {
@@ -140,14 +143,11 @@
                 {
                     if (tableData[i, j] is DecisionVariable variable)
                     {
+                        variable.AssociatedTableHeaders.Add(tableHeaders[j]);
                         variables.AddOrUpdate(
                             variable.Name,
                             variable,
-                            (key, value) =>
-                            {
-                                value.AssociatedTableHeaders.Add(tableHeaders[j]);
-                                return value;
-                            });
+                            (_, value) => value);
                     }
                 }
             }
