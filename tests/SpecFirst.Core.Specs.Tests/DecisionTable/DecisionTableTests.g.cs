@@ -16,6 +16,16 @@ namespace SpecFirst.Core.Specs.Tests
     
     public partial class is_table_a_decision_table
     {
+        private static readonly string table_with_one_row = "<table>\n  <tbody>\n    <tr>\n      <td> Column </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table_with_theader = "<table>\n  <thead>\n    <tr>\n      <td colspan=\"2\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string setup_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\"> setup:Column 1 </td>\n    </tr>\n    <tr>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string comment_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\"> comment:Table Name </td>\n    </tr>\n    <tr>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string table_with_only_comments = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Table Header 1 </td>\n      <td> #Table Header 2 </td>\n    </tr>\n    <tr>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string table_with_missing_data_in_second_row = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\"> Column 1 </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td>  </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string table_with_three_row_and_multi_columns = "<table>\n  <tbody>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string table_with_missing_data_in_first_row = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\">  </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n    <tr>\n      <td> Column 1 </td>\n      <td> Column 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"2\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void is_table_a_decision_table_tests(string decision_table, bool is_valid, string validation_error)
@@ -29,12 +39,15 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { "<table> <tbody> <tr> <td colspan=\"3\"> Decision Table Validator </td> </tr> </tbody> </table>", false, "Decision table must have at least three rows" }, // Table with only 1 name row
-                new object[] { "<table> <tbody> <tr> <td colspan=\"3\"> Decision Table Name </td> </tr> <tr> <td> Decision Table Header 1 </td> <td> Decision Table Header 2 </td> <td> Decision Table Header 3 </td> </tr> </tbody> </table>", false, "Decision table must have at least three rows" }, // Table with 1 name and 1 header row
-                new object[] { "<table> <tbody> <tr> <td> Decision Table Name </td> <td> </td> <td> </td> </tr> <tr> <td> Decision Table Header 1 </td> <td> Decision Table Header 2 </td> <td> Decision Table Header 3? </td> </tr> <tr> <td> Decision Table Data 1 </td> <td> Decision Table Data 2 </td> <td> Decision Table Data 3 </td> </tr> </tbody> </table>", false, "The first row of the decision table must have a single column" }, // Table name row has more than 1 column
-                new object[] { "<table> <tbody> <tr> <td> Comment </td> </tr> <tr> <td> Decision Table Name </td> </tr> <tr> <td> Decision Table Header 1 </td> <td> Decision Table Header 2 </td> <td> Decision Table Header 3? </td> </tr> <tr> <td> Decision Table Data 1 </td> <td> Decision Table Data 2 </td> <td> Decision Table Data 3 </td> </tr> </tbody> </table>", false, "The first row is a comment row" }, // Table marked as comment ( the word comment can be in any case)
-                new object[] { "<table> <tbody> <tr> <td colspan=\"3\"> Decision Table Name </td> </tr> <tr> <td> Decision Table Header 1 </td> <td> Decision Table Header 2 </td> <td> Decision Table Header 3? </td> </tr> <tr> <td> Decision Table Data 1 </td> <td> Decision Table Data 2 </td> <td> Decision Table Data 3 </td> </tr> </tbody> </table>", true, "" }, // Table with 1 name and 1 header and 1 data row
-                new object[] { "<table> <thead> <tr> <th colspan=\"3\"> Decision Table Name </th> </tr> <tr> <th> Decision Table Header 1 </th> <th> Decision Table Header 2 </th> <th> Decision Table Header 3? </th> </tr> </thead> <tbody> <tr> <td> Decision Table Data 1 </td> <td> Decision Table Data 2 </td> <td> Decision Table Data 3 </td> </tr> </tbody> </table>", true, "" }, // Table with 1 name and 1 header row as headerand 1 datarow
+                new object[] { table_with_one_row, false, "Decision table must have at least three rows" }, // Table with only 1 row
+                new object[] { table_with_three_row_and_multi_columns, false, "The first row of the decision table must have a single column" }, // Table with 3 rows but the first row has multiple columns
+                new object[] { table_with_missing_data_in_first_row, false, "The first row of the decision table must contain some text" }, // Table with no text in the first row
+                new object[] { table_with_missing_data_in_second_row, false, "The second row of the decision table must contain some text in each column" }, // Table with missing text in the second row
+                new object[] { table_with_only_comments, false, "The second row of the decision table must contains at least one column that is not a comment column" }, // Table with only comments
+                new object[] { decision_table, true, "" }, // A valid decision table
+                new object[] { decision_table_with_theader, true, "" }, // A valid decision table with thead section
+                new object[] { comment_decision_table, true, "" }, // A valid comment decision table
+                new object[] { setup_decision_table, true, "" }, // A valid setup decision table
             };
 
             return data;

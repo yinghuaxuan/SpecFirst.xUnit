@@ -16,6 +16,7 @@ namespace SpecFirst.Core.Specs.Tests
     
     public partial class infer_type_from_number_text
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_number_text_tests(string text_value, string actual_type, string serialized_value)
@@ -74,6 +75,7 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class infer_type_from_boolean_text
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_boolean_text_tests(string text_value, string actual_type, string serialized_value)
@@ -107,6 +109,7 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class infer_type_from_datetime_text
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_datetime_text_tests(string text_value, string actual_type, string serialized_value)
@@ -136,6 +139,7 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class infer_type_from_string_text
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_string_text_tests(string text_value, string actual_type, string serialized_value)

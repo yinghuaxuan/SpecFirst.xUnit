@@ -5,17 +5,20 @@
     public sealed class DecisionTable
     {
         public DecisionTable(
-            string fixtureName,
+            TableType tableType,
+            string tableName,
             TableHeader[] tableHeaders,
             object[,] tableData,
             DecisionVariable[]? decisionVariables = null)
         {
-            TableName = fixtureName;
+            TableType = tableType;
+            TableName = tableName;
             TableHeaders = tableHeaders;
             TableData = tableData;
             DecisionVariables = decisionVariables;
         }
 
+        public TableType TableType { get; }
         public string TableName { get; }
         public TableHeader[] TableHeaders { get; }
         public object[,] TableData { get; }

@@ -16,6 +16,7 @@ namespace SpecFirst.Core.Specs.Tests
     
     public partial class parse_decision_variable_from_links
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_variable_from_links_tests(string text, bool contain_variable, string variable_name, string variable_type, string variable_value)
