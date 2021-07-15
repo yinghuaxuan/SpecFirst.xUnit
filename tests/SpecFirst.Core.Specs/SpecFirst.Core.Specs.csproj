@@ -10,19 +10,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="DecisionTable\Validator\**" />
-	  <EmbeddedResource Remove="DecisionTable\Validator\**" />
-	  <None Remove="DecisionTable\Validator\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="DecisionTable\DecisionTable.spec.md" />
 	  <None Remove="DecisionTable\DecisionVariable.spec.md" />
+	  <None Remove="DecisionTable\Parser\DecisionTableParser.spec.md" />
+	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md" />
+	  <None Remove="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
 	</ItemGroup>
 
   <ItemGroup>
-	  <AdditionalFiles Include="DecisionTable\DecisionTable.spec.md" />
-	  <AdditionalFiles Include="DecisionTable\DecisionVariable.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\Parser\DecisionTableParser.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />
@@ -31,7 +28,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
-		<PackageReference Include="SpecFirst.xUnit" Version="1.0.0-rc.26" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.0.0-rc.29" />
 	</ItemGroup>
 
   <ItemGroup>

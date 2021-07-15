@@ -7,17 +7,18 @@ namespace SpecFirst.Core.Specs.Tests
     using SpecFirst.Core.DecisionVariable.Parser;
     using SpecFirst.Core.DecisionVariable.Validator;
 
-    public partial class parse_decision_variable_from_links
+    public partial class validate_decision_variables_from_links
     {
         DecisionVariableValidator _validator;
         DecisionVariableParser _parser;
 
-        public parse_decision_variable_from_links()
+        public validate_decision_variables_from_links()
         {
             _validator = new DecisionVariableValidator();
             _parser = new DecisionVariableParser();
         }
-        private partial (bool, string, string, string) parse_decision_variable_from_links_implementation(string text)
+
+        private partial (bool, string, string, string) validate_decision_variables_from_links_implementation(string text)
         {
             var link = XElement.Parse(text);
             var contain_variable = _validator.Validate(link, out var _);
@@ -27,7 +28,7 @@ namespace SpecFirst.Core.Specs.Tests
                 variable = _parser.Parse(link);
             }
 
-            return 
+            return
             (
                 contain_variable,
                 contain_variable ? variable.Name : "",
@@ -36,4 +37,5 @@ namespace SpecFirst.Core.Specs.Tests
             );
         }
     }
+    
 }
