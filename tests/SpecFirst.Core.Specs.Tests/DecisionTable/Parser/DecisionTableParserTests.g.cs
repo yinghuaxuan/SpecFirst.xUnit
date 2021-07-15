@@ -17,15 +17,10 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_a_decision_table
     {
         private static readonly string decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> decision:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table;
         private static readonly string setup_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> setup:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string setup_decision_table;
         private static readonly string decision_table_default = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_default;
         private static readonly string decision_table_with_theader = "<table>\n  <thead>\n    <tr>\n      <td colspan=\"3\"> Decision:Table Name </td>\n    </tr>\n    <tr>\n      <th> #Description </th>\n      <th> Table Header 1 </th>\n      <th> Table Header 2? </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_with_theader;
         private static readonly string comment_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> comment:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string comment_decision_table;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -59,7 +54,6 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_decision_table_data_types
     {
         private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_data;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -93,7 +87,6 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_decision_table_data
     {
         private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_data;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -126,7 +119,6 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_decision_table_data_types_with_variables
     {
         private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_data;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -157,7 +149,6 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_decision_table_data_with_variables
     {
         private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_data;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -184,16 +175,15 @@ namespace SpecFirst.Core.Specs.Tests
         private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, int row_no);
     }
 
-    public partial class parse_decision_table_data_types_with_variables
+    public partial class parse_decision_table_data_types_with_variables_not_defined
     {
         private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_variables_not_defined;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_tests(string decision_table, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, int row_no, string column_1, string column_2, string column_3)
         {
-            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -212,20 +202,19 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, int row_no);
     }
 
-    public partial class parse_decision_table_data_with_variables
+    public partial class parse_decision_table_data_with_variables_not_defined
     {
         private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_variables_not_defined;
         private static readonly object variable_3;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_tests(string decision_table, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, int row_no, string column_1, object column_2, object column_3)
         {
-            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -243,13 +232,12 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, int row_no);
     }
 
     public partial class parse_setup_decision_table_data_types_with_variables
     {
         private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_variables_not_defined;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -280,7 +268,6 @@ namespace SpecFirst.Core.Specs.Tests
     public partial class parse_setup_decision_table_data_with_variables
     {
         private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string decision_table_variables_not_defined;
         private static readonly object variable_3;
         
         [Theory]

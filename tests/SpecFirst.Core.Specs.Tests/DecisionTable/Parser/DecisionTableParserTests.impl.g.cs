@@ -43,17 +43,17 @@ namespace SpecFirst.Core.Specs.Tests
         }
     }
 
-    public partial class parse_decision_table_data_types_with_variables
+    public partial class parse_decision_table_data_types_with_variables_not_defined
     {
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, int row_no)
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, int row_no)
         {
             throw new NotImplementedException();
         }
     }
 
-    public partial class parse_decision_table_data_with_variables
+    public partial class parse_decision_table_data_with_variables_not_defined
     {
-        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, int row_no)
+        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, int row_no)
         {
             throw new NotImplementedException();
         }

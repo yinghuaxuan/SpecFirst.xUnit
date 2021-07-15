@@ -256,21 +256,21 @@ If the decision table has reference to a variable not defined, the parser will i
 \</table>
 ](# "$decision_table_variables_not_defined")
 
-| Parse decision table data types with variables                                          |||||
-| Decision Table                                 | Row No | Column 1? | Column 2? | Column 3? |
-| ---------------------------------------------- | ------ | --------- | --------- | --------- |
-| $decision_table_variables_not_defined          | 1      | string    | integer   | string    |
-| $decision_table_variables_not_defined          | 2      | string    | string    | decimal   |
-| $decision_table_variables_not_defined          | 3      | string    | string    | string    |
-| $decision_table_variables_not_defined          | 0      | string    | object    | object    |
+| Parse decision table data types with variables not defined                                          |||||
+| Decision Table                                             | Row No | Column 1? | Column 2? | Column 3? |
+| ---------------------------------------------------------- | ------ | --------- | --------- | --------- |
+| $decision_table_variables_not_defined                      | 1      | string    | integer   | string    |
+| $decision_table_variables_not_defined                      | 2      | string    | string    | decimal   |
+| $decision_table_variables_not_defined                      | 3      | string    | string    | string    |
+| $decision_table_variables_not_defined                      | 0      | string    | object    | object    |
 
 
-| Parse decision table data with variables                                                |||||
-| Decision Table                           | Row No | Column 1?   | Column 2?   | Column 3?   |
-| ---------------------------------------- | ------ | ----------- | ----------- | ----------- |
-| $decision_table_variables_not_defined    | 1      | variable_1  | 12          | variable_2  |
-| $decision_table_variables_not_defined    | 2      | variable_2  | $variable_3 | 12.5M       |
-| $decision_table_variables_not_defined    | 3      | Description | variable_2  | $variable_3 |
+| Parse decision table data with variables not defined                                                |||||
+| Decision Table                                       | Row No | Column 1?   | Column 2?   | Column 3?   |
+| ---------------------------------------------------- | ------ | ----------- | ----------- | ----------- |
+| $decision_table_variables_not_defined                | 1      | variable_1  | 12          | variable_2  |
+| $decision_table_variables_not_defined                | 2      | variable_2  | $variable_3 | 12.5M       |
+| $decision_table_variables_not_defined                | 3      | Description | variable_2  | $variable_3 |
 
 
 ## Setup decision table with variable
