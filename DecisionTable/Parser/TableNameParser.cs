@@ -12,9 +12,9 @@
             var splitValue = column.Value.Split(':');
             if (splitValue.Length > 1)
             {
-                return splitValue[1];
+                return splitValue[1].Trim();
             }
-            return splitValue[0];
+            return splitValue[0].Trim();
         }
     }
 }
