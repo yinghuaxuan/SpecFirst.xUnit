@@ -147,7 +147,8 @@
                 ShouldProcess = c => char.IsDigit(c),
                 NodeType = (s) =>
                 {
-                    if (DateTime.TryParseExact(s, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var d)) return new TypeValuePair(typeof(DateTime), d);
+                    string[] formats = { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss"};
+                    if (DateTime.TryParseExact(s, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var d)) return new TypeValuePair(typeof(DateTime), d);
                     return new TypeValuePair(typeof(string), s);
                 }
             };

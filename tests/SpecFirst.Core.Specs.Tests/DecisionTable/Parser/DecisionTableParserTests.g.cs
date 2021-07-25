@@ -38,11 +38,11 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_default, "decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
-                    new object[] { decision_table, "decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
-                    new object[] { decision_table_with_theader, "decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table with th headers
-                    new object[] { comment_decision_table, "comment", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Comment decision table
-                    new object[] { setup_decision_table, "setup", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Setup decision table
+                new object[] { decision_table_default, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
+                new object[] { decision_table, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
+                new object[] { decision_table_with_theader, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table with th headers
+                new object[] { comment_decision_table, "Comment", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Comment decision table
+                new object[] { setup_decision_table, "Setup", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Setup decision table
             };
 
             return data;
@@ -53,7 +53,7 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class parse_decision_table_data_types
     {
-        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12M </td>\n      <td> 12D </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -72,10 +72,10 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_data, 1, "string", "integer", "decimal", "double", "boolean", "datetime" },
-                    new object[] { decision_table_data, 2, "string", "integer", "decimal", "double", "boolean", "datetime" },
-                    new object[] { decision_table_data, 3, "string", "integer", "decimal", "double", "boolean", "datetime" },
-                    new object[] { decision_table_data, 0, "string", "integer", "decimal", "double", "boolean", "datetime" },
+                new object[] { decision_table_data, 1, "string", "integer", "decimal", "double", "boolean", "datetime" },
+                new object[] { decision_table_data, 2, "string", "integer", "decimal", "double", "boolean", "datetime" },
+                new object[] { decision_table_data, 3, "string", "integer", "decimal", "double", "boolean", "datetime" },
+                new object[] { decision_table_data, 0, "string", "integer", "decimal", "double", "boolean", "datetime" },
             };
 
             return data;
@@ -86,13 +86,13 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class parse_decision_table_data
     {
-        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12M </td>\n      <td> 12D </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_tests(string decision_table, int row_no, string column_1, int column_2, decimal column_3, double column_4, bool column_5, object column_6)
+        public void parse_decision_table_data_tests(string decision_table, int row_no, string column_1, int column_2, decimal column_3, double column_4, bool column_5, DateTime column_6)
         {
-            (string column_1_output, int column_2_output, decimal column_3_output, double column_4_output, bool column_5_output, object column_6_output) = parse_decision_table_data_implementation(decision_table, row_no);
+            (string column_1_output, int column_2_output, decimal column_3_output, double column_4_output, bool column_5_output, DateTime column_6_output) = parse_decision_table_data_implementation(decision_table, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -105,26 +105,26 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_data, 1, "Description", 12, 12.5M, 12.5D, true, "2012-03-26" },
-                    new object[] { decision_table_data, 2, "Description", 12, 12.5M, 12.5D, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) },
-                    new object[] { decision_table_data, 3, "Description", 12, 12, 12, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) },
+                new object[] { decision_table_data, 1, "Description", 12, 12.5M, 12.5D, true, new DateTime(2012, 3, 26, 0, 0, 0, 0) },
+                new object[] { decision_table_data, 2, "Description", 12, 12.5M, 12.5D, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) },
+                new object[] { decision_table_data, 3, "Description", 12, 12, 12, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) },
             };
 
             return data;
         }
 
-        private partial (string, int, decimal, double, bool, object) parse_decision_table_data_implementation(string decision_table, int row_no);
+        private partial (string, int, decimal, double, bool, DateTime) parse_decision_table_data_implementation(string decision_table, int row_no);
     }
 
     public partial class parse_decision_table_data_types_with_variables
     {
-        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table_variables = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_tests(string decision_table, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -134,27 +134,27 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_data, 1, "string", "integer", "string" },
-                    new object[] { decision_table_data, 2, "string", "string", "decimal" },
-                    new object[] { decision_table_data, 3, "string", "string", "string" },
-                    new object[] { decision_table_data, 0, "string", "object", "object" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "string" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "string", "string" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" },
             };
 
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
     }
 
     public partial class parse_decision_table_data_with_variables
     {
-        private static readonly string decision_table_data = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #String data </td>\n      <td> Integer data </td>\n      <td> Decimal data </td>\n      <td> Double data </td>\n      <td> Boolean data </td>\n      <td> DateTime data </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5 </td>\n      <td> True </td>\n      <td> 2012-03-26 </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12.5M </td>\n      <td> 12.5D </td>\n      <td> False </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> 12 </td>\n      <td> false </td>\n      <td> 2012-03-26 12:12:12</td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table_variables = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_tests(string decision_table, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -164,15 +164,15 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_data, 1, "variable_1", 12, "variable_2" },
-                    new object[] { decision_table_data, 2, "variable_2", "variable_1", 12.5M },
-                    new object[] { decision_table_data, 3, "Description", "variable_2", "variable_1" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "variable 1", 12, "variable 2" },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "variable 2", "variable 1", 12.5M },
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "Description", "variable 2", "variable 1" },
             };
 
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
     }
 
     public partial class parse_decision_table_data_types_with_variables_not_defined
@@ -181,9 +181,9 @@ namespace SpecFirst.Core.Specs.Tests
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, row_no);
+            (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -193,28 +193,27 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_variables_not_defined, 1, "string", "integer", "string" },
-                    new object[] { decision_table_variables_not_defined, 2, "string", "string", "decimal" },
-                    new object[] { decision_table_variables_not_defined, 3, "string", "string", "string" },
-                    new object[] { decision_table_variables_not_defined, 0, "string", "object", "object" },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "string" },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "string", "string" },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" },
             };
 
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
     }
 
     public partial class parse_decision_table_data_with_variables_not_defined
     {
         private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly object variable_3;
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, row_no);
+            (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -224,26 +223,26 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_variables_not_defined, 1, "variable_1", 12, "variable_2" },
-                    new object[] { decision_table_variables_not_defined, 2, "variable_2", variable_3, 12.5M },
-                    new object[] { decision_table_variables_not_defined, 3, "Description", "variable_2", variable_3 },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "variable 1", 12, "variable 2" },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "variable 2", "$variable_3", 12.5M },
+                new object[] { decision_table_variables_not_defined, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "Description", "variable 2", "$variable_3" },
             };
 
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
     }
 
     public partial class parse_setup_decision_table_data_types_with_variables
     {
-        private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string setup_decision_table_variables = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> setup:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_3 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> $variable_4 </td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, int row_no, string column_1, string column_2, string column_3)
+        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-            (string column_1_output, string column_2_output, string column_3_output) = parse_setup_decision_table_data_types_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, string column_2_output, string column_3_output) = parse_setup_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -253,28 +252,27 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_variables_not_defined, 1, "string", "integer", "object" },
-                    new object[] { decision_table_variables_not_defined, 2, "string", "string", "decimal" },
-                    new object[] { decision_table_variables_not_defined, 3, "string", "integer", "object" },
-                    new object[] { decision_table_variables_not_defined, 0, "string", "object", "object" },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "object" },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "integer", "object" },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" },
             };
 
             return data;
         }
 
-        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
     }
 
     public partial class parse_setup_decision_table_data_with_variables
     {
-        private static readonly string decision_table_variables_not_defined = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_2 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> $variable_2 </td>\n      <td> $variable_3 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly object variable_3;
+        private static readonly string setup_decision_table_variables = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> setup:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Column 1 </td>\n      <td> Column 2 </td>\n      <td> Column 3? </td>\n    </tr>\n    <tr>\n      <td> $variable_1 </td>\n      <td> 12 </td>\n      <td> $variable_3 </td>\n    </tr>\n    <tr>\n      <td> $variable_2 </td>\n      <td> $variable_1 </td>\n      <td> 12.5M </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> 12 </td>\n      <td> $variable_4 </td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, int row_no, string column_1, object column_2, object column_3)
+        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-            (string column_1_output, object column_2_output, object column_3_output) = parse_setup_decision_table_data_with_variables_implementation(decision_table, row_no);
+            (string column_1_output, object column_2_output, object column_3_output) = parse_setup_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
             Assert.Equal(column_3_output, column_3);
@@ -284,15 +282,15 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                    new object[] { decision_table_variables_not_defined, 1, "variable_1", 12, "variable_2" },
-                    new object[] { decision_table_variables_not_defined, 2, "variable_2", variable_3, 12.5M },
-                    new object[] { decision_table_variables_not_defined, 3, "Description", "variable_2", variable_3 },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "variable 1", 12, null },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "variable 2", "variable 1", 12.5M },
+                new object[] { setup_decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "Description", 12, null },
             };
 
             return data;
         }
 
-        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, int row_no);
+        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
     }
 
 }

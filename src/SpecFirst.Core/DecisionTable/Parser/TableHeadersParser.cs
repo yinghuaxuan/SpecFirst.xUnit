@@ -18,7 +18,7 @@
             var rows = decisionTable.Descendants("tr");
             XElement secondRow = rows.Skip(1).First();
             var columns = secondRow.Descendants("td").Union(secondRow.Descendants("th"));
-            return columns.Select(c => _tableHeaderParser.Parse(c.Value));
+            return columns.Select(c => _tableHeaderParser.Parse(c.Value.Trim()));
         }
     }
 }

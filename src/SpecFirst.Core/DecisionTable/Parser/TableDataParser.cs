@@ -48,7 +48,7 @@
                 IEnumerable<XElement> columns = dataRows.ElementAt(i).Descendants("td").ToArray();
                 for (int j = 0; j < numberOfColumns; j++)
                 {
-                    data[i, j] = columns.ElementAt(j).Value;
+                    data[i, j] = columns.ElementAt(j).Value.Trim();
                 }
             }
 
