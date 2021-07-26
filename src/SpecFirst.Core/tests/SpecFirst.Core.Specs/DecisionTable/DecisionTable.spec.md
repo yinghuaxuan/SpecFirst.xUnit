@@ -1,178 +1,50 @@
 ﻿Decision table is one of the slim tables defined in FitNesse, which "Supplies the inputs and outputs for decisions. This is similar to the Fit Column Fixture". More details can be found on FitNesse website http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.DecisionTable.
 
-When deciding whether a table is decision table, SpecFirst uses the following rules:
-- has at least three rows
-- the table name row (row #1) must have a single column
-- the table header row (row #2) has at least one input column or output column (output columns are suffixed by ?)
-- the table name row (row #1) and the table header row (row #2) can be either in headers section (thead) or in body section (tbody) of the table
-- the table name row (row #1) is not a comment row, e.g. does not just contain the word "comment" (case insensitive) and spaces
-- the table header row (row #2) can have any number (0 ~ n) of comment columns (comment columns are prefixed with #)
+In SpecFirst, we use the rules defined in [DecisionTableValidator](DecisionTableValidator.spec.md) to validate whether a table is a decision table.
 
-| Is table a decision table                                                                       ||||
-| #Description                 | Decision Table           | Is Valid? | Validation Error?               |
-| ------------------------ | ------------------------ | --------- | ------------------------------- |
-| Table with only 1 name   | \<table\>                | false     | Decision table must                |\
-| row                      | \<tbody\>                |           | have at least three rows           |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td colspan="3"\>       |           |                                    |\
-|                          | Decision Table Validator |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
-| Table with               | \<table\>                | false     | Decision table must                |\
-| 1 name and               | \<tbody\>                |           | have at least three rows           |\
-| 1 header                 | \<tr\>                   |           |                                    |\
-| row                      | \<td colspan="3"\>       |           |                                    |\
-|                          | Decision Table Name      |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 1  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 2  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 3  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
-| Table name               | \<table\>                | false     | The first row of the decision      |\
-| row has                  | \<tbody\>                |           | table must have a single column    |\
-| more than                | \<tr\>                   |           |                                    |\
-| 1 column                 | \<td\>                   |           |                                    |\
-|                          | Decision Table Name      |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 1  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 2  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 3? |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 1    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 2    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 3    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
-| Table marked             | \<table\>                | false     | The first row is a comment row      |\
-| as comment (             | \<tbody\>                |           |     |\
-| the word comment         | \<tr\>                   |           |                                    |\
-| can be in any            | \<td\>                   |           |                                    |\
-| case)                    | Comment      |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Name      |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 1  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 2  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 3? |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 1    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 2    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 3    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
-| Table with               | \<table\>                | true      | ""                                 |\
-| 1 name and               | \<tbody\>                |           |                                    |\
-| 1 header                 | \<tr\>                   |           |                                    |\
-| and 1 data               | \<td colspan="3"\>       |           |                                    |\
-| row                      | Decision Table Name      |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 1  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 2  |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Header 3? |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 1    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 2    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 3    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
-| Table with               | \<table\>                | true      | ""                                 |\
-| 1 name and               | \<thead\>                |           |                                    |\
-| 1 header row             | \<tr\>                   |           |                                    |\
-| as headerand             | \<th colspan="3"\>       |           |                                    |\
-| 1 datarow                | Decision Table Name      |           |                                    |\
-|                          | \</th\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<th\>                   |           |                                    |\
-|                          | Decision Table Header 1  |           |                                    |\
-|                          | \</th\>                  |           |                                    |\
-|                          | \<th\>                   |           |                                    |\
-|                          | Decision Table Header 2  |           |                                    |\
-|                          | \</th\>                  |           |                                    |\
-|                          | \<th\>                   |           |                                    |\
-|                          | Decision Table Header 3? |           |                                    |\
-|                          | \</th\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</thead\>               |           |                                    |\
-|                          | \<tbody\>                |           |                                    |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 1    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 2    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Decision Table Data 3    |           |                                    |\
-|                          | \</td\>                  |           |                                    |\
-|                          | \</tr\>                  |           |                                    |\
-|                          | \</tbody\>               |           |                                    |\
-|                          | \</table\>               |           |                                 |   
+## Table Type
+SpecFirst defines three types of decision tables - decision, setup, and comment.  
 
+The type is defined by prefix to the table name:  
+- If the table name has no prefix or prefixed with ```decision``` (case insensitive), it is a decision table
+- If the table name is prefixed with ```setup``` (case insensitive), it is a setup decision table
+- If the table name is prefixed with ```comment``` (case insensitive), it is a comment decision table
+
+### Setup decision table
+Setup decision table is mainly used for setting up the common logics for the tests. The setup can be done in 3 scopes:
+- Table Row
+The setup logic should be run for each row (test) of the tables. This is the default scope.
+- Table
+The setup logic should be run for each table (test class). This is equivalent to the class fixture in xUnit.
+- Page
+The setup logic should be run only once for the page. This is equivalent to the collection fixture in xUnit.
+
+A spec can have multiple setup decision tables in it.  
+
+The scope should be defined with a special column named `Scope` in the setup table.  
+If there is no `Scope` column found in the setup table, the table will be run for every table in the spec file.  
+If the setup table is only meant for a particular table or tables, it should specify all the target tables in the column `Target` with a comma separated list.  
+
+### Comment decision table
+Commented decision tables won't participate in the tests generation.
+
+## Table Name
+Table name is in the #1 row of the table. The #1 row can also contain table type in the format of ```type:name```.  
+Table name will be generated as test class name so it shouldn't contain any invalid characters for a class name in the targeted langugage.
+
+## Table Header
+Table headers are in the row #2 of the table.  
+
+There are three types of headers in decision table:
+- Input column
+- Output column (output columns are suffixed by '?')
+- Comment column (comment columns are prefixed with '#')
+
+A decision table can have any number of input columns, any number of output columns and any number of comment columns. However, it must have at least one input column or one output column. For example, a table with only comment columns won't be considered as a valid decision table.
+
+Input columns will be generated as input parameters for the test method and therefore they should contain any invalid characters for a method parameter in the targeted langugage.  
+Output columns will be generated as return parameters and therefore they should contain any invalid characters for a method parameter in the targeted langugage.   
+Comment columns will be added as code comments to the tests.
+
+## Table Data
+Table data are from row #3 and onwards.

@@ -10,12 +10,14 @@
 
     public sealed class DecisionTableParser : IDecisionTableParser
     {
+        private readonly TableTypeParser _tableTypeParser;
         private readonly TableNameParser _tableNameParser;
         private readonly TableHeadersParser _tableHeadersParser;
         private readonly TableDataParser _tableDataParser;
 
         public DecisionTableParser()
         {
+            _tableTypeParser = new TableTypeParser();
             _tableNameParser = new TableNameParser();
             _tableHeadersParser = new TableHeadersParser();
             _tableDataParser = new TableDataParser();
@@ -23,16 +25,17 @@
 
         public DecisionTable Parse(XElement table, IEnumerable<DecisionVariable> decisionVariables)
         {
+            var tableType = _tableTypeParser.Parse(table);
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
             object[,] tableData = _tableDataParser.Parse(table, out Type[,] dataTypes);
-            var variables = ParseDecisionVariables(tableData, tableHeaders, decisionVariables);
-            UpdateDataTypesForVariables(dataTypes, tableData, variables);
+            var variables = ParseDecisionVariables(tableData, tableType, tableHeaders, decisionVariables.ToList());
+            ReplaceDataTypesWithRealVariableTypes(dataTypes, tableData, variables);
             UpdateColumnTypesFromData(tableHeaders, dataTypes);
-            return new DecisionTable(tableName, tableHeaders, tableData, variables);
+            return new DecisionTable(tableType, tableName, tableHeaders, tableData, variables);
         }
 
-        private void UpdateDataTypesForVariables(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
+        private void ReplaceDataTypesWithRealVariableTypes(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
         {
             for (int i = 0; i < tableData.GetLength(0); i++)
             {
@@ -81,53 +84,52 @@
 
         private static DecisionVariable[] ParseDecisionVariables(
             object[,] tableData,
+            TableType tableType,
             TableHeader[] tableHeaders,
-            IEnumerable<DecisionVariable> definedVariables)
+            IList<DecisionVariable> definedVariables)
         {
             var variables = ExtractDecisionVariables(tableData, tableHeaders);
             foreach (var variable in variables)
             {
-                var header = variable.AssociatedTableHeaders.ElementAt(0);
-                if (variable.AssociatedTableHeaders.Any(h => h.TableHeaderType != header.TableHeaderType))
+                if (tableType == TableType.Setup)
                 {
-                    throw new InvalidOperationException($"{variable.Name} variable is associated with both input and output headers");
+                    var header = variable.AssociatedTableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Output);
+                    if (header.Any())
+                    {
+                        UpdateNewVariable(definedVariables, variable);
+                        continue;
+                    }
                 }
 
-                switch (header.TableHeaderType)
-                {
-                    case TableHeaderType.Input:
-                    case TableHeaderType.Comment:
-                        UpdateInputVariable(definedVariables, variable);
-                        break;
-                    case TableHeaderType.Output:
-                        UpdateOutputVariable(definedVariables, variable);
-                        break;
-                }
+                UpdateExistingVariable(definedVariables, variable);
             }
 
             return variables.ToArray();
         }
 
-        private static void UpdateOutputVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
+        private static void UpdateNewVariable(IList<DecisionVariable> definedVariables, DecisionVariable variable)
         {
             if (definedVariables.Contains(variable))
             {
-                throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
+                // throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
             }
 
             variable.Type = typeof(object);
+            definedVariables.Add(variable);
         }
 
-        private static void UpdateInputVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
+        private static void UpdateExistingVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
         {
             if (!definedVariables.Contains(variable))
             {
-                throw new InvalidOperationException($"{variable.Name} variable is assigned as an input but it is not defined");
+                // throw new InvalidOperationException($"{variable.Name} variable is assigned as an input but it is not defined");
             }
-
-            var temp = definedVariables.First(v => v == variable);
-            variable.Type = temp.Type;
-            variable.Value = temp.Value;
+            else
+            {
+                var temp = definedVariables.First(v => v == variable);
+                variable.Type = temp.Type;
+                variable.Value = temp.Value;
+            }
         }
 
         private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object[,] tableData, TableHeader[] tableHeaders)
@@ -140,14 +142,11 @@
                 {
                     if (tableData[i, j] is DecisionVariable variable)
                     {
+                        variable.AssociatedTableHeaders.Add(tableHeaders[j]);
                         variables.AddOrUpdate(
                             variable.Name,
                             variable,
-                            (key, value) =>
-                            {
-                                value.AssociatedTableHeaders.Add(tableHeaders[j]);
-                                return value;
-                            });
+                            (_, value) => value);
                     }
                 }
             }

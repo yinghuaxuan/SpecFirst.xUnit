@@ -16,6 +16,7 @@ namespace SpecFirst.Core.Specs.Tests
     
     public partial class infer_type_from_collection_text
     {
+        
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_collection_text_tests(string collection, string collection_type, string parsed_collection)
