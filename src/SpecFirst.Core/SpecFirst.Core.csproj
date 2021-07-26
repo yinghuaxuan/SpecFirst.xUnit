@@ -5,7 +5,7 @@
     <LangVersion>Latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Contains common components for the SpecFirst source generator</Description>
-    <Version>1.0.0-rc.4</Version>
+    <Version>1.1.0-rc.2</Version>
     <Nullable>enable</Nullable>
     <Authors>yinghuaxuan</Authors>
   </PropertyGroup>

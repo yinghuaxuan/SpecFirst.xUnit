@@ -1,4 +1,10 @@
-﻿The decision table parser takes the html output of the markdown table and parse it to a decision table object.
+﻿The decision table parser takes the html output of the markdown table and parse it to a decision table object.  
+
+The following parsers are used to parse a decision table:
+- Table Type Parser
+- Table Name Parser
+- Table Header Parser
+- Table Data Parser 
 
 ## Table Type, Name, and Header Parser
 Given the following valid decision tables:
@@ -108,13 +114,14 @@ Given the following valid decision tables:
 | Parse a decision table                                                                                                                                   |||||||
 | #Description                   | Decision Table               | Table Type? | Table Name? | Input Table Header? | Output Table Header? | Comment Table Header? |
 | ------------------------------ | ---------------------------- | ----------- | ----------- | ------------------- | -------------------- | --------------------- |
-| Decision table                 | $decision_table_default      | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Decision table without prefix  | $decision_table_default      | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
 | Decision table                 | $decision_table              | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
 | Decision table with th headers | $decision_table_with_theader | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
 | Comment decision table         | $comment_decision_table      | Comment     | Table Name  | Table Header 1      | Table Header 2       | Description           |
 | Setup decision table           | $setup_decision_table        | Setup       | Table Name  | Table Header 1      | Table Header 2       | Description           |
 
 ## Table Data Parser
+Given the following decision table, the Table Data Parser should parse the table data into correct types and values.
 
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
@@ -175,8 +182,9 @@ Given the following valid decision tables:
 
 
 ## Decision table with variable
-Normal decision table can have reference to already defined variables in the data.   
+Decision table can have reference to already defined variables in the data. The Setup decision table can also create new variables as outputs.    
 
+### Decision table with reference to defined variables
 Suppose we have two variables: [variable 1](#, "$variable_1") and [variable 2](#, "$variable_2").  
 And the below decision table has references to the above variables:  
 [\<table>  
@@ -223,7 +231,8 @@ And the below decision table has references to the above variables:
 | $decision_table_variables                | ["$variable_1:variable 1","$variable_2:variable 2"] | 1      | variable 1  | 12         | variable 2 |
 | $decision_table_variables                | ["$variable_1:variable 1","$variable_2:variable 2"] | 2      | variable 2  | variable 1 | 12.5M      |
 | $decision_table_variables                | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | Description | variable 2 | variable 1 |
-   
+
+### Decision table with reference to variables not defined   
 If the decision table has reference to a variable not defined, the parser will ignore the variable and interpret it as a string.  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
@@ -271,9 +280,9 @@ If the decision table has reference to a variable not defined, the parser will i
 | $decision_table_variables_not_defined                | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | Description | variable 2    | "$variable_3" |
 
 ## Setup decision table with variable
-If the decision table is a setup type, it can both refer to existing variables and define new variables.  
+If the decision table is a setup type, it can define new variables in outputs in addition to refer to existing variables in inputs   
 
-In the following setup table, it can still refer to `$variable_1` and `$variable_2` but more importantly it defines two new variables in the output column `$variable_3` and `$variable_4`
+In the following setup table, it can still refer to `$variable_1` and `$variable_2` but more importantly it defines two new variables in the output column `$variable_3` and `$variable_4`  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
