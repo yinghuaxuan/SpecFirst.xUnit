@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\src\SpecFirst.Core\SpecFirst.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DecisionTable\Parser\" />
+  </ItemGroup>
+
 </Project>

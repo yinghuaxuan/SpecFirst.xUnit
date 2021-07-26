@@ -109,7 +109,8 @@
 
         private static void UpdateNewVariable(IList<DecisionVariable> definedVariables, DecisionVariable variable)
         {
-            if (definedVariables.Contains(variable))
+            var temp = definedVariables.FirstOrDefault(v => v == variable);
+            if (temp != null)
             {
                 // throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
             }
@@ -120,13 +121,14 @@
 
         private static void UpdateExistingVariable(IEnumerable<DecisionVariable> definedVariables, DecisionVariable variable)
         {
-            if (!definedVariables.Contains(variable))
+            var temp = definedVariables.FirstOrDefault(v => v == variable);
+            if (temp == null)
             {
-                // throw new InvalidOperationException($"{variable.Name} variable is assigned as an input but it is not defined");
+                variable.Type = typeof(string);
+                variable.Value = $"${variable.Name}";
             }
             else
             {
-                var temp = definedVariables.First(v => v == variable);
                 variable.Type = temp.Type;
                 variable.Value = temp.Value;
             }
@@ -134,7 +136,7 @@
 
         private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object[,] tableData, TableHeader[] tableHeaders)
         {
-            var variables = new ConcurrentDictionary<string, DecisionVariable>();
+            var variables = new Dictionary<string, DecisionVariable>();
 
             for (int i = 0; i < tableData.GetLength(0); i++)
             {
@@ -143,10 +145,12 @@
                     if (tableData[i, j] is DecisionVariable variable)
                     {
                         variable.AssociatedTableHeaders.Add(tableHeaders[j]);
-                        variables.AddOrUpdate(
-                            variable.Name,
-                            variable,
-                            (_, value) => value);
+                        if (!variables.ContainsKey(variable.Name))
+                        {
+                            variables.Add(variable.Name, variable);
+                        }
+
+                        tableData[i, j] = variables[variable.Name];
                     }
                 }
             }
