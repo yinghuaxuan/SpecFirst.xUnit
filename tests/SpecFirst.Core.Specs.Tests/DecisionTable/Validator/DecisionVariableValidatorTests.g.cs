@@ -14,14 +14,14 @@ namespace SpecFirst.Core.Specs.Tests
     using System.Collections.Generic;
     using Xunit;
     
-    public partial class parse_decision_variable_from_links
+    public partial class validate_decision_variables_from_links
     {
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_variable_from_links_tests(string text, bool contain_variable, string variable_name, string variable_type, string variable_value)
+        public void validate_decision_variables_from_links_tests(string text, bool contain_variable, string variable_name, string variable_type, string variable_value)
         {
-            (bool contain_variable_output, string variable_name_output, string variable_type_output, string variable_value_output) = parse_decision_variable_from_links_implementation(text);
+            (bool contain_variable_output, string variable_name_output, string variable_type_output, string variable_value_output) = validate_decision_variables_from_links_implementation(text);
             Assert.Equal(contain_variable_output, contain_variable);
             Assert.Equal(variable_name_output, variable_name);
             Assert.Equal(variable_type_output, variable_type);
@@ -34,7 +34,7 @@ namespace SpecFirst.Core.Specs.Tests
             {
                 new object[] { "<a href=\"\" title=\"$variable_name\" data-href=\"\">this is a variable</a>", true, "variable_name", "string", "this is a variable" }, // variable must start with $ symbol followed by letter
                 new object[] { "<a href=\"\" title=\"$variable123\" data-href=\"\">this is a variable</a>", true, "variable123", "string", "this is a variable" }, // variable must start with $ symbol followed by letter
-                new object[] { "<a href=\"\" title=\"$123\" data-href=\"\">this is a variable</a>", false, "", "", "" }, // variable immediately followed by digit is not valid
+                new object[] { "<a href=\"\" title=\"$123\" data-href=\"\">this is a variable</a>", false, "", "", "" }, // variable start with digit is not valid
                 new object[] { "<a href=\"\" title=\"variable_name\" data-href=\"\">this is a variable</a>", false, "", "", "" }, // variable not start with $ symbol is not valid
                 new object[] { "<a href=\"\" title=\"variable_$name\" data-href=\"\">this is a variable</a>", false, "", "", "" }, // variable with $ symbol not at the start is not valid
             };
@@ -42,7 +42,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (bool, string, string, string) parse_decision_variable_from_links_implementation(string text);
+        private partial (bool, string, string, string) validate_decision_variables_from_links_implementation(string text);
     }
 
 }
