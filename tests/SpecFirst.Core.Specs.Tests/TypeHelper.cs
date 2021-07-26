@@ -24,7 +24,7 @@
             if (type == typeof(DoubleType)) return "double";
             if (type == typeof(string)) return "string";
             if (type == typeof(DateTime)) return "datetime";
-            if (type == typeof(bool)) return "bool";
+            if (type == typeof(bool)) return "boolean";
             if (type == typeof(object)) return "object";
             throw new InvalidOperationException();
         }
