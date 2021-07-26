@@ -16,11 +16,11 @@ namespace SpecFirst.Core.Specs.Tests
     
     public partial class parse_a_decision_table
     {
-        private static readonly string decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> decision:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
-        private static readonly string setup_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> setup:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
         private static readonly string decision_table_default = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> decision:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
         private static readonly string decision_table_with_theader = "<table>\n  <thead>\n    <tr>\n      <td colspan=\"3\"> Decision:Table Name </td>\n    </tr>\n    <tr>\n      <th> #Description </th>\n      <th> Table Header 1 </th>\n      <th> Table Header 2? </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
         private static readonly string comment_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> comment:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
+        private static readonly string setup_decision_table = "<table>\n  <tbody>\n    <tr>\n      <td colspan=\"3\"> setup:Table Name </td>\n    </tr>\n    <tr>\n      <td> #Description </td>\n      <td> Table Header 1 </td>\n      <td> Table Header 2? </td>\n    </tr>\n    <tr>\n      <td> Description </td>\n      <td> Table Data 1 </td>\n      <td> Table Data 2 </td>\n    </tr>\n  </tbody>\n</table>\n";
         
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -38,7 +38,7 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_default, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
+                new object[] { decision_table_default, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table without prefix
                 new object[] { decision_table, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table
                 new object[] { decision_table_with_theader, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Decision table with th headers
                 new object[] { comment_decision_table, "Comment", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // Comment decision table
