@@ -89,14 +89,14 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { "True", "bool", "true" }, // bool, camel case
-                new object[] { "true", "bool", "true" }, // bool, lower case
-                new object[] { "TRUE", "bool", "true" }, // bool, upper case
-                new object[] { "TrUe", "bool", "true" }, // bool, mixed case
-                new object[] { "False", "bool", "false" }, // bool, camel case
-                new object[] { "false", "bool", "false" }, // bool, lower case
-                new object[] { "FALSE", "bool", "false" }, // bool, upper case
-                new object[] { "FalSe", "bool", "false" }, // bool, mixed case
+                new object[] { "True", "boolean", "true" }, // bool, camel case
+                new object[] { "true", "boolean", "true" }, // bool, lower case
+                new object[] { "TRUE", "boolean", "true" }, // bool, upper case
+                new object[] { "TrUe", "boolean", "true" }, // bool, mixed case
+                new object[] { "False", "boolean", "false" }, // bool, camel case
+                new object[] { "false", "boolean", "false" }, // bool, lower case
+                new object[] { "FALSE", "boolean", "false" }, // bool, upper case
+                new object[] { "FalSe", "boolean", "false" }, // bool, mixed case
                 new object[] { "Truee", "string", "Truee" }, // not valid boolean text
                 new object[] { "FalSee", "string", "FalSee" }, // not valid boolean text
             };
@@ -124,6 +124,7 @@ namespace SpecFirst.Core.Specs.Tests
             var data = new List<object[]>
             {
                 new object[] { "2012-12-25 23:59:59", "datetime", "new DateTime(2012, 12, 25, 23, 59, 59, 0)" }, // datetime in yyyy-MM-dd HH:mm:ss
+                new object[] { "2012-12-25 ", "datetime", "new DateTime(2012, 12, 25, 0, 0, 0, 0)" }, // datetime in yyyy-MM-dd
                 new object[] { "25/12/2012 23:59:59", "string", "25/12/2012 23:59:59" }, // datetime, not supported format
                 new object[] { "2012-1-1 23:59:59", "string", "2012-1-1 23:59:59" }, // datetime, not supported format
                 new object[] { "25 December 2012 23:59:59", "string", "25 December 2012 23:59:59" }, // datetime, not supported format

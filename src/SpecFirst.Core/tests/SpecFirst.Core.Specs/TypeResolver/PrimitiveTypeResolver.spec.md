@@ -21,7 +21,7 @@ interpret it as string.
 - If it has M or m suffix, we always interpret it as decimal
 
 | Infer type from number text                                                                                         ||||
-| #Description                        | Text Value                        | Actual Type? | Serialized Value?                 |
+| #Description                    | Text Value                        | Actual Type? | Serialized Value?                 |
 | ------------------------------- | --------------------------------- | ------------ | --------------------------------- |
 | integer                         | "0"                               | integer      | "0"                               |
 | integer                         | "12"                              | integer      | "12"                              |
@@ -63,16 +63,16 @@ interpret it as string.
 Convert text to boolean and ignore cases.
 
 | Infer type from boolean text                                              ||||
-| #Description                     | Text Value | Actual Type? | Serialized Value? |
+| #Description                 | Text Value | Actual Type? | Serialized Value? |
 | ---------------------------- | ---------- | ------------ | ----------------- |
-| bool, camel case             | "True"     | bool         | "true"            |
-| bool, lower case             | "true"     | bool         | "true"            |
-| bool, upper case             | "TRUE"     | bool         | "true"            |
-| bool, mixed case             | "TrUe"     | bool         | "true"            |
-| bool, camel case             | "False"    | bool         | "false"           |
-| bool, lower case             | "false"    | bool         | "false"           |
-| bool, upper case             | "FALSE"    | bool         | "false"           |
-| bool, mixed case             | "FalSe"    | bool         | "false"           |
+| bool, camel case             | "True"     | boolean      | "true"            |
+| bool, lower case             | "true"     | boolean      | "true"            |
+| bool, upper case             | "TRUE"     | boolean      | "true"            |
+| bool, mixed case             | "TrUe"     | boolean      | "true"            |
+| bool, camel case             | "False"    | boolean      | "false"           |
+| bool, lower case             | "false"    | boolean      | "false"           |
+| bool, upper case             | "FALSE"    | boolean      | "false"           |
+| bool, mixed case             | "FalSe"    | boolean      | "false"           |
 | not valid boolean text       | "Truee"    | string       | "Truee"           |
 | not valid boolean text       | "FalSee"   | string       | "FalSee"          |
 
@@ -81,9 +81,10 @@ For datetime, we only accept yyyy-MM-dd HH:mm:ss as a valid datetime format.
 For all other formats, we interpret them as string.
 
 | Infer type from datetime text                                                                                           ||||
-| #Description                        | Text Value                  | Actual Type? | Serialized Value?                           |
+| #Description                    | Text Value                  | Actual Type? | Serialized Value?                           |
 | ------------------------------- | --------------------------- | ------------ | ------------------------------------------- |
 | datetime in yyyy-MM-dd HH:mm:ss | "2012-12-25 23:59:59"       | datetime     | "new DateTime(2012, 12, 25, 23, 59, 59, 0)" |
+| datetime in yyyy-MM-dd          | "2012-12-25 "               | datetime     | "new DateTime(2012, 12, 25, 0, 0, 0, 0)" |
 | datetime, not supported format  | "25/12/2012 23:59:59"       | string       | "25/12/2012 23:59:59"                       |
 | datetime, not supported format  | "2012-1-1 23:59:59"         | string       | "2012-1-1 23:59:59"                         |
 | datetime, not supported format  | "25 December 2012 23:59:59" | string       | "25 December 2012 23:59:59"                 |
@@ -95,7 +96,7 @@ For any text other than number, boolean and datetime, we will interpret them as 
 We allow certain special characters and escape characters in the text.
 
 | Infer type from string text                                                                                       ||||
-| #Description                                            | Text Value             | Actual Type? | Serialized Value?      |
+| #Description                                        | Text Value             | Actual Type? | Serialized Value?      |
 | --------------------------------------------------- | ---------------------- | ------------ | ---------------------- |
 | string without quote                                | this is a string       | string       | "this is a string"     |
 | fully quoted string is same as string without quote | "this is a string"     | string       | "this is a string"     |
@@ -108,7 +109,7 @@ We allow certain special characters and escape characters in the text.
 | string with a backslash in it                       | this is a \\string     | string       | "this is a \\string"   |
 | string with escape characters                       | this is a \"string     | string       | "this is a \"string"   |
 | quoted string with escape characters                | "this is a \"string"   | string       | "this is a \"string"   |
-| string with great than and less than character      | "this is a \<string\>"   | string       | "this is a \<string\>"   |
+| string with great than and less than character      | "this is a \<string\>" | string       | "this is a \<string\>" |
 | white spaces will be kept                           | "  "                   | string       | "  "                   |
 
 
