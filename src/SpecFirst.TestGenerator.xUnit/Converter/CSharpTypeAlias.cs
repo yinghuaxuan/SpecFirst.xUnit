@@ -15,7 +15,12 @@
 
         public static string Alias(Type type)
         {
-            return _alias[type];
+            if (_alias.ContainsKey(type))
+            {
+                return _alias[type];
+            }
+
+            return type.Name;
         }
 
         private static Dictionary<Type, string> SetupAlias()

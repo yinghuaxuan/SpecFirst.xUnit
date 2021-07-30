@@ -76,9 +76,12 @@
         {
             for (int i = 0; i < testData.Length; i++)
             {
-                yield return new TestDataAndComment{TestData = testData[i], Comment = comments[i]};
+                yield return new TestDataAndComment
+                {
+                    TestData = testData[i],
+                    Comment = comments.Length > i ? comments[i] : null
+                };
             }
-
         }
     }
 }

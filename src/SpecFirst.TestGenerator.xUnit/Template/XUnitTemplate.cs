@@ -46,7 +46,11 @@ namespace {{namespace_name}}
             var data = new List<object[]>
             {
                 {{#each test_data_and_comments}}
+                {{#if this.Comment}}
                 new object[] { {{{this.TestData}}} }, // {{this.Comment}}
+                {{else}}
+                new object[] { {{{this.TestData}}} },
+                {{/if}}
                 {{/each}}
             };
 
