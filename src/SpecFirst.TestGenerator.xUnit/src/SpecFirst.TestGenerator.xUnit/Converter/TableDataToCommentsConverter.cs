@@ -22,7 +22,10 @@
                     }
                 }
 
-                testData.Add(builder.Remove(builder.Length - 2, 2).ToString());
+                if (builder.Length > 0)
+                {
+                    testData.Add(builder.Remove(builder.Length - 2, 2).ToString());
+                }
             }
 
             return testData.ToArray();
