@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Description>The source generator to auto generate tests in xUnit from decision tables written in markdown files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-rc.10</Version>
+    <Version>1.0.0-rc.32</Version>
     <Company></Company>
     <Product>SpecFirst.xUnit</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -23,6 +23,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\Parser\TableTypeParser.cs" Link="SpecFirst.Core\DecisionTable\Parser\TableTypeParser.cs" />
+    <Compile Include="..\..\..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\TableType.cs" Link="SpecFirst.Core\DecisionTable\TableType.cs" />
+    <Compile Include="..\..\..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\ITableVariableSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\ITableVariableSerializer.cs" />
+    <Compile Include="..\..\..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Serialization\TableVariableSerializer.cs" Link="SpecFirst.TestGenerator.xUnit\Serialization\TableVariableSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\DecisionTable.cs" Link="SpecFirst.Core\DecisionTable\DecisionTable.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\Parser\DecisionTableParser.cs" Link="SpecFirst.Core\DecisionTable\Parser\DecisionTableParser.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\DecisionTable\Parser\IDecisionTableParser.cs" Link="SpecFirst.Core\DecisionTable\Parser\IDecisionTableParser.cs" />
