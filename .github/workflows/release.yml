@@ -21,4 +21,4 @@ jobs:
       run: dotnet build -c Release /p:version=${{ github.event.release.tag_name }} 
 
     - name: Publish to NuGet
-      run: dotnet nuget push src\SpecFirst.MarkdownParser\bin\Release\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push src\SpecFirst.xUnit\bin\Release\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
