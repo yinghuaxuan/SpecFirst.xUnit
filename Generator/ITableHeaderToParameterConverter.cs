@@ -1,7 +1,6 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Converter
+﻿namespace SpecFirst.TestGenerator.xUnit.Generator
 {
     using SpecFirst.Core.DecisionTable;
-    using SpecFirst.TestGenerator.xUnit.TestGeneration;
 
     public interface ITableHeaderToParameterConverter
     {

@@ -19,45 +19,21 @@ namespace {{namespace_name}}
     using Xunit;
     
     {{#each list_of_fixtures}}
-    public partial class {{class_name}}
+    {{test_class}}
     {
-        {{#if class_variables}}
-        {{#each class_variables}}
-        {{{this}}};
-        {{/each}}
-        {{/if}}
+        {{class_variable}}
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void {{class_name}}_tests({{test_parameters}})
+        {{test_method}}
         {
-            {{#if impl_return_values}}
-            {{impl_return_values}} = {{class_name}}_implementation({{impl_arguments}});
-            {{else}}
-            {{class_name}}_implementation({{impl_arguments}});
-            {{/if}}
-            {{#each assert_statements}}
-            {{{this}}};
-            {{/each}}
+            {{impl_method_call_expression}}
+            {{assert_statement}}
         }
 
-        public static IEnumerable<object[]> get_test_data()
-        {
-            var data = new List<object[]>
-            {
-                {{#each test_data_and_comments}}
-                {{#if this.Comment}}
-                new object[] { {{{this.TestData}}} }, // {{this.Comment}}
-                {{else}}
-                new object[] { {{{this.TestData}}} },
-                {{/if}}
-                {{/each}}
-            };
+        {{test_data}}
 
-            return data;
-        }
-
-        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_parameters}});
+        {{impl_method_declaration}}
     }
 
     {{/each}}
@@ -79,5 +55,53 @@ namespace {{namespace_name}}
 
     {{/each}}
 }";
+
+        public const string TEST_DATA_TEMPLATE = @"
+public static IEnumerable<object[]> get_test_data()
+{
+    var data = new List<object[]>
+    {
+        {{#each test_data_and_comments}}
+        new object[] { {{this.TestData}} }, // {{this.Comment}}
+        {{else}}
+        new object[] { {{{this.TestData}}} },
+        {{/if}}
+        {{/each}}
+    };
+
+    return data;
+}";
+
+        public const string IMPL_METHOD_TEMPLATE = @"
+private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input_parameters}});";
+
+        public const string CLASS_VARIABLE_TEMPLATE = @"
+{{#if class_variables}}
+{{#each class_variables}}
+{{#if this.VariableValue}}
+private static readonly {{this.VariableType}} {{this.VariableName}} = {{this.VariableValue}};
+{{else}}
+private static readonly {{this.VariableType}} {{this.VariableName}};
+{{/if}}
+{{/each}}
+{{/if}}";
+
+        public const string TEST_METHOD_TEMPLATE = @"
+public void {{class_name}}_tests({{test_parameters}})";
+
+        public const string IMPL_METHOD_CALL_EXPRESSION_TEMPLATE = @"
+{{#if impl_return_values}}
+{{impl_return_values}} = {{class_name}}_implementation({{impl_arguments}});
+{{else}}
+{{class_name}}_implementation({{impl_arguments}});
+{{/if}}";
+
+        public const string ASSERT_STATEMENT_TEMPLATE = 
+ @"{{#each assert_statements}}
+{{{this}}};
+{{/each}}";
+
+        public const string TEST_NAME_TEMPLATE = @"
+public partial class {{class_name}}";
     }
 }
