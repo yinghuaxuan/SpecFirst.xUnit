@@ -1,14 +1,17 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Converter
+﻿namespace SpecFirst.TestGenerator.xUnit.Generator
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
+    using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.TypeResolver;
     using SpecFirst.TestGenerator.xUnit.Serialization;
+    using SpecFirst.TestGenerator.xUnit.Template;
 
-    public class TableDataToTestDataConverter
+    public class TestDataGenerator
     {
         private readonly IPrimitiveDataSerializer _stringSerializer;
         private readonly IPrimitiveDataSerializer _numberSerializer;
@@ -17,7 +20,7 @@
         private readonly IArrayDataSerializer _arraySerializer;
         private readonly ITableVariableSerializer _variableSerializer;
 
-        public TableDataToTestDataConverter(
+        public TestDataGenerator(
             IPrimitiveDataSerializer stringSerializer,
             IPrimitiveDataSerializer numberSerializer,
             IPrimitiveDataSerializer datetimeSerializer,
@@ -33,27 +36,47 @@
             _variableSerializer = variableSerializer;
         }
 
-        public string[] Convert(TableHeader[] tableHeaders, object[,] decisionData)
+        public string Convert(TableHeader[] tableHeaders, object[,] decisionData)
         {
-            List<string> testData = new List<string>();
+            var testData = BuildTestData(tableHeaders, decisionData);
+
+            Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_DATA_TEMPLATE);
+
+            return compiled(new
+            {
+                test_data_and_comments = testData.Select(d => new {TestData = d.Item1, Comment = d.Item2})
+            });
+
+        }
+
+        private List<(string, string)> BuildTestData(TableHeader[] tableHeaders, object[,] decisionData)
+        {
+            List<(string, string)> testData = new List<(string, string)>();
             StringBuilder builder = new StringBuilder();
 
             for (int i = 0; i < decisionData.GetLength(0); i++)
             {
                 builder.Clear();
+                string comment = null;
                 for (int j = 0; j < decisionData.GetLength(1); j++)
                 {
-                    if(tableHeaders[j].TableHeaderType != TableHeaderType.Comment)
+                    if (tableHeaders[j].TableHeaderType == TableHeaderType.Comment)
+                    {
+                        comment = SanitizeString(decisionData[i, j].ToString());
+                    }
+                    else
                     {
                         var data = Convert(decisionData, i, j, tableHeaders[j].DataType);
                         builder.Append($"{data}, ");
                     }
                 }
 
-                testData.Add(builder.Remove(builder.Length - 2, 2).ToString());
+                var item = builder.Remove(builder.Length - 2, 2).ToString();
+
+                testData.Add((item, comment));
             }
 
-            return testData.ToArray();
+            return testData;
         }
 
         private string Convert(object[,] decisionData, int i, int j, Type dataType)
@@ -99,6 +122,13 @@
             }
 
             return data;
+        }
+
+        private string SanitizeString(string value)
+        {
+            return value
+                .Replace("\n", " ")
+                .Replace("\r", " ");
         }
     }
 }

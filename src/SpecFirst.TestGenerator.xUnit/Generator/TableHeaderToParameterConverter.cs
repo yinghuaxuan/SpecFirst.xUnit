@@ -1,10 +1,9 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Converter
+﻿namespace SpecFirst.TestGenerator.xUnit.Generator
 {
     using System;
     using System.Text.RegularExpressions;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.NamingStrategy;
-    using SpecFirst.TestGenerator.xUnit.TestGeneration;
 
     public class TableHeaderToParameterConverter : ITableHeaderToParameterConverter
     {

@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<LangVersion>9.0</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="DecisionTable\**" />
+	  <Compile Remove="Serialization\**" />
+	  <Compile Remove="TypeResolver\**" />
+	  <EmbeddedResource Remove="DecisionTable\**" />
+	  <EmbeddedResource Remove="Serialization\**" />
+	  <EmbeddedResource Remove="TypeResolver\**" />
+	  <None Remove="DecisionTable\**" />
+	  <None Remove="Serialization\**" />
+	  <None Remove="TypeResolver\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Generator\Generator.spec.md" />
+	  <None Remove="XUnitTestsGenerator.spec.md" />
+	</ItemGroup>
+
+  <ItemGroup>
+	  <AdditionalFiles Include="Generator\Generator.spec.md" />
+	  <AdditionalFiles Include="specfirst.config" />
+	  <AdditionalFiles Include="XUnitTestsGenerator.spec.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-RC4" />
+	</ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="D:\DEV\Projects\spec-first\SpecFirst.xUnit\src\SpecFirst.xUnit\SpecFirst.xUnit.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>-->
+
+
+</Project>
