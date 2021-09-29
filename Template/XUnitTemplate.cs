@@ -19,21 +19,21 @@ namespace {{namespace_name}}
     using Xunit;
     
     {{#each list_of_fixtures}}
-    {{test_class}}
+    {{{test_class}}}
     {
         {{class_variable}}
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        {{test_method}}
+        {{{test_method}}}
         {
-            {{impl_method_call_expression}}
-            {{assert_statement}}
+            {{{impl_method_call_expression}}}
+            {{> assert_statement_partial}}
         }
 
-        {{test_data}}
+        {{{test_data}}}
 
-        {{impl_method_declaration}}
+        {{{impl_method_declaration}}}
     }
 
     {{/each}}
@@ -62,7 +62,7 @@ public static IEnumerable<object[]> get_test_data()
     var data = new List<object[]>
     {
         {{#each test_data_and_comments}}
-        new object[] { {{this.TestData}} }, // {{this.Comment}}
+        new object[] { {{{this.TestData}}} }, // {{{this.Comment}}}
         {{else}}
         new object[] { {{{this.TestData}}} },
         {{/if}}
@@ -79,7 +79,7 @@ private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input
 {{#if class_variables}}
 {{#each class_variables}}
 {{#if this.VariableValue}}
-private static readonly {{this.VariableType}} {{this.VariableName}} = {{this.VariableValue}};
+private static readonly {{this.VariableType}} {{this.VariableName}} = {{{this.VariableValue}}};
 {{else}}
 private static readonly {{this.VariableType}} {{this.VariableName}};
 {{/if}}
@@ -96,8 +96,8 @@ public void {{class_name}}_tests({{test_parameters}})";
 {{class_name}}_implementation({{impl_arguments}});
 {{/if}}";
 
-        public const string ASSERT_STATEMENT_TEMPLATE = 
- @"{{#each assert_statements}}
+        public const string ASSERT_STATEMENT_TEMPLATE = @"
+{{#each assert_statements}}
 {{{this}}};
 {{/each}}";
 

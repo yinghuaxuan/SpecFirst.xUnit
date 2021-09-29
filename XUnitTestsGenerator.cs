@@ -34,8 +34,10 @@
             return new[] { testSources, implementationSources };
         }
 
-        private string GenerateTestMethods(object data)
+        private string GenerateTestMethods(dynamic data)
         {
+            Handlebars.RegisterTemplate("assert_statement_partial", data.list_of_fixtures.);
+
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_TEMPLATE);
 
             return compiled(data);
