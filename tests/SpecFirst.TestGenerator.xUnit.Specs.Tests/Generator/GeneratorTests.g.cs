@@ -39,29 +39,29 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         private partial string generate_test_class_name_implementation(string decision_table_name);
     }
 
-    public partial class generate_class_variables
+    public partial class generate_class_fields
     {
         
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_class_variables_tests(string decision_table_name, string test_class_name)
+        public void generate_class_fields_tests(string decision_variable_name, string decision_variable_value, string field)
         {
-            string test_class_name_output = generate_class_variables_implementation(decision_table_name);
-            Assert.Equal(test_class_name_output, test_class_name);
+            string field_output = generate_class_fields_implementation(decision_variable_name, decision_variable_value);
+            Assert.Equal(field_output, field);
         }
 
         public static IEnumerable<object[]> get_test_data()
         {
             var data = new List<object[]>
             {
-                new object[] { "decision table name", "public partial class decision_table_name" }, // use snake case for test class name
-                new object[] { "Decision Table Name", "public partial class decision_table_name" }, // ingore cases
+                new object[] { "variable_1", "variable 1", "private static readonly string variable_1 = \"variable 1\";" }, // variable has a value
+                new object[] { "variable_2", null, "private static readonly object variable_2;" }, // variable don't have a value
             };
 
             return data;
         }
 
-        private partial string generate_class_variables_implementation(string decision_table_name);
+        private partial string generate_class_fields_implementation(string decision_variable_name, string decision_variable_value);
     }
 
     public partial class generate_test_method

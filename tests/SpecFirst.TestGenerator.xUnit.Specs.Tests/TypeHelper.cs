@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SpecFirst.TestGenerator.xUnit.SpecsTests
+namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
 {
     public static class TypeHelper
     {

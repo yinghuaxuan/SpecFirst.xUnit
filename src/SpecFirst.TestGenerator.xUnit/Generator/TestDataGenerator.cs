@@ -1,4 +1,5 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Generator
+﻿
+namespace SpecFirst.TestGenerator.xUnit.Generator
 {
     using System;
     using System.Collections.Generic;
@@ -7,31 +8,21 @@
     using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionVariable;
-    using SpecFirst.Core.TypeResolver;
-    using SpecFirst.TestGenerator.xUnit.Serialization;
+    using SpecFirst.Core.Serialization;
     using SpecFirst.TestGenerator.xUnit.Template;
 
     public class TestDataGenerator
     {
-        private readonly IPrimitiveDataSerializer _stringSerializer;
-        private readonly IPrimitiveDataSerializer _numberSerializer;
-        private readonly IPrimitiveDataSerializer _datetimeSerializer;
-        private readonly IPrimitiveDataSerializer _booleanSerializer;
+        private readonly IPrimitiveDataSerializer _primitiveDataSerializer;
         private readonly IArrayDataSerializer _arraySerializer;
         private readonly ITableVariableSerializer _variableSerializer;
 
         public TestDataGenerator(
-            IPrimitiveDataSerializer stringSerializer,
-            IPrimitiveDataSerializer numberSerializer,
-            IPrimitiveDataSerializer datetimeSerializer,
-            IPrimitiveDataSerializer booleanSerializer,
+            IPrimitiveDataSerializer primitiveDataSerializer,
             IArrayDataSerializer arraySerializer,
             ITableVariableSerializer variableSerializer)
         {
-            _stringSerializer = stringSerializer;
-            _numberSerializer = numberSerializer;
-            _datetimeSerializer = datetimeSerializer;
-            _booleanSerializer = booleanSerializer;
+            _primitiveDataSerializer = primitiveDataSerializer;
             _arraySerializer = arraySerializer;
             _variableSerializer = variableSerializer;
         }
@@ -92,33 +83,7 @@
             }
             else
             {
-                data = ConvertPrimitiveData(decisionData, i, j);
-            }
-
-            return data;
-        }
-
-        private string ConvertPrimitiveData(object[,] decisionData, int i, int j)
-        {
-            string data;
-            switch (decisionData[i, j])
-            {
-                case IntType _:
-                case DoubleType _:
-                case DecimalType _:
-                    data = _numberSerializer.Serialize(decisionData[i, j]);
-                    break;
-                case DateTime _:
-                    data = _datetimeSerializer.Serialize(decisionData[i, j]);
-                    break;
-                case bool _:
-                    data = _booleanSerializer.Serialize(decisionData[i, j]);
-                    break;
-                case string _:
-                    data = _stringSerializer.Serialize(decisionData[i, j]);
-                    break;
-                default:
-                    throw new InvalidOperationException();
+                data = _primitiveDataSerializer.Serialize(decisionData[i, j]);
             }
 
             return data;

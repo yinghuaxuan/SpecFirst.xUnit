@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Serialization;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.NamingStrategy;
     using SpecFirst.TestGenerator.xUnit.Generator;
-    using SpecFirst.TestGenerator.xUnit.Serialization;
 
     public class XUnitTemplateDataProvider
     {
@@ -13,26 +13,23 @@
         private readonly TestDataGenerator _testDataGenerator;
         private readonly TestMethodGenerator _testMethodGenerator;
         private readonly TestClassDeclarationGenerator _testClassDeclarationGenerator;
-        private readonly ClassVariableGenerator _classVariableGenerator;
+        private readonly ClassFieldGenerator _classFieldGenerator;
         private readonly ImplMethodCallExpressionGenerator _implMethodCallExpressionGenerator;
         private readonly AssertStatementGenerator _assertStatementGenerator;
         private readonly ImplMethodDeclarationGenerator _implMethodDeclarationGenerator;
 
         public XUnitTemplateDataProvider()
         {
-            var stringSerializer = new StringDataSerializer();
-            var datetimeSerializer = new DateTimeDataSerializer();
-            var booleanSerializer = new BooleanDataSerializer();
-            var numberSerializer = new NumberDataSerializer();
-            var arraySerializer = new ArrayDataSerializer(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
+            var primitiveDataSerializer = new PrimitiveDataSerializer();
+            var arraySerializer = new ArrayDataSerializer(primitiveDataSerializer);
             var variableSerializer = new TableVariableSerializer();
-            _testDataGenerator = new TestDataGenerator(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer, arraySerializer, variableSerializer);
+            _testDataGenerator = new TestDataGenerator(primitiveDataSerializer, arraySerializer, variableSerializer);
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             var classNameConverter = new TableNameToClassNameConverter(_namingStrategy);
             _testMethodGenerator = new TestMethodGenerator(parameterConverter, classNameConverter);
             _testClassDeclarationGenerator = new TestClassDeclarationGenerator(classNameConverter);
-            _classVariableGenerator = new ClassVariableGenerator();
+            _classFieldGenerator = new ClassFieldGenerator(primitiveDataSerializer);
             _implMethodCallExpressionGenerator = new ImplMethodCallExpressionGenerator(parameterConverter, classNameConverter);
             _assertStatementGenerator = new AssertStatementGenerator(parameterConverter);
             _implMethodDeclarationGenerator = new ImplMethodDeclarationGenerator(parameterConverter, classNameConverter);
@@ -53,17 +50,17 @@
 
         private XUnitTemplateData GetTemplateData(DecisionTable decisionTable)
         {
-            var testClass = _testClassDeclarationGenerator.Convert(decisionTable.TableName);
+            var testClass = _testClassDeclarationGenerator.Convert(decisionTable.TableName).Trim('\r', '\n');
             var classVariables =
-                _classVariableGenerator.Convert(decisionTable.DecisionVariables);
+                _classFieldGenerator.Convert(decisionTable.DecisionVariables).Trim('\r', '\n');
             var testMethod = 
-                _testMethodGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
+                _testMethodGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
             var implMethodCallExpression =
-                _implMethodCallExpressionGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
-            var assertStatements = _assertStatementGenerator.Convert(decisionTable.TableHeaders);
-            var testData = _testDataGenerator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
+                _implMethodCallExpressionGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
+            var assertStatements = _assertStatementGenerator.Convert(decisionTable.TableHeaders).Trim('\r', '\n');
+            var testData = _testDataGenerator.Convert(decisionTable.TableHeaders, decisionTable.TableData).Trim('\r', '\n');
             var implMethodDeclaration =
-                _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
+                _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
 
             return new XUnitTemplateData
             {

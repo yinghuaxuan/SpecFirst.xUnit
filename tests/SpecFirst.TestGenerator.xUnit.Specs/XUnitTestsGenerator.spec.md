@@ -40,14 +40,14 @@ public partial class parse_a_decision_table
 }
 </code></pre>
 
-### TestDataGenerator
-The `TestDataGenerator` is responsible for generating the test data for the testing. It generates a method `get_test_data` and this method is used as an attribute `[MemberData(nameof(get_test_data))]` on the testing method.
+### XUnitTestsGenerator
+The `XUnitTestsGenerator` is responsible for generating the complete xUnit tests from the decision table.
 
 with a decision table like below:  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Table Name \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Parse a decision table \</td>    
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> #Description \</td>  
@@ -90,10 +90,23 @@ with a decision table like below:
 ](# "$decision_table")
 
 It should generate the test data like this:  
-[public static IEnumerable\<object[]> get_test_data()  
+[
+public partial class parse_a_decision_table  
 {  
-&nbsp;&nbsp;public partial class parse_a_decision_table  
-&nbsp;&nbsp;{   
+&nbsp;&nbsp;[Theory]  
+&nbsp;&nbsp;[MemberData(nameof(get_test_data))]  
+&nbsp;&nbsp;public void parse_a_decision_table_tests(string decision_table, string table_type, string table_name, string input_table_header, string output_table_header, string comment_table_header)  
+&nbsp;&nbsp;{  
+&nbsp;&nbsp;&nbsp;&nbsp;(string table_type_output, string table_name_output, string input_table_header_output, string output_table_header_output, string comment_table_header_output) = parse_a_decision_table_implementation(decision_table);  
+&nbsp;&nbsp;&nbsp;&nbsp;Assert.Equal(table_type_output, table_type);  
+&nbsp;&nbsp;&nbsp;&nbsp;Assert.Equal(table_name_output, table_name);  
+&nbsp;&nbsp;&nbsp;&nbsp;Assert.Equal(input_table_header_output, input_table_header);  
+&nbsp;&nbsp;&nbsp;&nbsp;Assert.Equal(output_table_header_output, output_table_header);  
+&nbsp;&nbsp;&nbsp;&nbsp;Assert.Equal(comment_table_header_output, comment_table_header);  
+&nbsp;&nbsp;}  
+<br/>
+&nbsp;&nbsp;public static IEnumerable\<object[]> get_test_data()  
+&nbsp;&nbsp;{  
 &nbsp;&nbsp;&nbsp;&nbsp;var data = new List\<object[]>  
 &nbsp;&nbsp;&nbsp;&nbsp;{  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new object[] { 12, 12.5M, 12.5D, true, "text", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 1  
@@ -102,9 +115,12 @@ It should generate the test data like this:
 &nbsp;&nbsp;&nbsp;&nbsp;};  
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;return data;  
-}](# "$test_data")
+&nbsp;&nbsp;}  
+<br/>
+&nbsp;&nbsp;private partial (string, string, string, string, string) parse_a_decision_table_implementation(string decision_table);  
+}](# "$xunit_test")
 
-| comment:Generate xUnit Tests                              |||
-| #Comment                   | Decision Table  | Test Data? |
-| -------------------------- | --------------- | ---------- |
-| Generate test data         | $decision_table | $test_data |
+| comment:Generate xUnit Tests                                                                    |||
+| #Comment                     | Decision Table  | [Test Data](# "ignore_case\|ignore_all_spaces")? |
+| ---------------------------- | --------------- | ------------------------------------------------ |
+| Generate test data           | $decision_table | $xunit_test                                      |

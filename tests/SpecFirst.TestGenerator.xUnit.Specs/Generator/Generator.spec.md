@@ -51,14 +51,14 @@ The `TestClassNameGenerator` is responsible for converting the table name into t
 
 TODO: should remove any illegal characters
 
-### ClassVariablesGenerator
-The `ClassVariablesGenerator` is responsible for generating the class level member fields.
+### ClassFieldsGenerator
+The `ClassFieldsGenerator` is responsible for generating the fields from decision variables. 
 
-| Generate class variables                                                                          |||
-| #Comment                           | Decision Table Name | Test Class Name?                         |
-| ---------------------------------- | ------------------- | ---------------------------------------- |
-| use snake case for test class name | decision table name | public partial class decision_table_name |
-| ingore cases                       | Decision Table Name | public partial class decision_table_name |
+| Generate class fields                                                                                                                   ||||
+| #Comment                    | Decision Variable Name | Decision Variable Value | Field?                                                    |
+| --------------------------- | ---------------------- | ----------------------- | --------------------------------------------------------- |
+| variable has a value        | variable_1             | variable 1              | private static readonly string variable_1 = "variable 1"; |
+| variable don't have a value | variable_2             | null                        | private static readonly object variable_2;                |
 
 ### TestMethodGenerator
 The `TestMethodGenerator` is responsible for generating the test method with the method name, method parameters.  
