@@ -13,7 +13,7 @@
             var splitValue = column.Value.Split(':');
             if (splitValue.Length > 1)
             {
-                return (TableType)Enum.Parse(typeof(TableType), splitValue[0], true);
+                return (TableType)Enum.Parse(typeof(TableType), splitValue[0].Trim(), true);
             }
             return TableType.Decision;
         }

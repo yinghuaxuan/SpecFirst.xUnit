@@ -1,6 +1,6 @@
 ﻿Decision table is one of the slim tables defined in FitNesse, which "Supplies the inputs and outputs for decisions. This is similar to the Fit Column Fixture". More details can be found on FitNesse website http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.DecisionTable.
 
-In SpecFirst, we use the rules defined in [DecisionTableValidator](DecisionTableValidator.spec.md) to validate whether a table is a decision table.
+In SpecFirst, we use the rules defined in [DecisionTableValidator](Validator\DecisionTableValidator.spec.md) to validate whether a table is a decision table.
 
 ## Table Type
 SpecFirst defines three types of decision tables - decision, setup, and comment.  
@@ -23,7 +23,7 @@ A spec can have multiple setup decision tables in it.
 
 The scope should be defined with a special column named `Scope` in the setup table.  
 If there is no `Scope` column found in the setup table, the table will be run for every table in the spec file.  
-If the setup table is only meant for a particular table or tables, it should specify all the target tables in the column `Target` with a comma separated list.  
+If the setup table is only meant for a particular table or tables, it should specify all the target tables in the column `Target` with a comma separated list of all tables it is targeting.  
 
 ### Comment decision table
 Commented decision tables won't participate in the tests generation.

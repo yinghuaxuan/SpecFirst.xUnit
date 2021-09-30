@@ -11,8 +11,8 @@ Variable defined in the setup decision table will always be of type `object`.
 
 ### Refer to an existing decision variable  
 Decision variables can only be refered to in a decision table:  
-- In a normal decision table and comment decision table, decision variables can be referred to in any type of columns (comment, input and output)
-- In a setup decision table, decision variables can only be referred to in comment and input columns. This is because decision variables in output columns will be interpreted as new variables
+- In a decision table other than Setup decision table, decision variables can be referred to in any type of columns (comment, input and output)
+- In a Setup decision table, decision variables can only be referred to in comment and input columns. This is because decision variables in output columns will be interpreted as new variables
 
 > you can't refer to decision variables outside decision tables!
 
