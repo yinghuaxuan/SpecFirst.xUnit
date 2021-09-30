@@ -6,8 +6,13 @@ The following parsers are used to parse a decision table:
 - Table Header Parser
 - Table Data Parser 
 
-## Table Type, Name, and Header Parser
-Given the following valid decision tables:
+## Table Type and Name Parser
+The table type and name are specified in the first row of the decision table.  
+
+There are three table types and they are defined by the corresponding word prefixed to the table name:
+- decision (this is the default table type if there is no prefix)
+- comment
+- setup
 
 1. Decision table  
 [\<table>  
@@ -29,7 +34,7 @@ Given the following valid decision tables:
 \</table>
 ](# "$decision_table_default")
 
-2. Decision table  
+2. Decision table with 'decision' prefix to table name  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
@@ -111,14 +116,100 @@ Given the following valid decision tables:
 \</table>
 ](# "$setup_decision_table")
 
-| Parse a decision table                                                                                                                                   |||||||
-| #Description                   | Decision Table               | Table Type? | Table Name? | Input Table Header? | Output Table Header? | Comment Table Header? |
-| ------------------------------ | ---------------------------- | ----------- | ----------- | ------------------- | -------------------- | --------------------- |
-| Decision table without prefix  | $decision_table_default      | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Decision table                 | $decision_table              | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Decision table with th headers | $decision_table_with_theader | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Comment decision table         | $comment_decision_table      | Comment     | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Setup decision table           | $setup_decision_table        | Setup       | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Parse a decision table                                                                 ||||
+| #Description                   | Decision Table               | Table Type? | Table Name? |
+| ------------------------------ | ---------------------------- | ----------- | ----------- |
+| Decision table without prefix  | $decision_table_default      | Decision    | Table Name  |
+| Decision table                 | $decision_table              | Decision    | Table Name  |
+| Decision table with th headers | $decision_table_with_theader | Decision    | Table Name  |
+| Comment decision table         | $comment_decision_table      | Comment     | Table Name  |
+| Setup decision table           | $setup_decision_table        | Setup       | Table Name  |
+
+## Table Header Parser
+Table headers are specified in the second row of the decision table.  
+There are three types of table headers:
+- comment table header (prefixed by '#' symbol to the table header name)
+- output table header (suffixed by '?' symbol to the table header name)
+- input table header
+
+Table headers can also contain links in them. These links can be used to pass more information (as in the title of the link) into the parser.   
+For example, the link can specify the following flags for processing strings under the current header:  
+- ignore_case
+- ignore_all_spaces
+- ignore_line_endings
+
+When there are multiple flags, they need to be separated by '|' pipe.  
+
+Flags specified in the comment table headers will be ignored.  
+
+Below defines a couple more decision tables that have links in their headers:  
+6. Decision table with links in headers  
+[\<table>  
+&nbsp;&nbsp;\<thead>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Decision:Table Name \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> #\<a href="#" title="ignore_case" data-href="#">Description</a> \</th>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_all_spaces" data-href="#">Test Header 1</a> \</th>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2</a>? \</th>      
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
+&nbsp;&nbsp;\</thead>  
+&nbsp;&nbsp;\<tbody>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Description \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Table Data 1 \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Table Data 2 \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>    
+&nbsp;&nbsp;\</tbody>  
+\</table>
+](# "$decision_table_with_links_in_headers")
+
+7. Decision table with links in th headers  
+[\<table>  
+&nbsp;&nbsp;\<thead>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Decision:Table Name \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">#Description</a> \</th>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">Test Header 1</a> \</th>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2?</a> \</th>      
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
+&nbsp;&nbsp;\</thead>  
+&nbsp;&nbsp;\<tbody>  
+&nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Description \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Table Data 1 \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Table Data 2 \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;\</tr>    
+&nbsp;&nbsp;\</tbody>  
+\</table>
+](# "$decision_table_with_links_in_th_headers")
+
+| Parse decision table headers                                                                                              |||||
+| #Description                   | Decision Table                           | Input Header?  | Output Header? | Comment Header? |
+| ------------------------------ | ---------------------------------------- | -------------- | -------------- | --------------- |
+| Decision table without prefix  | $decision_table_default                  | Table Header 1 | Table Header 2 | Description     |
+| Decision table                 | $decision_table                          | Table Header 1 | Table Header 2 | Description     |
+| Decision table with th headers | $decision_table_with_theader             | Table Header 1 | Table Header 2 | Description     |
+| Comment decision table         | $comment_decision_table                  | Table Header 1 | Table Header 2 | Description     |
+| Setup decision table           | $setup_decision_table                    | Table Header 1 | Table Header 2 | Description     |
+| Headers with links             | $decision_table_with_links_in_headers    | Table Header 1 | Table Header 2 | Description     |
+| th headers with links          | $decision_table_with_links_in_th_headers | Table Header 1 | Table Header 2 | Description     |
+
+
+| Parse decision table headers with additional info                                                                                                                                              |||||
+| #Description                                      | Decision Table                           | Input Header Info?                   | Output Header Info?                   | Comment Header Info? |
+| ------------------------------------------------- | ---------------------------------------- | ------------------------------------ | ------------------------------------- | -------------------- |
+| Decision table without prefix                     | $decision_table_default                  |                                      |                                       |                      |
+| Decision table                                    | $decision_table                          |                                      |                                       |                      |
+| Decision table with th headers                    | $decision_table_with_theader             |                                      |                                       |                      |
+| Comment decision table                            | $comment_decision_table                  |                                      |                                       |                      |
+| Setup decision table                              | $setup_decision_table                    |                                      |                                       |                      |
+| Headers with links                                | $decision_table_with_links_in_headers    | ["ignore_case", "ignore_all_spaces"] | ["ignore_case", "ignore_line_ending"] |                      |
+| th headers with links                             | $decision_table_with_links_in_th_headers | ["ignore_case"]                      | ["ignore_case", "ignore_line_ending"] |                      |
+
 
 ## Table Data Parser
 Given the following decision table, the Table Data Parser should parse the table data into correct types and values.
@@ -282,7 +373,7 @@ If the decision table has reference to a variable not defined, the parser will i
 ## Setup decision table with variable
 If the decision table is a setup type, it can define new variables in outputs in addition to refer to existing variables in inputs   
 
-In the following setup table, it can still refer to `$variable_1` and `$variable_2` but more importantly it defines two new variables in the output column `$variable_3` and `$variable_4`  
+In the following setup table, it can still refer to `$variable_1` and `$variable_2` but more importantly it defines two new variables in the output column `$variable_3` and `$variable_4`. Variables defined in the setup table are always of type `object`  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
