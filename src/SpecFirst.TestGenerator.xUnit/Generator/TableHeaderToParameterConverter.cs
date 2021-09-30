@@ -32,7 +32,7 @@
 
             parameters.Add(parameter);
 
-            if (!string.IsNullOrEmpty(tableHeader.AdditionalInfo))
+            if (!string.IsNullOrEmpty(tableHeader.Decoration))
             {
                 var infoParameter = new Parameter
                 {
