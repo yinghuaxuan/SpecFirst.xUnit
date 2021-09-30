@@ -1,7 +1,7 @@
-﻿namespace SpecFirst.xUnit.Serialization
-{
-    using System;
+﻿using System;
 
+namespace SpecFirst.Core.Serialization
+{
     public class StringDataSerializer : IPrimitiveDataSerializer
     {
         public string Serialize(object data)

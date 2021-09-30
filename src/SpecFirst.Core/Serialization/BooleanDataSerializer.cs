@@ -1,8 +1,8 @@
-﻿namespace SpecFirst.xUnit.Serialization
-{
-    using System.Diagnostics;
+﻿using System.Diagnostics;
 
-    public class BooleanDataSerializer : IPrimitiveDataSerializer
+namespace SpecFirst.Core.Serialization
+{
+    public class BooleanDataSerializer
     {
         public string Serialize(object data)
         {

@@ -1,10 +1,11 @@
-﻿namespace SpecFirst.Core.Specs.Tests
+﻿using SpecFirst.Core.Serialization;
+
+namespace SpecFirst.Core.Specs.Tests
 {
     using System;
     using System.Linq;
     using System.Text.RegularExpressions;
     using SpecFirst.Core.TypeResolver;
-    using SpecFirst.xUnit.Serialization;
 
     public static class TypeHelper
     {
@@ -35,7 +36,8 @@
             var datetimeSerializer = new DateTimeDataSerializer();
             var booleanSerializer = new BooleanDataSerializer();
             var stringSerializer = new StringDataSerializer();
-            var arraySerializer = new ArrayDataSerializer(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
+            var primitiveDataSerializer = new PrimitiveDataSerializer();
+            var arraySerializer = new ArrayDataSerializer(primitiveDataSerializer);
 
             if (data.GetType().IsArray)
             {
