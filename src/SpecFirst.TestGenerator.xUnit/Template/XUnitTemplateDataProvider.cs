@@ -13,10 +13,11 @@
         private readonly TestDataGenerator _testDataGenerator;
         private readonly TestMethodGenerator _testMethodGenerator;
         private readonly TestClassDeclarationGenerator _testClassDeclarationGenerator;
-        private readonly ClassFieldGenerator _classFieldGenerator;
+        private readonly ClassFieldsGenerator _classFieldGenerator;
         private readonly ImplMethodCallExpressionGenerator _implMethodCallExpressionGenerator;
-        private readonly AssertStatementGenerator _assertStatementGenerator;
+        private readonly AssertStatementsGenerator _assertStatementGenerator;
         private readonly ImplMethodDeclarationGenerator _implMethodDeclarationGenerator;
+        private readonly DecorationMethodDeclarationGenerator _decorationMethodDeclarationGenerator;
 
         public XUnitTemplateDataProvider()
         {
@@ -27,50 +28,56 @@
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             var classNameConverter = new TableNameToClassNameConverter(_namingStrategy);
-            _testMethodGenerator = new TestMethodGenerator(parameterConverter, classNameConverter);
+            _testMethodGenerator = new TestMethodGenerator(parameterConverter);
             _testClassDeclarationGenerator = new TestClassDeclarationGenerator(classNameConverter);
-            _classFieldGenerator = new ClassFieldGenerator(primitiveDataSerializer);
+            _classFieldGenerator = new ClassFieldsGenerator(primitiveDataSerializer);
             _implMethodCallExpressionGenerator = new ImplMethodCallExpressionGenerator(parameterConverter, classNameConverter);
-            _assertStatementGenerator = new AssertStatementGenerator(parameterConverter);
+            _assertStatementGenerator = new AssertStatementsGenerator(parameterConverter);
             _implMethodDeclarationGenerator = new ImplMethodDeclarationGenerator(parameterConverter, classNameConverter);
+            _decorationMethodDeclarationGenerator = new DecorationMethodDeclarationGenerator(parameterConverter);
         }
 
-        public XUnitTemplateData[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
+        public object[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
         {
-            XUnitTemplateData[] templateData = new XUnitTemplateData[decisionTables.Count()];
+            object[] templateData = new object[decisionTables.Count()];
             for (int i = 0; i < decisionTables.Count(); i++)
             {
                 DecisionTable decisionTable = decisionTables.ElementAt(i);
-                XUnitTemplateData singleTemplateData = GetTemplateData(decisionTable);
+                object singleTemplateData = GetTemplateData(decisionTable);
                 templateData[i] = singleTemplateData;
             }
 
             return templateData;
         }
 
-        private XUnitTemplateData GetTemplateData(DecisionTable decisionTable)
+        private object GetTemplateData(DecisionTable decisionTable)
         {
-            var testClass = _testClassDeclarationGenerator.Convert(decisionTable.TableName).Trim('\r', '\n');
+            var testClass = _testClassDeclarationGenerator.Convert(decisionTable.TableName);
             var classVariables =
-                _classFieldGenerator.Convert(decisionTable.DecisionVariables).Trim('\r', '\n');
+                _classFieldGenerator.Convert(decisionTable.DecisionVariables);
             var testMethod = 
-                _testMethodGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
+                _testMethodGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
             var implMethodCallExpression =
-                _implMethodCallExpressionGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
-            var assertStatements = _assertStatementGenerator.Convert(decisionTable.TableHeaders).Trim('\r', '\n');
-            var testData = _testDataGenerator.Convert(decisionTable.TableHeaders, decisionTable.TableData).Trim('\r', '\n');
+                _implMethodCallExpressionGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
+            var assertStatements = _assertStatementGenerator.Convert(decisionTable.TableHeaders);
+            var testData = _testDataGenerator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
             var implMethodDeclaration =
-                _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders).Trim('\r', '\n');
+                _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
+            var decorationMethodDeclaration =
+                _decorationMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
 
-            return new XUnitTemplateData
+            return new
             {
-                test_class = testClass,
-                class_variable = classVariables,
-                test_method = testMethod,
-                impl_method_call_expression = implMethodCallExpression,
-                assert_statement = assertStatements,
-                test_data = testData,
-                impl_method_declaration = implMethodDeclaration
+                testClass.class_name,
+                classVariables.class_variables,
+                testMethod.test_parameters,
+                implMethodCallExpression.impl_return_values,
+                implMethodCallExpression.impl_arguments,
+                assertStatements.assert_statements,
+                testData.test_data_and_comments,
+                implMethodDeclaration.impl_return_types,
+                implMethodDeclaration.impl_input_parameters,
+                decorationMethodDeclaration.decoration_methods
             };
         }
     }

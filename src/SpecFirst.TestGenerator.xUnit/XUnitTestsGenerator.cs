@@ -21,7 +21,7 @@
             SpecFirstSettings settings,
             IEnumerable<DecisionTable> decisionTables)
         {
-            XUnitTemplateData[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
+            object[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
             {
                 namespace_name = settings.TestGeneration.TestProject,
@@ -36,7 +36,14 @@
 
         private string GenerateTestMethods(dynamic data)
         {
-            Handlebars.RegisterTemplate("assert_statement_partial", data.list_of_fixtures.);
+            Handlebars.RegisterTemplate("TEST_METHOD_TEMPLATE", XUnitTemplate.TEST_METHOD_TEMPLATE);
+            Handlebars.RegisterTemplate("ASSERT_STATEMENT_TEMPLATE", XUnitTemplate.ASSERT_STATEMENT_TEMPLATE);
+            Handlebars.RegisterTemplate("TEST_DATA_TEMPLATE", XUnitTemplate.TEST_DATA_TEMPLATE);
+            Handlebars.RegisterTemplate("TEST_NAME_TEMPLATE", XUnitTemplate.TEST_NAME_TEMPLATE);
+            Handlebars.RegisterTemplate("CLASS_VARIABLE_TEMPLATE", XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
+            Handlebars.RegisterTemplate("IMPL_METHOD_CALL_EXPRESSION_TEMPLATE", XUnitTemplate.IMPL_METHOD_CALL_EXPRESSION_TEMPLATE);
+            Handlebars.RegisterTemplate("IMPL_METHOD_TEMPLATE", XUnitTemplate.IMPL_METHOD_TEMPLATE);
+            Handlebars.RegisterTemplate("DECORATION_METHOD_TEMPLATE", XUnitTemplate.DECORATION_METHOD_TEMPLATE);
 
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_TEMPLATE);
 

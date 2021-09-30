@@ -4,11 +4,13 @@
     using System.Collections.Generic;
     using System.Xml.Linq;
     using Core.Serialization;
+    using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionTable.Parser;
     using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.NamingStrategy;
     using SpecFirst.TestGenerator.xUnit.Generator;
+    using Template;
 
     public partial class generate_test_class_name
     {
@@ -16,7 +18,11 @@
         {
             var generator =
                 new TestClassDeclarationGenerator(new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
-            return generator.Convert(decision_table_name).TrimStart('\r', '\n');
+
+            var template = Handlebars.Compile(XUnitTemplate.TEST_NAME_TEMPLATE);
+            var data = generator.Convert(decision_table_name);
+
+            return template(data).Trim();
         }
     }
 
@@ -25,10 +31,14 @@
         private partial string generate_class_fields_implementation(string decision_variable_name, string decision_variable_value)
         {
             var primitiveDataSerializer = new PrimitiveDataSerializer();
-            var generator = new ClassFieldGenerator(primitiveDataSerializer);
+            var generator = new ClassFieldsGenerator(primitiveDataSerializer);
             var decisionVariable =
                 new DecisionVariable(decision_variable_name, string.IsNullOrEmpty(decision_variable_value) ? typeof(object) : typeof(string), decision_variable_value);
-            return generator.Convert(new[] {decisionVariable}).TrimStart('\r', '\n').TrimEnd('\r', '\n');
+
+            var template = Handlebars.Compile(XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
+            var data = generator.Convert(new[] { decisionVariable });
+
+            return template(data).Trim();
         }
     }
 
@@ -42,10 +52,12 @@
             var headers = ParseTableHeaderFromString(decision_table_headers, decision_table_data_types);
 
             var generator = new TestMethodGenerator(
-                new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()),
-                new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
+                new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()));
 
-            return generator.Convert(decision_table_name, headers.ToArray()).TrimStart('\r', '\n');
+            var template = Handlebars.Compile(XUnitTemplate.TEST_METHOD_TEMPLATE);
+            var data = generator.Convert(decision_table_name, headers.ToArray());
+
+            return template(data).Trim();
         }
     }
 
@@ -61,7 +73,10 @@
                 new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()),
                 new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
-            return generator.Convert(decision_table_name, headers.ToArray()).TrimStart('\r', '\n');
+            var template = Handlebars.Compile(XUnitTemplate.IMPL_METHOD_TEMPLATE);
+            var data = generator.Convert(decision_table_name, headers.ToArray());
+
+            return template(data).Trim();
 
         }
     }
@@ -79,7 +94,10 @@
                 new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()),
                 new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
-            return generator.Convert(decision_table_name, headers.ToArray()).TrimStart('\r', '\n').TrimEnd('\r', '\n');
+            var template = Handlebars.Compile(XUnitTemplate.IMPL_METHOD_CALL_EXPRESSION_TEMPLATE);
+            var data = generator.Convert(decision_table_name, headers.ToArray());
+
+            return template(data).Trim();
         }
     }
 
@@ -92,10 +110,13 @@
         {
             var headers = ParseTableHeaderFromString(decision_table_headers, decision_table_data_types);
 
-            var generator = new AssertStatementGenerator(
+            var generator = new AssertStatementsGenerator(
                 new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()));
 
-            return generator.Convert(headers.ToArray()).TrimEnd('\r', '\n').Replace("\r\n", " ");
+            var template = Handlebars.Compile(XUnitTemplate.ASSERT_STATEMENT_TEMPLATE);
+            var data = generator.Convert(headers.ToArray());
+
+            return template(data).Trim();
         }
     }
 
@@ -111,8 +132,10 @@
             var variableSerializer = new TableVariableSerializer();
             var generator = new TestDataGenerator(primitiveDataSerializer, arrayDataSerializer, variableSerializer);
 
-            var data = generator.Convert(decisionTable.TableHeaders, decisionTable.TableData).TrimStart('\r', '\n').TrimEnd('\r', '\n').Replace("\r", "");
-            return data;
+            var template = Handlebars.Compile(XUnitTemplate.TEST_DATA_TEMPLATE);
+            var data = generator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
+            
+            return template(data).TrimStart('\r', '\n').TrimEnd('\r', '\n').Replace("\r", "");
         }
 
         //private partial string pre_process_test_data(string test_data, StringProcessingOptions options)
