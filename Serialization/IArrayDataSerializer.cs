@@ -1,7 +1,7 @@
-﻿namespace SpecFirst.xUnit.Serialization
-{
-    using System;
+﻿using System;
 
+namespace SpecFirst.Core.Serialization
+{
     public interface IArrayDataSerializer
     {
         string Serialize(object data, Type targetType);
