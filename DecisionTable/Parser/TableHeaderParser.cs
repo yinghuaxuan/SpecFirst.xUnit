@@ -1,30 +1,48 @@
-﻿namespace SpecFirst.Core.DecisionTable.Parser
+﻿using System.Linq;
+using System.Xml.Linq;
+
+namespace SpecFirst.Core.DecisionTable.Parser
 {
     using System;
 
     public sealed class TableHeaderParser
     {
-        public TableHeader Parse(string header)
+        public TableHeader Parse(XElement header)
         {
-            ReadOnlySpan<char> headerSpan = header.AsSpan();
+            var headerName = ParseHeaderName(header, out var direction);
+            var additionalInfo = ParseHeaderInfo(header);
+            return new TableHeader(headerName, direction, additionalInfo);
+        }
 
-            TableHeaderType direction;
+        private static string ParseHeaderName(XElement header, out TableHeaderType direction)
+        {
+            ReadOnlySpan<char> headerSpan = header.Value.Trim().AsSpan();
+
+            direction = TableHeaderType.Input;
             if (headerSpan.StartsWith("#".AsSpan()))
             {
-                headerSpan = headerSpan.Slice(1, headerSpan.Length - 1);
                 direction = TableHeaderType.Comment;
+                headerSpan = headerSpan.Slice(1, headerSpan.Length - 1);
             }
             else if (headerSpan.EndsWith("?".AsSpan()))
             {
-                headerSpan = headerSpan.Slice(0, headerSpan.Length - 1);
                 direction = TableHeaderType.Output;
-            }
-            else
-            {
-                direction = TableHeaderType.Input;
+                headerSpan = headerSpan.Slice(0, headerSpan.Length - 1);
             }
 
-            return new TableHeader(headerSpan.ToString(), direction);
+            return headerSpan.ToString();
+        }
+
+        private static string ParseHeaderInfo(XElement header)
+        {
+            var links = header.Descendants("a");
+            if (links.Any())
+            {
+                var link = links.ElementAt(0);
+                return link.Attribute("title")?.Value?.Trim();
+            }
+
+            return null;
         }
     }
 }

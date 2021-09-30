@@ -1,8 +1,8 @@
-﻿namespace SpecFirst.xUnit.Serialization
-{
-    using System;
+﻿using System;
 
-    public class DateTimeDataSerializer : IPrimitiveDataSerializer
+namespace SpecFirst.Core.Serialization
+{
+    public class DateTimeDataSerializer
     {
         public string Serialize(object data)
         {
