@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.TestGeneration
+﻿namespace SpecFirst.TestGenerator.xUnit.Generator
 {
     public class Parameter
     {
