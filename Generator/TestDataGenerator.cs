@@ -5,11 +5,9 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.Serialization;
-    using SpecFirst.TestGenerator.xUnit.Template;
 
     public class TestDataGenerator
     {
@@ -27,16 +25,14 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             _variableSerializer = variableSerializer;
         }
 
-        public string Convert(TableHeader[] tableHeaders, object[,] decisionData)
+        public dynamic Convert(TableHeader[] tableHeaders, object[,] decisionData)
         {
             var testData = BuildTestData(tableHeaders, decisionData);
 
-            Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_DATA_TEMPLATE);
-
-            return compiled(new
+            return new
             {
                 test_data_and_comments = testData.Select(d => new {TestData = d.Item1, Comment = d.Item2})
-            });
+            };
 
         }
 

@@ -1,26 +1,21 @@
 ﻿namespace SpecFirst.TestGenerator.xUnit.Generator
 {
-    using System;
     using System.Linq;
     using Core.Serialization;
-    using HandlebarsDotNet;
     using SpecFirst.Core.DecisionVariable;
-    using SpecFirst.TestGenerator.xUnit.Template;
 
-    public class ClassFieldGenerator
+    public class ClassFieldsGenerator
     {
         private readonly IPrimitiveDataSerializer _primitiveDataSerializer;
 
-        public ClassFieldGenerator(IPrimitiveDataSerializer primitiveDataSerializer)
+        public ClassFieldsGenerator(IPrimitiveDataSerializer primitiveDataSerializer)
         {
             _primitiveDataSerializer = primitiveDataSerializer;
         }
 
-        public string Convert(DecisionVariable[] variables)
+        public dynamic Convert(DecisionVariable[] variables)
         {
-            Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
-
-            return compiled(new
+            return new
             {
                 class_variables = variables.Select(v => new
                 {
@@ -28,7 +23,7 @@
                     VariableName = v.Name,
                     VariableValue = v.Value == null ? null : _primitiveDataSerializer.Serialize(v.Value)
                 })
-            });
+            };
         }
     }
 }
