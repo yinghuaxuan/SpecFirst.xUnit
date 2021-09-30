@@ -18,8 +18,16 @@
         {
             var parameters = tableHeaders.SelectMany(h => _parameterConverter.Convert(h)).Where(p => !p.Name.EndsWith("_decoration"));
             var inputArgumentString = string.Join(", ", parameters.Where(p => p.Direction == ParameterDirection.Input).Select(p => p.Name));
-            var outputTypeString = string.Join(", ", parameters.Where(p => p.Direction == ParameterDirection.Output).Select(p => $"{p.Type} {p.Name}_output"));
-            outputTypeString = outputTypeString == string.Empty ? string.Empty : new string(outputTypeString.Prepend('(').Append(')').ToArray());
+            var outputTypes = parameters.Where(p => p.Direction == ParameterDirection.Output).Select(p => $"{p.Type} {p.Name}_output");
+            string outputTypeString = string.Empty;
+            if (outputTypes.Count() == 1)
+            {
+                outputTypeString = outputTypes.ElementAt(0);
+            }
+            else if (outputTypes.Count() > 1)
+            {
+                outputTypeString = new string(outputTypeString.Prepend('(').Append(')').ToArray());
+            }
 
             return new
             {
