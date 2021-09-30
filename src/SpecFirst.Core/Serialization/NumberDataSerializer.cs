@@ -1,9 +1,9 @@
-﻿namespace SpecFirst.xUnit.Serialization
-{
-    using System;
-    using SpecFirst.Core.TypeResolver;
+﻿using System;
+using SpecFirst.Core.TypeResolver;
 
-    public class NumberDataSerializer : IPrimitiveDataSerializer
+namespace SpecFirst.Core.Serialization
+{
+    public class NumberDataSerializer
     {
         public string Serialize(object data)
         {
