@@ -6,10 +6,12 @@
     public class TestMethodGenerator
     {
         private readonly ITableHeaderToParameterConverter _parameterConverter;
+        private readonly ITableNameToClassNameConverter _classNameConverter;
 
-        public TestMethodGenerator(ITableHeaderToParameterConverter parameterConverter)
+        public TestMethodGenerator(ITableHeaderToParameterConverter parameterConverter, ITableNameToClassNameConverter classNameConverter)
         {
             _parameterConverter = parameterConverter;
+            _classNameConverter = classNameConverter;
         }
 
         public dynamic Convert(string tableName, TableHeader[] tableHeaders)
@@ -19,6 +21,7 @@
 
             return new
             {
+                class_name = _classNameConverter.Convert(tableName),
                 test_parameters = parameterString
             };
         }
