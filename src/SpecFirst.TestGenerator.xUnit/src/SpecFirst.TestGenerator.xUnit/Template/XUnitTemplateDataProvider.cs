@@ -28,7 +28,7 @@
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             var classNameConverter = new TableNameToClassNameConverter(_namingStrategy);
-            _testMethodGenerator = new TestMethodGenerator(parameterConverter);
+            _testMethodGenerator = new TestMethodGenerator(parameterConverter, classNameConverter);
             _testClassDeclarationGenerator = new TestClassDeclarationGenerator(classNameConverter);
             _classFieldGenerator = new ClassFieldsGenerator(primitiveDataSerializer);
             _implMethodCallExpressionGenerator = new ImplMethodCallExpressionGenerator(parameterConverter, classNameConverter);

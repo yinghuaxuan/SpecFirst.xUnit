@@ -52,7 +52,8 @@
             var headers = ParseTableHeaderFromString(decision_table_headers, decision_table_data_types);
 
             var generator = new TestMethodGenerator(
-                new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()));
+                new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()),
+                new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.TEST_METHOD_TEMPLATE);
             var data = generator.Convert(decision_table_name, headers.ToArray());
