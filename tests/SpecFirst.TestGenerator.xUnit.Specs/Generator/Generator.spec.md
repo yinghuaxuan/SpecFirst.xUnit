@@ -58,7 +58,7 @@ The `ClassFieldsGenerator` is responsible for generating the fields from decisio
 | #Comment                    | Decision Variable Name | Decision Variable Value | Field?                                                    |
 | --------------------------- | ---------------------- | ----------------------- | --------------------------------------------------------- |
 | variable has a value        | variable_1             | variable 1              | private static readonly string variable_1 = "variable 1"; |
-| variable don't have a value | variable_2             | null                        | private static readonly object variable_2;                |
+| variable don't have a value | variable_2             | null                    | private static readonly object variable_2;                |
 
 ### TestMethodGenerator
 The `TestMethodGenerator` is responsible for generating the test method with the method name, method parameters.  
@@ -101,14 +101,14 @@ The `ImplMethodCallExpressionGenerator` is responsible for generating the expres
 ### AssertStatementGenerator
 The `AssertStatementGenerator` is responsible for generating the assert statement to compare the expected and actual values.  
 
-| Generate assert statement                                                                                                                                                                                        |||||
-| #Description                        | Decision Table Name | Decision Table Headers                                     | Decision Table Data Types                        | Assert Statement?                        |
-| ----------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------- |
-| It ingores comment columns          | decision table name | ["#Comment","Header 1","Header 2","Header 3?","Header 4?"] | ["string", "int", "string", "decimal", "object"] | Assert.Equal(header_3_output, header_3); |\
-|                                     |                     |                                                            |                                                  | Assert.Equal(header_4_output, header_4); |
-| it is ok not to have input columns  | Decision Table Name | ["#Comment","Header 3?","Header 4?"]                       | ["string", "decimal", "object"]                  | Assert.Equal(header_3_output, header_3); |\
-|                                     |                     |                                                            |                                                  | Assert.Equal(header_4_output, header_4); |
-| it is ok not to have output columns | Decision Table Name | ["#Comment","Header 1","Header 2"]                         | ["string", "int", "string"]                      |                                          |
+| Generate assert statement                                                                                                                                                                                                         |||||
+| #Description                        | Decision Table Name | Decision Table Headers                                     | Decision Table Data Types                        | [Assert Statement](# "ignore_case\|ignore_all_spaces")? |
+| ----------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------- |
+| It ingores comment columns          | decision table name | ["#Comment","Header 1","Header 2","Header 3?","Header 4?"] | ["string", "int", "string", "decimal", "object"] | Assert.Equal(header_3_output, header_3);                  |\
+|                                     |                     |                                                            |                                                  | Assert.Equal(header_4_output, header_4);                  |
+| it is ok not to have input columns  | Decision Table Name | ["#Comment","Header 3?","Header 4?"]                       | ["string", "decimal", "object"]                  | Assert.Equal(header_3_output, header_3);                  |\
+|                                     |                     |                                                            |                                                  | Assert.Equal(header_4_output, header_4);                  |
+| it is ok not to have output columns | Decision Table Name | ["#Comment","Header 1","Header 2"]                         | ["string", "int", "string"]                      |                                                           |
 
 ### TestDataGenerator
 The `TestDataGenerator` is responsible for generating the test data for the testing. It generates a method `get_test_data` and this method is used as an attribute `[MemberData(nameof(get_test_data))]` on the testing method.
@@ -172,7 +172,7 @@ It should generate the test data like this:
 &nbsp;&nbsp;&nbsp;&nbsp;return data;  
 }](# "$test_data")
 
-| comment:Generate test data                              |||
-| #Comment                   | Decision Table  | Test Data? |
-| -------------------------- | --------------- | ---------- |
-| Generate test data         | $decision_table | $test_data |
+| comment:Generate test data                                                                    |||
+| #Comment                   | Decision Table  | [Test Data](# "ignore_case\|ignore_all_spaces")? |
+| -------------------------- | --------------- | ------------------------------------------------ |
+| Generate test data         | $decision_table | $test_data                                       |
