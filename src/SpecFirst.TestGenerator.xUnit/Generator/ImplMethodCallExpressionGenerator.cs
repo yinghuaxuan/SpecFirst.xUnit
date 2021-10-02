@@ -16,7 +16,7 @@
 
         public dynamic Convert(string tableName, TableHeader[] tableHeaders)
         {
-            var parameters = tableHeaders.SelectMany(h => _parameterConverter.Convert(h)).Where(p => !p.Name.EndsWith("_decoration"));
+            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
             var inputArgumentString = string.Join(", ", parameters.Where(p => p.Direction == ParameterDirection.Input).Select(p => p.Name));
             var outputTypes = parameters.Where(p => p.Direction == ParameterDirection.Output).Select(p => $"{p.Type} {p.Name}_output");
             string outputTypeString = string.Empty;
@@ -26,6 +26,7 @@
             }
             else if (outputTypes.Count() > 1)
             {
+                outputTypeString = string.Join(", ", outputTypes);
                 outputTypeString = new string(outputTypeString.Prepend('(').Append(')').ToArray());
             }
 

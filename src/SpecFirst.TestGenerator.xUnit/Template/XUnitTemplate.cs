@@ -23,10 +23,13 @@ namespace {{namespace_name}}
 
     {
         {{> CLASS_VARIABLE_TEMPLATE}}
+
         [Theory]
         [MemberData(nameof(get_test_data))]
         {{> TEST_METHOD_TEMPLATE}}
         {
+            {{> DECORATION_VARIABLE_TEMPLATE}}
+
             {{> IMPL_METHOD_CALL_EXPRESSION_TEMPLATE}}
             {{> ASSERT_STATEMENT_TEMPLATE}}
         }
@@ -81,7 +84,7 @@ namespace {{namespace_name}}
 
         public const string DECORATION_METHOD_TEMPLATE =
 @"        {{#each decoration_methods}}
-        private partial {{this.ReturnType}} {{this.ParameterName}}({{this.InputParameters}});
+        private partial {{this.ReturnType}} {{this.ParameterName}}_implementation({{this.InputParameters}});
         {{/each}}";
 
         public const string CLASS_VARIABLE_TEMPLATE =
@@ -100,14 +103,19 @@ namespace {{namespace_name}}
 ";
 
         public const string IMPL_METHOD_CALL_EXPRESSION_TEMPLATE =
-@"          {{#if impl_return_values}}
+@"            {{#if impl_return_values}}
             {{impl_return_values}} = {{class_name}}_implementation({{impl_arguments}});
             {{else}}
             {{class_name}}_implementation({{impl_arguments}});
             {{/if}}";
 
         public const string ASSERT_STATEMENT_TEMPLATE =
-@"          {{#each assert_statements}}
+@"            {{#each assert_statements}}
+            {{{this}}};
+            {{/each}}";
+
+        public const string DECORATION_VARIABLE_TEMPLATE =
+@"          {{#each decoration_variables}}
             {{{this}}};
             {{/each}}";
 

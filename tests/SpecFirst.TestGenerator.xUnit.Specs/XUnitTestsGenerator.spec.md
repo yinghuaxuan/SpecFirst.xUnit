@@ -51,12 +51,12 @@ with a decision table like below:
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> #Description \</td>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Integer \</td>    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Decimal \</td>   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Double \</td>   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Boolean? \</td>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> <a href="#" title="ignore_case|ignore_all_spaces|ignore_line_ending" data-href="#">string</a>? \</td>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> DateTime? \</td>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Integer Value \</td>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Decimal Value \</td>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Double Value \</td>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Boolean Value? \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> <a href="#" title="ignore_case|ignore_all_spaces|ignore_line_ending" data-href="#">String Value</a>? \</td>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> DateTime Value? \</td>   
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td> Row 1 \</td>  

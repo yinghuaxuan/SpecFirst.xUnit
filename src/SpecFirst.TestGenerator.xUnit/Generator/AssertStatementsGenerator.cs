@@ -14,14 +14,14 @@
 
         public dynamic Convert(TableHeader[] tableHeaders)
         {
-            var parameters = tableHeaders.SelectMany(h => _parameterConverter.Convert(h));
+            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
             var assertStatements = parameters
-                .Where(p => p.Direction == ParameterDirection.Output && !p.Name.EndsWith("_decoration"))
+                .Where(p => p.Direction == ParameterDirection.Output)
                 .Select(p =>
                 {
-                    if (parameters.FirstOrDefault(m => m.Name == $"{p.Name}_decoration") != null)
+                    if (!string.IsNullOrWhiteSpace(p.Decoration))
                     {
-                        return $"Assert.Equal({p.Name}_decoration({p.Name}_output), {p.Name}_decoration({p.Name}))";
+                        return $"Assert.Equal({p.Name}_decoration_implementation({p.Name}_output, {p.Name}_decoration), {p.Name}_decoration_implementation({p.Name}, {p.Name}_decoration))";
                     }
 
                     return $"Assert.Equal({p.Name}_output, {p.Name})";

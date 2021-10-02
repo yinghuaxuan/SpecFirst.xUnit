@@ -15,14 +15,13 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
     
     public partial class generate_xunit_tests
     {
-        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Parse a decision table </td>     </tr>     <tr>       <td> #Description </td>       <td> Integer </td>       <td> Decimal </td>       <td> Double </td>       <td> Boolean? </td>       <td> <a href=\"#\" title=\"ignore_case|ignore_all_spaces|ignore_line_ending\" data-href=\"#\">string</a>? </td>       <td> DateTime? </td>     </tr>     <tr>       <td> Row 1 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 2 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 3 </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Parse a decision table </td>     </tr>     <tr>       <td> #Description </td>       <td> Integer Value </td>       <td> Decimal Value </td>       <td> Double Value </td>       <td> Boolean Value? </td>       <td> <a href=\"#\" title=\"ignore_case|ignore_all_spaces|ignore_line_ending\" data-href=\"#\">String Value</a>? </td>       <td> DateTime Value? </td>     </tr>     <tr>       <td> Row 1 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 2 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 3 </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>   </tbody> </table> ";
         private static readonly string xunit_test = " public partial class parse_a_decision_table {   [Theory]   [MemberData(nameof(get_test_data))]   public void parse_a_decision_table_tests(string decision_table, string table_type, string table_name, string input_table_header, string output_table_header, string comment_table_header)   {     (string table_type_output, string table_name_output, string input_table_header_output, string output_table_header_output, string comment_table_header_output) = parse_a_decision_table_implementation(decision_table);     Assert.Equal(table_type_output, table_type);     Assert.Equal(table_name_output, table_name);     Assert.Equal(input_table_header_output, input_table_header);     Assert.Equal(output_table_header_output, output_table_header);     Assert.Equal(comment_table_header_output, comment_table_header);   } <br/>   public static IEnumerable<object[]> get_test_data()   {     var data = new List<object[]>     {       new object[] { 12, 12.5M, 12.5D, true, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 1       new object[] { 12, 12.5M, 12.5D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 2       new object[] { 12, 12M, 12D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 3     }; <br/>     return data;   } <br/>   private partial (string, string, string, string, string) parse_a_decision_table_implementation(string decision_table); }";
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_xunit_tests_tests(string decision_table, string test_data, string test_data_decoration)
+        public void generate_xunit_tests_tests(string decision_table, string test_data)
         {
-            (string test_data_output) = generate_xunit_tests_implementation(decision_table);
-            Assert.Equal(test_data_decoration(test_data_output), test_data_decoration(test_data));
+            string test_data_output = generate_xunit_tests_implementation(decision_table);
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -35,7 +34,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_xunit_tests_implementation(string decision_table);
+        private partial string generate_xunit_tests_implementation(string decision_table);
 
         private partial string test_data_decoration(string test_data, string test_data_decoration);
     }

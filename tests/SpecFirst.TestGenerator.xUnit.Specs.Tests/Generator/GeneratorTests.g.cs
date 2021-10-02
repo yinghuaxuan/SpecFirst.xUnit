@@ -19,7 +19,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_test_class_name_tests(string decision_table_name, string test_class_name)
         {
-            (string test_class_name_output) = generate_test_class_name_implementation(decision_table_name);
+            string test_class_name_output = generate_test_class_name_implementation(decision_table_name);
             Assert.Equal(test_class_name_output, test_class_name);
         }
 
@@ -34,7 +34,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_test_class_name_implementation(string decision_table_name);
+        private partial string generate_test_class_name_implementation(string decision_table_name);
 
     }
 
@@ -44,7 +44,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_class_fields_tests(string decision_variable_name, string decision_variable_value, string field)
         {
-            (string field_output) = generate_class_fields_implementation(decision_variable_name, decision_variable_value);
+            string field_output = generate_class_fields_implementation(decision_variable_name, decision_variable_value);
             Assert.Equal(field_output, field);
         }
 
@@ -59,7 +59,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_class_fields_implementation(string decision_variable_name, string decision_variable_value);
+        private partial string generate_class_fields_implementation(string decision_variable_name, string decision_variable_value);
 
     }
 
@@ -69,7 +69,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_test_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string test_method)
         {
-            (string test_method_output) = generate_test_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
+            string test_method_output = generate_test_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(test_method_output, test_method);
         }
 
@@ -85,7 +85,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_test_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_test_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
 
     }
 
@@ -95,7 +95,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_implementation_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string implementation_method)
         {
-            (string implementation_method_output) = generate_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
+            string implementation_method_output = generate_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(implementation_method_output, implementation_method);
         }
 
@@ -111,7 +111,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
 
     }
 
@@ -121,7 +121,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_the_expression_to_call_the_implementation_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string expression_for_calling_implementation_method)
         {
-            (string expression_for_calling_implementation_method_output) = generate_the_expression_to_call_the_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
+            string expression_for_calling_implementation_method_output = generate_the_expression_to_call_the_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(expression_for_calling_implementation_method_output, expression_for_calling_implementation_method);
         }
 
@@ -137,7 +137,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_the_expression_to_call_the_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_the_expression_to_call_the_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
 
     }
 
@@ -147,7 +147,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_assert_statement_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string assert_statement)
         {
-            (string assert_statement_output) = generate_assert_statement_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
+            string assert_statement_output = generate_assert_statement_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(assert_statement_output, assert_statement);
         }
 
@@ -163,7 +163,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_assert_statement_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_assert_statement_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
 
     }
 
@@ -175,7 +175,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void generate_test_data_tests(string decision_table, string test_data)
         {
-            (string test_data_output) = generate_test_data_implementation(decision_table);
+            string test_data_output = generate_test_data_implementation(decision_table);
             Assert.Equal(test_data_output, test_data);
         }
 
@@ -189,7 +189,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial (string) generate_test_data_implementation(string decision_table);
+        private partial string generate_test_data_implementation(string decision_table);
 
     }
 
