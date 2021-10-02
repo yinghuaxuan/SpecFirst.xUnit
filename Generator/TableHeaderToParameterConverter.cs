@@ -15,36 +15,18 @@
             _namingStrategy = namingStrategy;
         }
 
-        public IEnumerable<Parameter> Convert(TableHeader tableHeader)
+        public Parameter Convert(TableHeader tableHeader)
         {
-            var parameters = new List<Parameter>();
-
             var sanitizedName = ReplaceIllegalCharacters(tableHeader.Name);
             var parameterName = _namingStrategy.Resolve(sanitizedName);
-            var parameterType = tableHeader.DataType;
 
-            var parameter = new Parameter
+            return new Parameter
             {
-                Type = CSharpTypeAlias.Alias(parameterType),
+                Type = CSharpTypeAlias.Alias(tableHeader.DataType),
                 Name = parameterName,
-                Direction = Map(tableHeader.TableHeaderType)
+                Direction = Map(tableHeader.TableHeaderType),
+                Decoration = tableHeader.Decoration
             };
-
-            parameters.Add(parameter);
-
-            if (!string.IsNullOrEmpty(tableHeader.AdditionalInfo))
-            {
-                var infoParameter = new Parameter
-                {
-                    Type = CSharpTypeAlias.Alias(typeof(string)),
-                    Name = $"{parameterName}_decoration",
-                    Direction = parameter.Direction
-                };
-
-                parameters.Add(infoParameter);
-            }
-
-            return parameters;
         }
 
         private string ReplaceIllegalCharacters(string input)

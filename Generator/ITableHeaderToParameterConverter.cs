@@ -5,6 +5,6 @@
 
     public interface ITableHeaderToParameterConverter
     {
-        IEnumerable<Parameter> Convert(TableHeader tableHeader);
+        Parameter Convert(TableHeader tableHeader);
     }
 }

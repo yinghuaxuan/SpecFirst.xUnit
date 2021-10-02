@@ -3,11 +3,11 @@
     using System.Linq;
     using SpecFirst.Core.DecisionTable;
 
-    public class DecorationMethodDeclarationGenerator
+    public class DecorationVariablesGenerator
     {
         private readonly ITableHeaderToParameterConverter _parameterConverter;
 
-        public DecorationMethodDeclarationGenerator(ITableHeaderToParameterConverter parameterConverter)
+        public DecorationVariablesGenerator(ITableHeaderToParameterConverter parameterConverter)
         {
             _parameterConverter = parameterConverter;
         }
@@ -15,15 +15,11 @@
         public dynamic Convert(TableHeader[] tableHeaders)
         {
             var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h)).Where(p => !string.IsNullOrWhiteSpace(p.Decoration));
-
+            var decorationVariables = parameters.Select(p => $"string {p.Name}_decoration = \"{p.Decoration}\"");
+            
             return new
             {
-                decoration_methods = parameters.Select(p => new
-                {
-                    ReturnType = p.Type,
-                    ParameterName = $"{ p.Name}_decoration",
-                    InputParameters = $"{p.Type} {p.Name}, string {p.Name}_decoration"
-                })
+                decoration_variables = decorationVariables
             };
         }
     }
