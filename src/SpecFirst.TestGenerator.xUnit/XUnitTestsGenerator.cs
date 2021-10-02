@@ -44,6 +44,8 @@
             Handlebars.RegisterTemplate("IMPL_METHOD_CALL_EXPRESSION_TEMPLATE", XUnitTemplate.IMPL_METHOD_CALL_EXPRESSION_TEMPLATE);
             Handlebars.RegisterTemplate("IMPL_METHOD_TEMPLATE", XUnitTemplate.IMPL_METHOD_TEMPLATE);
             Handlebars.RegisterTemplate("DECORATION_METHOD_TEMPLATE", XUnitTemplate.DECORATION_METHOD_TEMPLATE);
+            Handlebars.RegisterTemplate("CLASS_VARIABLE_TEMPLATE", XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
+            Handlebars.RegisterTemplate("DECORATION_VARIABLE_TEMPLATE", XUnitTemplate.DECORATION_VARIABLE_TEMPLATE);
 
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_TEMPLATE);
 

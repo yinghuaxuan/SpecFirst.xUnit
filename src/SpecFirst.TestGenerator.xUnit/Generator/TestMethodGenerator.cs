@@ -16,7 +16,7 @@
 
         public dynamic Convert(string tableName, TableHeader[] tableHeaders)
         {
-            var parameters = tableHeaders.SelectMany(h => _parameterConverter.Convert(h));
+            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
             var parameterString = string.Join(", ", parameters.Where(p => p.Direction != ParameterDirection.Comment).Select(p => p));
 
             return new
