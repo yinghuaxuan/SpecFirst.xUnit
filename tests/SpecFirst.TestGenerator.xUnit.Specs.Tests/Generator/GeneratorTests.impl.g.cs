@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Xml.Linq;
     using Core.Serialization;
+    using Core.Utils;
     using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionTable.Parser;
@@ -119,6 +120,23 @@
 
             return template(data).Trim();
         }
+
+        private partial string assert_statement_decoration_implementation(
+            string assert_statement,
+            string assert_statement_decoration)
+        {
+            var options = default(StringProcessingOptions);
+            if (assert_statement_decoration.Contains("ignore_all_spaces"))
+            {
+                options = options | StringProcessingOptions.IgnoreAllSpaces;
+            }
+            if (assert_statement_decoration.Contains("ignore_case"))
+            {
+                options = options | StringProcessingOptions.IgnoreCase;
+            }
+            assert_statement = assert_statement.Normalize(options);
+            return assert_statement;
+        }
     }
 
     public partial class generate_test_data
@@ -139,10 +157,21 @@
             return template(data).TrimStart('\r', '\n').TrimEnd('\r', '\n').Replace("\r", "");
         }
 
-        //private partial string pre_process_test_data(string test_data, StringProcessingOptions options)
-        //{
-        //    return test_data.Normalize(options);
-        //}
+        private partial string test_data_decoration_implementation(string test_data, string test_data_decoration)
+        {
+            var options = default(StringProcessingOptions);
+            if (test_data_decoration.Contains("ignore_all_spaces"))
+            {
+                options = options | StringProcessingOptions.IgnoreAllSpaces;
+            }
+            if (test_data_decoration.Contains("ignore_case"))
+            {
+                options = options | StringProcessingOptions.IgnoreCase;
+            }
+            test_data = test_data.Normalize(options);
+            test_data = test_data.Replace(@"<BR/>", string.Empty);
+            return test_data;
+        }
     }
 
     public class generator_base
