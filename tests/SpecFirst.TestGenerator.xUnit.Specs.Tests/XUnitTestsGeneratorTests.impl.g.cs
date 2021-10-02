@@ -17,9 +17,9 @@
             return sources.ElementAt(0);
         }
 
-        //private partial string pre_process_test_data(string test_data, StringProcessingOptions options)
-        //{
-        //    return test_data.Normalize(options);
-        //}
+        private partial string test_data_decoration(string test_data, string test_data_decoration)
+        {
+            return test_data.Normalize();
+        }
     }
 }

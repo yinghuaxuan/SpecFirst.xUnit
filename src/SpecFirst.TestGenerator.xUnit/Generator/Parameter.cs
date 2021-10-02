@@ -5,6 +5,7 @@
         public string Type { get; set; }
         public string Name { get; set; }
         public ParameterDirection Direction { get; set; }
+        public string Decoration { get; set; }
         public override string ToString()
         {
             return $"{Type} {Name}";

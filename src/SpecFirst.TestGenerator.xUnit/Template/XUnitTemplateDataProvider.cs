@@ -18,6 +18,7 @@
         private readonly AssertStatementsGenerator _assertStatementGenerator;
         private readonly ImplMethodDeclarationGenerator _implMethodDeclarationGenerator;
         private readonly DecorationMethodDeclarationGenerator _decorationMethodDeclarationGenerator;
+        private readonly DecorationVariablesGenerator _decorationVariablesGenerator;
 
         public XUnitTemplateDataProvider()
         {
@@ -35,6 +36,7 @@
             _assertStatementGenerator = new AssertStatementsGenerator(parameterConverter);
             _implMethodDeclarationGenerator = new ImplMethodDeclarationGenerator(parameterConverter, classNameConverter);
             _decorationMethodDeclarationGenerator = new DecorationMethodDeclarationGenerator(parameterConverter);
+            _decorationVariablesGenerator = new DecorationVariablesGenerator(parameterConverter);
         }
 
         public object[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
@@ -64,7 +66,8 @@
             var implMethodDeclaration =
                 _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
             var decorationMethodDeclaration =
-                _decorationMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
+                _decorationMethodDeclarationGenerator.Convert(decisionTable.TableHeaders);
+            var decorationVariables = _decorationVariablesGenerator.Convert(decisionTable.TableHeaders);
 
             return new
             {
@@ -77,7 +80,8 @@
                 testData.test_data_and_comments,
                 implMethodDeclaration.impl_return_types,
                 implMethodDeclaration.impl_input_parameters,
-                decorationMethodDeclaration.decoration_methods
+                decorationMethodDeclaration.decoration_methods,
+                decorationVariables.decoration_variables
             };
         }
     }
