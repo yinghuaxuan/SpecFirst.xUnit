@@ -82,6 +82,7 @@
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\ClassFieldsGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\ClassFieldsGenerator.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\CSharpTypeAlias.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\CSharpTypeAlias.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\DecorationMethodDeclarationGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\DecorationMethodDeclarationGenerator.cs" />
+    <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\DecorationVariablesGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\DecorationVariablesGenerator.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\ImplMethodCallExpressionGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\ImplMethodCallExpressionGenerator.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\ImplMethodDeclarationGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\ImplMethodDeclarationGenerator.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\ITableHeaderToParameterConverter.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\ITableHeaderToParameterConverter.cs" />
