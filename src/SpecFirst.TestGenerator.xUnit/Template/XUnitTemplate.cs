@@ -20,25 +20,20 @@ namespace {{namespace_name}}
     
     {{#each list_of_fixtures}}
     {{> TEST_NAME_TEMPLATE}}
-
     {
         {{> CLASS_VARIABLE_TEMPLATE}}
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         {{> TEST_METHOD_TEMPLATE}}
         {
             {{> DECORATION_VARIABLE_TEMPLATE}}
-
             {{> IMPL_METHOD_CALL_EXPRESSION_TEMPLATE}}
             {{> ASSERT_STATEMENT_TEMPLATE}}
         }
 
         {{> TEST_DATA_TEMPLATE}}
 
-
         {{> IMPL_METHOD_TEMPLATE}}
-
 
         {{> DECORATION_METHOD_TEMPLATE}}
     }
@@ -77,15 +72,18 @@ namespace {{namespace_name}}
             };
 
             return data;
-        }";
+        }
+";
 
         public const string IMPL_METHOD_TEMPLATE =
-@"        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input_parameters}});";
+@"        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input_parameters}});
+";
 
         public const string DECORATION_METHOD_TEMPLATE =
 @"        {{#each decoration_methods}}
         private partial {{this.ReturnType}} {{this.ParameterName}}_implementation({{this.InputParameters}});
-        {{/each}}";
+        {{/each}}
+";
 
         public const string CLASS_VARIABLE_TEMPLATE =
 @"        {{#if class_variables}}
@@ -96,6 +94,8 @@ namespace {{namespace_name}}
         private static readonly {{this.VariableType}} {{this.VariableName}};
         {{/if}}
         {{/each}}
+
+
         {{/if}}";
 
         public const string TEST_METHOD_TEMPLATE =
@@ -117,9 +117,12 @@ namespace {{namespace_name}}
         public const string DECORATION_VARIABLE_TEMPLATE =
 @"          {{#each decoration_variables}}
             {{{this}}};
-            {{/each}}";
+            {{/each}}
+
+";
 
         public const string TEST_NAME_TEMPLATE = 
-@"    public partial class {{class_name}}";
+@"    public partial class {{class_name}}
+";
     }
 }
