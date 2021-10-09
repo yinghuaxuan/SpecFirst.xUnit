@@ -4,8 +4,13 @@
 
     public static class TypeResolver
     {
-        public static Type Resolve(string value, out object parsedValue)
+        public static Type? Resolve(string? value, out object? parsedValue)
         {
+            parsedValue = value;
+            if (value == null)
+            {
+                return null;
+            }
             if (string.IsNullOrWhiteSpace(value))
             {
                 parsedValue = value;

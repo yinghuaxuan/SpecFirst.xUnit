@@ -28,14 +28,14 @@
             var tableType = _tableTypeParser.Parse(table);
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
-            object[,] tableData = _tableDataParser.Parse(table, out Type[,] dataTypes);
+            object?[,] tableData = _tableDataParser.Parse(table, out Type?[,] dataTypes);
             var variables = ParseDecisionVariables(tableData, tableType, tableHeaders, decisionVariables.ToList());
             ReplaceDataTypesWithRealVariableTypes(dataTypes, tableData, variables);
             UpdateColumnTypesFromData(tableHeaders, dataTypes);
             return new DecisionTable(tableType, tableName, tableHeaders, tableData, variables);
         }
 
-        private void ReplaceDataTypesWithRealVariableTypes(Type[,] dataTypes, object[,] tableData, DecisionVariable[] variables)
+        private void ReplaceDataTypesWithRealVariableTypes(Type?[,] dataTypes, object?[,] tableData, DecisionVariable[] variables)
         {
             for (int i = 0; i < tableData.GetLength(0); i++)
             {
@@ -50,7 +50,7 @@
             }
         }
 
-        private static void UpdateColumnTypesFromData(TableHeader[] headers, Type[,] dataTypes)
+        private static void UpdateColumnTypesFromData(TableHeader[] headers, Type?[,] dataTypes)
         {
             var types = ResolveColumnTypes(dataTypes);
             for (int i = 0; i < headers.Count(); i++)
@@ -59,7 +59,7 @@
             }
         }
 
-        private static Type[] ResolveColumnTypes(Type[,] dataTypes)
+        private static Type[] ResolveColumnTypes(Type?[,] dataTypes)
         {
             var columns = dataTypes.GetLength(1);
             var columnTypes = new Type[columns];
@@ -71,19 +71,19 @@
             return columnTypes;
         }
 
-        private static Type[] ExtractColumnTypes(Type[,] dataTypes, int column)
+        private static Type?[] ExtractColumnTypes(Type?[,] dataTypes, int column)
         {
             var rows = dataTypes.GetLength(0);
-            var array = new Type[rows];
+            var types = new Type?[rows];
             for (int i = 0; i < rows; ++i)
             {
-                array[i] = dataTypes[i, column];
+                types[i] = dataTypes[i, column];
             }
-            return array;
+            return types;
         }
 
         private static DecisionVariable[] ParseDecisionVariables(
-            object[,] tableData,
+            object?[,] tableData,
             TableType tableType,
             TableHeader[] tableHeaders,
             IList<DecisionVariable> definedVariables)
@@ -134,7 +134,7 @@
             }
         }
 
-        private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object[,] tableData, TableHeader[] tableHeaders)
+        private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object?[,] tableData, TableHeader[] tableHeaders)
         {
             var variables = new Dictionary<string, DecisionVariable>();
 
