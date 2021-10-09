@@ -6,6 +6,12 @@ The following parsers are used to parse a decision table:
 - Table Header Parser
 - Table Data Parser 
 
+The following parsers are used to parse a decision table:
+- Table Type Parser
+- Table Name Parser
+- Table Header Parser
+- Table Data Parser 
+
 ## Table Type and Name Parser
 The table type and name are specified in the first row of the decision table.  
 
@@ -210,6 +216,15 @@ Below defines a couple more decision tables that have links in their headers:
 | Headers with links                                | $decision_table_with_links_in_headers    | ["ignore_case", "ignore_all_spaces"] | ["ignore_case", "ignore_line_ending"] |                      |
 | th headers with links                             | $decision_table_with_links_in_th_headers | ["ignore_case"]                      | ["ignore_case", "ignore_line_ending"] |                      |
 
+=======
+| Parse a decision table                                                                                                                                   |||||||
+| #Description                   | Decision Table               | Table Type? | Table Name? | Input Table Header? | Output Table Header? | Comment Table Header? |
+| ------------------------------ | ---------------------------- | ----------- | ----------- | ------------------- | -------------------- | --------------------- |
+| Decision table without prefix  | $decision_table_default      | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Decision table                 | $decision_table              | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Decision table with th headers | $decision_table_with_theader | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Comment decision table         | $comment_decision_table      | Comment     | Table Name  | Table Header 1      | Table Header 2       | Description           |
+| Setup decision table           | $setup_decision_table        | Setup       | Table Name  | Table Header 1      | Table Header 2       | Description           |
 
 ## Table Data Parser
 Given the following decision table, the Table Data Parser should parse the table data into correct types and values.
