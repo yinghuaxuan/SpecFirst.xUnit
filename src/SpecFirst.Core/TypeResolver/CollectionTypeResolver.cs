@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Utils;
 
     public static class CollectionTypeResolver
     {
@@ -12,14 +13,14 @@
         /// </summary>
         /// <param name="types">An array of types.</param>
         /// <returns>The most compatible type of all types.</returns>
-        public static Type Resolve(Type[] types)
+        public static Type Resolve(Type?[] types)
         {
-            bool isArrayType = types.All(t => t.IsArray);
+            bool isArrayType = types.Where(t => t != null).All(t => t.IsArray);
 
             return ResolveType(types, isArrayType);
         }
 
-        private static Type ResolveType(Type[] types, bool isArrayType)
+        private static Type ResolveType(Type?[] types, bool isArrayType)
         {
             var hintType = types[0];
             for (int i = 1; i < types.Length; i++)
@@ -30,24 +31,32 @@
                 }
             }
 
-            return hintType;
+            return hintType ?? typeof(object);
 
-            Type FindMostCompatibleType(Type type1, Type type2)
+            Type? FindMostCompatibleType(Type? type1, Type? type2)
             {
+                if (type1 == null && type2 == null) return null;
+                if (type1 == null && type2 != null) return type2.ConvertToNullable();
+                if (type1 != null && type2 == null) return type1.ConvertToNullable();
+
+                bool isNullable = type1.IsNullable() || type2.IsNullable();
+                type1 = type1.GetUnderlyingType();
+                type2 = type2.GetUnderlyingType();
+
                 if (type1 == typeof(IntType) && type2 == typeof(DoubleType) || type2 == typeof(IntType) && type1 == typeof(DoubleType))
                 {
-                    return typeof(DoubleType);
+                    return isNullable ? typeof(DoubleType).ConvertToNullable() : typeof(DoubleType);
                 }
 
                 if (type1 == typeof(IntType) && type2 == typeof(DecimalType) || type2 == typeof(IntType) && type1 == typeof(DecimalType))
                 {
-                    return typeof(DecimalType);
+                    return isNullable ? typeof(DecimalType).ConvertToNullable() : typeof(DecimalType);
                 }
 
-                return typeof(object);
+                return isNullable ? typeof(object).ConvertToNullable() : typeof(object);
             }
 
-            Type FindMostCompatibleArrayType(Type type1, Type type2)
+            Type FindMostCompatibleArrayType(Type? type1, Type? type2)
             {
                 if (type1 == typeof(IntType[]) && type2 == typeof(DoubleType[]) || type2 == typeof(IntType[]) && type1 == typeof(DoubleType[]))
                 {
