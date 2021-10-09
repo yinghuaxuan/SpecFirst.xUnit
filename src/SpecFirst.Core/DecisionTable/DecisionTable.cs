@@ -8,7 +8,7 @@
             TableType tableType,
             string tableName,
             TableHeader[] tableHeaders,
-            object[,] tableData,
+            object?[,] tableData,
             DecisionVariable[]? decisionVariables = null)
         {
             TableType = tableType;
@@ -21,7 +21,7 @@
         public TableType TableType { get; }
         public string TableName { get; }
         public TableHeader[] TableHeaders { get; }
-        public object[,] TableData { get; }
+        public object?[,] TableData { get; }
         public DecisionVariable[]? DecisionVariables { get; }
     }
 }

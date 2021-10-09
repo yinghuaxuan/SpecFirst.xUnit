@@ -9,14 +9,14 @@
 
     public sealed class TableDataParser
     {
-        public object[,] Parse(XElement decisionTable, out Type[,] dataTypes)
+        public object?[,] Parse(XElement decisionTable, out Type?[,] dataTypes)
         {
             IEnumerable<XElement> rows = decisionTable.Descendants("tr");
             XElement[] dataRows = rows.Skip(2).ToArray();
             string[,] data = GetDecisionData(dataRows);
 
-            dataTypes = new Type[data.GetLength(0), data.GetLength(1)];
-            object[,] values = new object[data.GetLength(0), data.GetLength(1)];
+            dataTypes = new Type?[data.GetLength(0), data.GetLength(1)];
+            object?[,] values = new object?[data.GetLength(0), data.GetLength(1)];
 
             for (int i = 0; i < data.GetLength(0); i++)
             {
@@ -29,7 +29,7 @@
                     }
                     else
                     {
-                        Type type = TypeResolver.Resolve(data[i, j], out object value);
+                        Type? type = TypeResolver.Resolve(data[i, j], out object? value);
                         dataTypes[i, j] = type;
                         values[i, j] = value;
                     }
@@ -41,6 +41,7 @@
 
         private static string[,] GetDecisionData(XElement[] dataRows)
         {
+            ITableDataNormalizer[] normalizers = {new ExcessiveSpaceNormalizer(), new EmptyToNullNormalizer()};
             int numberOfColumns = dataRows.First().Descendants("td").Count();
             string[,] data = new string[dataRows.Length, numberOfColumns];
             for (int i = 0; i < dataRows.Length; i++)
@@ -48,11 +49,34 @@
                 IEnumerable<XElement> columns = dataRows.ElementAt(i).Descendants("td").ToArray();
                 for (int j = 0; j < numberOfColumns; j++)
                 {
-                    data[i, j] = columns.ElementAt(j).Value.Trim();
+                    var value = columns.ElementAt(j).Value;
+                    foreach (var n in normalizers) n.Normalize(ref value);
+                    data[i, j] = value;
                 }
             }
 
             return data;
+        }
+    }
+
+    public interface ITableDataNormalizer
+    {
+        void Normalize(ref string value);
+    }
+
+    public class ExcessiveSpaceNormalizer : ITableDataNormalizer
+    {
+        public void Normalize(ref string value)
+        {
+            value = value.Trim();
+        }
+    }
+
+    public class EmptyToNullNormalizer : ITableDataNormalizer
+    {
+        public void Normalize(ref string value)
+        {
+            value = string.IsNullOrEmpty(value) ? null : value;
         }
     }
 }
