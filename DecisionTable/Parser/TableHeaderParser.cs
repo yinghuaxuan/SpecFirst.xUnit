@@ -10,7 +10,7 @@ namespace SpecFirst.Core.DecisionTable.Parser
         public TableHeader Parse(XElement header)
         {
             var headerName = ParseHeaderName(header, out var direction);
-            var decoration = ParseHeaderDecoration(header);
+            var decoration = ParseHeaderDecoration(header, direction);
             return new TableHeader(headerName, direction, decoration);
         }
 
@@ -33,8 +33,11 @@ namespace SpecFirst.Core.DecisionTable.Parser
             return headerSpan.ToString();
         }
 
-        private static string ParseHeaderDecoration(XElement header)
+        private static string? ParseHeaderDecoration(XElement header, TableHeaderType tableHeaderType)
         {
+            if (tableHeaderType == TableHeaderType.Comment)
+                return null;
+
             var links = header.Descendants("a");
             if (links.Any())
             {
