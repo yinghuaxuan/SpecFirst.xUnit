@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace SpecFirst.Core.Serialization
+﻿namespace SpecFirst.Core.Serialization
 {
-    public class StringDataSerializer : IPrimitiveDataSerializer
+    using System;
+    using Utils;
+
+    public class StringDataSerializer
     {
         public string Serialize(object data)
         {
@@ -34,23 +35,6 @@ namespace SpecFirst.Core.Serialization
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"")
                 ;
-        }
-    }
-
-    public static class StringExtension
-    {
-        public static string TrimFirst(this string source, string trim)
-        {
-            int place = source.IndexOf(trim, StringComparison.Ordinal);
-            string result = source.Remove(place, trim.Length);
-            return result;
-        }
-
-        public static string TrimLast(this string source, string trim)
-        {
-            int place = source.LastIndexOf(trim, StringComparison.Ordinal);
-            string result = source.Remove(place, trim.Length);
-            return result;
         }
     }
 }
