@@ -37,6 +37,16 @@
                 {typeof(DecimalType), "decimal"},
                 {typeof(bool), "bool"},
                 {typeof(DateTime), "DateTime"},
+                {typeof(object[]), "object[]"},
+                {typeof(string[]), "string[]"},
+                {typeof(int[]), "int[]"},
+                {typeof(IntType[]), "int[]"},
+                {typeof(double[]), "double[]"},
+                {typeof(DoubleType[]), "double[]"},
+                {typeof(decimal[]), "decimal[]"},
+                {typeof(DecimalType[]), "decimal[]"},
+                {typeof(bool[]), "bool[]"},
+                {typeof(DateTime[]), "DateTime[]"},
             };
         }
     }
