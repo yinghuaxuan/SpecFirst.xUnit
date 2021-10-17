@@ -12,13 +12,8 @@ The following parsers are used to parse a decision table:
 - Table Header Parser
 - Table Data Parser 
 
-## Table Type and Name Parser
-The table type and name are specified in the first row of the decision table.  
-
-There are three table types and they are defined by the corresponding word prefixed to the table name:
-- decision (this is the default table type if there is no prefix)
-- comment
-- setup
+## A few sample decision tables
+We create a few sample decision tables in HTML that are going to be used for testing all the parsers.
 
 1. Decision table  
 [\<table>  
@@ -122,6 +117,14 @@ There are three table types and they are defined by the corresponding word prefi
 \</table>
 ](# "$setup_decision_table")
 
+## Table Type and Name Parser
+The table type and name are specified in the first row of the decision table.  
+
+There are three table types and they are defined by the corresponding word prefixed to the table name:
+- decision (this is the default table type if there is no prefix; the word 'decision' is case insensitive)
+- comment (table name prefixed by word 'comment'; case insensitive)
+- setup (table name prefixed by word 'setup'; case insensitive)
+
 | Parse a decision table                                                                 ||||
 | #Description                   | Decision Table               | Table Type? | Table Name? |
 | ------------------------------ | ---------------------------- | ----------- | ----------- |
@@ -138,8 +141,8 @@ There are three types of table headers:
 - output table header (suffixed by '?' symbol to the table header name)
 - input table header
 
-Table headers can also contain links in them. These links can be used to pass more information (as in the title of the link) into the parser.   
-For example, the link can specify the following flags for processing strings under the current header:  
+Table headers can be decorated with additional information in them (in the format of links). These decorations are used to pass more information (as in the title of the link) into the parser.   
+For example, a header can specify one or more flags to say that cases or spaces or line endings should be ignroed when processing data for the header/column:  
 - ignore_case
 - ignore_all_spaces
 - ignore_line_endings
@@ -148,7 +151,7 @@ When there are multiple flags, they need to be separated by '|' pipe.
 
 Flags specified in the comment table headers will be ignored.  
 
-Below defines a couple more decision tables that have links in their headers:  
+Below defines a couple more decision tables with headers decorated with more information:  
 6. Decision table with links in headers  
 [\<table>  
 &nbsp;&nbsp;\<thead>  
@@ -156,9 +159,9 @@ Below defines a couple more decision tables that have links in their headers:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Decision:Table Name \</td>    
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> #\<a href="#" title="ignore_case" data-href="#">Description</a> \</th>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_all_spaces" data-href="#">Test Header 1</a> \</th>    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2</a>? \</th>      
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> #\<a href="#" title="ignore_case" data-href="#">Description<\/a> \</th>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_all_spaces" data-href="#">Table Header 1<\/a> \</th>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2<\/a>? \</th>      
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;\</thead>  
 &nbsp;&nbsp;\<tbody>  
@@ -178,9 +181,9 @@ Below defines a couple more decision tables that have links in their headers:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<td colspan="3"> Decision:Table Name \</td>    
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">#Description</a> \</th>  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">Test Header 1</a> \</th>    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2?</a> \</th>      
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">#Description<\/a> \</th>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case" data-href="#">Table Header 1<\/a> \</th>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<th> \<a href="#" title="ignore_case|ignore_line_ending" data-href="#">Table Header 2?<\/a> \</th>      
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>  
 &nbsp;&nbsp;\</thead>  
 &nbsp;&nbsp;\<tbody>  
@@ -215,16 +218,6 @@ Below defines a couple more decision tables that have links in their headers:
 | Setup decision table                              | $setup_decision_table                    |                                      |                                       |                      |
 | Headers with links                                | $decision_table_with_links_in_headers    | ["ignore_case", "ignore_all_spaces"] | ["ignore_case", "ignore_line_ending"] |                      |
 | th headers with links                             | $decision_table_with_links_in_th_headers | ["ignore_case"]                      | ["ignore_case", "ignore_line_ending"] |                      |
-
-=======
-| Parse a decision table                                                                                                                                   |||||||
-| #Description                   | Decision Table               | Table Type? | Table Name? | Input Table Header? | Output Table Header? | Comment Table Header? |
-| ------------------------------ | ---------------------------- | ----------- | ----------- | ------------------- | -------------------- | --------------------- |
-| Decision table without prefix  | $decision_table_default      | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Decision table                 | $decision_table              | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Decision table with th headers | $decision_table_with_theader | Decision    | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Comment decision table         | $comment_decision_table      | Comment     | Table Name  | Table Header 1      | Table Header 2       | Description           |
-| Setup decision table           | $setup_decision_table        | Setup       | Table Name  | Table Header 1      | Table Header 2       | Description           |
 
 ## Table Data Parser
 Given the following decision table, the Table Data Parser should parse the table data into correct types and values.

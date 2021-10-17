@@ -1,5 +1,7 @@
 ﻿namespace SpecFirst.Core.Utils
 {
+    using System;
+
     public static class StringExtensions
     {
         public static string Normalize(this string str, StringProcessingOptions options)
@@ -76,6 +78,20 @@
             }
 
             return new string(src, 0, dstIdx);
+        }
+
+        public static string TrimFirst(this string source, string trim)
+        {
+            int place = source.IndexOf(trim, StringComparison.Ordinal);
+            string result = source.Remove(place, trim.Length);
+            return result;
+        }
+
+        public static string TrimLast(this string source, string trim)
+        {
+            int place = source.LastIndexOf(trim, StringComparison.Ordinal);
+            string result = source.Remove(place, trim.Length);
+            return result;
         }
     }
 }
