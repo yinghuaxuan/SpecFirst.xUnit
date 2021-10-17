@@ -12,16 +12,42 @@ namespace SpecFirst.Core.Specs.Tests
 
     public partial class parse_a_decision_table
     {
-        private partial (string, string, string, string, string) parse_a_decision_table_implementation(string decision_table)
+        private partial (string, string) parse_a_decision_table_implementation(string decision_table)
         {
             DecisionTableParser parser = new DecisionTableParser();
             var decisionTable = parser.Parse(XElement.Parse(decision_table), new List<DecisionVariable>());
             return
                 (decisionTable.TableType.ToString(),
-                decisionTable.TableName,
-                string.Join(",", decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Input).Select(h => h.Name)),
+                decisionTable.TableName);
+        }
+    }
+
+    public partial class parse_decision_table_headers
+    {
+        private partial (string, string, string) parse_decision_table_headers_implementation(string decision_table)
+        {
+            DecisionTableParser parser = new DecisionTableParser();
+            var decisionTable = parser.Parse(XElement.Parse(decision_table), new List<DecisionVariable>());
+            return
+                (string.Join(",", decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Input).Select(h => h.Name)),
                 string.Join(",", decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Output).Select(h => h.Name)),
                 string.Join(",", decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Comment).Select(h => h.Name)));
+        }
+    }
+
+    public partial class parse_decision_table_headers_with_additional_info
+    {
+        private partial (Object[], Object[], object) parse_decision_table_headers_with_additional_info_implementation(string decision_table)
+        {
+            DecisionTableParser parser = new DecisionTableParser();
+            var decisionTable = parser.Parse(XElement.Parse(decision_table), new List<DecisionVariable>());
+            var inputDecoration = decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Input).ElementAt(0).Decoration;
+            var outputDecoration = decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Output).ElementAt(0).Decoration;
+            var commentDecoration = decisionTable.TableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Comment).ElementAt(0).Decoration;
+            return
+                (inputDecoration == null ? (Object[])null : inputDecoration.Split('|').Cast<object>().ToArray(),
+                outputDecoration == null ? (Object[])null : outputDecoration.Split('|').Cast<object>().ToArray(),
+                commentDecoration == null ? (Object[])null : commentDecoration.Split('|').Cast<object>().ToArray());
         }
     }
 
