@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Description>The source generator to auto generate tests in xUnit from decision tables written in markdown files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-rc.32</Version>
+    <Version>1.1.0-rc.9</Version>
     <Company></Company>
     <Product>SpecFirst.xUnit</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -77,6 +77,9 @@
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\PrimitiveTypeResolver.cs" Link="SpecFirst.Core\TypeResolver\PrimitiveTypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeResolver.cs" Link="SpecFirst.Core\TypeResolver\TypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\TypeValuePair.cs" Link="SpecFirst.Core\TypeResolver\TypeValuePair.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Utils\StringExtensions.cs" Link="SpecFirst.Core\Utils\StringExtensions.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Utils\StringProcessingOptions.cs" Link="SpecFirst.Core\Utils\StringProcessingOptions.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Utils\TypeExtensions.cs" Link="SpecFirst.Core\Utils\TypeExtensions.cs" />
     <Compile Include="..\SpecFirst.MarkdownParser\src\SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" Link="SpecFirst.MarkdownParser\DecisionTableMarkdownParser.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\AssertStatementsGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\AssertStatementsGenerator.cs" />
     <Compile Include="..\SpecFirst.TestGenerator.xUnit\src\SpecFirst.TestGenerator.xUnit\Generator\ClassFieldsGenerator.cs" Link="SpecFirst.TestGenerator.xUnit\Generator\ClassFieldsGenerator.cs" />
@@ -108,6 +111,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="SpecFirst.Core\Utils\" />
     <Folder Include="Script\" />
     <Folder Include="SpecFirst.Core\DecisionTable\Parser\" />
     <Folder Include="SpecFirst.Core\DecisionTable\Validator\" />
