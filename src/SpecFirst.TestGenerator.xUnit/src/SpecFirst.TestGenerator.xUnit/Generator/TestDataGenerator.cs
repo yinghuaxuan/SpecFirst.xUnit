@@ -31,12 +31,12 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
 
             return new
             {
-                test_data_and_comments = testData.Select(d => new {TestData = d.Item1, Comment = d.Item2})
+                test_data_and_comments = testData.Select(d => new { TestData = d.Item1, Comment = d.Item2 })
             };
 
         }
 
-        private List<(string, string)> BuildTestData(TableHeader[] tableHeaders, object[,] decisionData)
+        private List<(string, string)> BuildTestData(TableHeader[] tableHeaders, object?[,] decisionData)
         {
             List<(string, string)> testData = new List<(string, string)>();
             StringBuilder builder = new StringBuilder();
@@ -44,12 +44,12 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             for (int i = 0; i < decisionData.GetLength(0); i++)
             {
                 builder.Clear();
-                string comment = null;
+                string comment = string.Empty;
                 for (int j = 0; j < decisionData.GetLength(1); j++)
                 {
                     if (tableHeaders[j].TableHeaderType == TableHeaderType.Comment)
                     {
-                        comment = SanitizeString(decisionData[i, j].ToString());
+                        comment = SanitizeString(decisionData[i, j]);
                     }
                     else
                     {
@@ -58,16 +58,20 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
                     }
                 }
 
-                var item = builder.Remove(builder.Length - 2, 2).ToString();
-
-                testData.Add((item, comment));
+                var dataString = builder.Remove(builder.Length - 2, 2).ToString();
+                testData.Add((dataString, comment));
             }
 
             return testData;
         }
 
-        private string Convert(object[,] decisionData, int i, int j, Type dataType)
+        private string Convert(object?[,] decisionData, int i, int j, Type dataType)
         {
+            if (decisionData[i, j] == null)
+            {
+                return "null";
+            }
+
             string data;
             if (decisionData[i, j].GetType().IsArray)
             {
@@ -85,9 +89,14 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             return data;
         }
 
-        private string SanitizeString(string value)
+        private string SanitizeString(object? value)
         {
-            return value
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString()
                 .Replace("\n", " ")
                 .Replace("\r", " ");
         }
