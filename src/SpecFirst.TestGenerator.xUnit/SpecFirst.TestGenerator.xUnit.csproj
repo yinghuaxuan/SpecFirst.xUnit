@@ -13,6 +13,7 @@
     <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
     <PackageTags>source generator</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
