@@ -225,10 +225,10 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "string", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 1, "string", "integer", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 2, "string", "string", "decimal" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 3, "string", "string", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 0, "string", "object", "object" }, // 
             };
 
             return data;

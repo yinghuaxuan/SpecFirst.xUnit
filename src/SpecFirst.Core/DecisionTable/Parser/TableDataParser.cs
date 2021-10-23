@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
-    using SpecFirst.Core.DecisionVariable.Validator;
     using SpecFirst.Core.TypeResolver;
 
     public sealed class TableDataParser
@@ -22,17 +21,9 @@
             {
                 for (int j = 0; j < data.GetLength(1); j++)
                 {
-                    if (new DecisionVariableValidator().Validate(data[i, j], out var _))
-                    {
-                        dataTypes[i, j] = typeof(DecisionVariable.DecisionVariable);
-                        values[i, j] = new DecisionVariable.DecisionVariable(data[i, j].TrimStart('$'), null, null);
-                    }
-                    else
-                    {
-                        Type? type = TypeResolver.Resolve(data[i, j], out object? value);
-                        dataTypes[i, j] = type;
-                        values[i, j] = value;
-                    }
+                    Type? type = TypeResolver.Resolve(data[i, j], out object? value);
+                    dataTypes[i, j] = type;
+                    values[i, j] = value;
                 }
             }
 

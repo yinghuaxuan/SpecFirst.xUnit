@@ -28,7 +28,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
-		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.8" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.11" />
 	</ItemGroup>
 
   <ItemGroup>
