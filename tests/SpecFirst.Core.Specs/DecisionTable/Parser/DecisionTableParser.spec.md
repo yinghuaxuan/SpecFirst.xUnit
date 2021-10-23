@@ -6,12 +6,6 @@ The following parsers are used to parse a decision table:
 - Table Header Parser
 - Table Data Parser 
 
-The following parsers are used to parse a decision table:
-- Table Type Parser
-- Table Name Parser
-- Table Header Parser
-- Table Data Parser 
-
 ## A few sample decision tables
 We create a few sample decision tables in HTML that are going to be used for testing all the parsers.
 
@@ -152,6 +146,7 @@ When there are multiple flags, they need to be separated by '|' pipe.
 Flags specified in the comment table headers will be ignored.  
 
 Below defines a couple more decision tables with headers decorated with more information:  
+
 6. Decision table with links in headers  
 [\<table>  
 &nbsp;&nbsp;\<thead>  
@@ -315,13 +310,13 @@ And the below decision table has references to the above variables:
 \</table>
 ](# "$decision_table_variables")
 
-| Parse decision table data types with variables                                                                                               ||||||
-| Decision Table                                 | Variables                                           | Row No | Column 1? | Column 2? | Column 3? |
-| ---------------------------------------------- | --------------------------------------------------- | ------ | --------- | --------- | --------- |
-| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 1      | string    | integer   | string    |
-| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 2      | string    | string    | decimal   |
-| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | string    | string    | string    |
-| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 0      | string    | object    | object    |
+| Parse decision table data types with variables                                                                     ||||||
+| Decision Table                                 | Variables                 | Row No | Column 1? | Column 2? | Column 3? |
+| ---------------------------------------------- | ------------------------- | ------ | --------- | --------- | --------- |
+| $decision_table_variables                      | [$variable_1,$variable_2] | 1      | string    | integer   | string    |
+| $decision_table_variables                      | [$variable_1,$variable_2] | 2      | string    | string    | decimal   |
+| $decision_table_variables                      | [$variable_1,$variable_2] | 3      | string    | string    | string    |
+| $decision_table_variables                      | [$variable_1,$variable_2] | 0      | string    | object    | object    |
 >we use Row #0 to designate the column type
 
 | Parse decision table data with variables                                                                                                   ||||||

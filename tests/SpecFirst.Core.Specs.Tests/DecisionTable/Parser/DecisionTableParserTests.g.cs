@@ -105,10 +105,10 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_headers_with_additional_info_tests(string decision_table, Object[] input_header_info, Object[] output_header_info, object comment_header_info)
+        public void parse_decision_table_headers_with_additional_info_tests(string decision_table, object[] input_header_info, object[] output_header_info, object comment_header_info)
         {
 
-            (Object[] input_header_info_output, Object[] output_header_info_output, object comment_header_info_output) = parse_decision_table_headers_with_additional_info_implementation(decision_table);
+            (object[] input_header_info_output, object[] output_header_info_output, object comment_header_info_output) = parse_decision_table_headers_with_additional_info_implementation(decision_table);
             Assert.Equal(input_header_info_output, input_header_info);
             Assert.Equal(output_header_info_output, output_header_info);
             Assert.Equal(comment_header_info_output, comment_header_info);
@@ -130,7 +130,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (Object[], Object[], object) parse_decision_table_headers_with_additional_info_implementation(string decision_table);
+        private partial (object[], object[], object) parse_decision_table_headers_with_additional_info_implementation(string decision_table);
 
     }
 
@@ -212,7 +212,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
@@ -225,16 +225,16 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "string", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 1, "string", "integer", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 2, "string", "string", "decimal" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 3, "string", "string", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 0, "string", "object", "object" }, // 
             };
 
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -245,7 +245,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
@@ -266,7 +266,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -277,7 +277,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, variables, row_no);
@@ -299,7 +299,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -310,7 +310,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, variables, row_no);
@@ -331,7 +331,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -342,7 +342,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_setup_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
@@ -364,7 +364,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -375,7 +375,7 @@ namespace SpecFirst.Core.Specs.Tests
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_setup_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
@@ -396,7 +396,7 @@ namespace SpecFirst.Core.Specs.Tests
             return data;
         }
 
-        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 

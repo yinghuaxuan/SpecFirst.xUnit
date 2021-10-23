@@ -31,9 +31,9 @@ namespace SpecFirst.Core.Specs.Tests
             return
             (
                 contain_variable,
-                contain_variable ? variable.Name : "",
-                contain_variable ? TypeHelper.GetTypeString(variable.Type) : "",
-                contain_variable ? variable.Value.ToString() : ""
+                contain_variable ? variable.Name : null,
+                contain_variable ? TypeHelper.GetTypeString(variable.Type) : null,
+                contain_variable ? variable.Value.ToString() : null
             );
         }
     }

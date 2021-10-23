@@ -2,6 +2,7 @@
 namespace SpecFirst.Core.Specs.Tests
 {
     using System;
+    using System.Linq;
     using System.Xml.Linq;
     using SpecFirst.Core.DecisionTable.Validator;
 
@@ -11,7 +12,7 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var table = XElement.Parse(decision_table);
             var valid = new DecisionTableHtmlValidator().Validate(table, out var errors);
-            return (valid, string.Join("", errors));
+            return (valid, errors.Any() ? string.Join("", errors) : null);
         }
     }
 
