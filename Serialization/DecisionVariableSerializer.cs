@@ -2,7 +2,7 @@
 
 namespace SpecFirst.Core.Serialization
 {
-    public class TableVariableSerializer : ITableVariableSerializer
+    public class DecisionVariableSerializer
     {
         public string Serialize(object data)
         {

@@ -3,7 +3,7 @@
     using System;
     using TypeResolver;
 
-    public class PrimitiveDataSerializer : IPrimitiveDataSerializer
+    public class PrimitiveDataSerializer
     {
         private readonly StringDataSerializer _stringSerializer;
         private readonly NumberDataSerializer _numberSerializer;
@@ -20,26 +20,16 @@
 
         public string Serialize(object? value)
         {
-            string data;
-            switch (value)
+            string data = value switch
             {
-                case IntType _:
-                case DoubleType _:
-                case DecimalType _:
-                    data = _numberSerializer.Serialize(value);
-                    break;
-                case DateTime _:
-                    data = _datetimeSerializer.Serialize(value);
-                    break;
-                case bool _:
-                    data = _booleanSerializer.Serialize(value);
-                    break;
-                case string _:
-                    data = _stringSerializer.Serialize(value);
-                    break;
-                default:
-                    throw new InvalidOperationException();
-            }
+                IntType _ => _numberSerializer.Serialize(value),
+                DoubleType _ => _numberSerializer.Serialize(value),
+                DecimalType _ => _numberSerializer.Serialize(value),
+                DateTime _ => _datetimeSerializer.Serialize(value),
+                bool _ => _booleanSerializer.Serialize(value),
+                string _ => _stringSerializer.Serialize(value),
+                _ => throw new InvalidOperationException($"The type {value.GetType().Name} is not supported for SingularDataSerializer")
+            };
 
             return data;
         }

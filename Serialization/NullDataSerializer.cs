@@ -4,7 +4,7 @@
 
     public class NullDataSerializer
     {
-        public string Serialize(object data)
+        public string Serialize(object? data)
         {
             Debug.Assert(data == null);
 
