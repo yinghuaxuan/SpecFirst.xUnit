@@ -22,16 +22,15 @@
 
         public XUnitTemplateDataProvider()
         {
-            var primitiveDataSerializer = new PrimitiveDataSerializer();
-            var arraySerializer = new ArrayDataSerializer(primitiveDataSerializer);
-            var variableSerializer = new TableVariableSerializer();
-            _testDataGenerator = new TestDataGenerator(primitiveDataSerializer, arraySerializer, variableSerializer);
+            var singularDataSerializer = new SingularDataSerializer();
+            var arraySerializer = new ArrayDataSerializer(singularDataSerializer);
+            _testDataGenerator = new TestDataGenerator(singularDataSerializer, arraySerializer);
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             var classNameConverter = new TableNameToClassNameConverter(_namingStrategy);
             _testMethodGenerator = new TestMethodGenerator(parameterConverter, classNameConverter);
             _testClassDeclarationGenerator = new TestClassDeclarationGenerator(classNameConverter);
-            _classFieldGenerator = new ClassFieldsGenerator(primitiveDataSerializer);
+            _classFieldGenerator = new ClassFieldsGenerator(singularDataSerializer);
             _implMethodCallExpressionGenerator = new ImplMethodCallExpressionGenerator(parameterConverter, classNameConverter);
             _assertStatementGenerator = new AssertStatementsGenerator(parameterConverter);
             _implMethodDeclarationGenerator = new ImplMethodDeclarationGenerator(parameterConverter, classNameConverter);
