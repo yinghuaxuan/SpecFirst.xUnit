@@ -6,11 +6,11 @@
 
     public class ClassFieldsGenerator
     {
-        private readonly IPrimitiveDataSerializer _primitiveDataSerializer;
+        private readonly ISingularDataSerializer _singularDataSerializer;
 
-        public ClassFieldsGenerator(IPrimitiveDataSerializer primitiveDataSerializer)
+        public ClassFieldsGenerator(ISingularDataSerializer singularDataSerializer)
         {
-            _primitiveDataSerializer = primitiveDataSerializer;
+            _singularDataSerializer = singularDataSerializer;
         }
 
         public dynamic Convert(DecisionVariable[] variables)
@@ -21,7 +21,7 @@
                 {
                     VariableType = CSharpTypeAlias.Alias(v.Type),
                     VariableName = v.Name,
-                    VariableValue = v.Value == null ? null : _primitiveDataSerializer.Serialize(v.Value)
+                    VariableValue = v.Value == null ? null : _singularDataSerializer.Serialize(v.Value)
                 })
             };
         }

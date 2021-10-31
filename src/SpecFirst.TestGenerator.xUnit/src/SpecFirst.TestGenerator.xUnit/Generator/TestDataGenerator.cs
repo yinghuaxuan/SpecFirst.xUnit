@@ -6,23 +6,19 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
     using System.Linq;
     using System.Text;
     using SpecFirst.Core.DecisionTable;
-    using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.Serialization;
 
     public class TestDataGenerator
     {
-        private readonly IPrimitiveDataSerializer _primitiveDataSerializer;
+        private readonly ISingularDataSerializer _singularDataSerializer;
         private readonly IArrayDataSerializer _arraySerializer;
-        private readonly ITableVariableSerializer _variableSerializer;
 
         public TestDataGenerator(
-            IPrimitiveDataSerializer primitiveDataSerializer,
-            IArrayDataSerializer arraySerializer,
-            ITableVariableSerializer variableSerializer)
+            ISingularDataSerializer singularDataSerializer,
+            IArrayDataSerializer arraySerializer)
         {
-            _primitiveDataSerializer = primitiveDataSerializer;
+            _singularDataSerializer = singularDataSerializer;
             _arraySerializer = arraySerializer;
-            _variableSerializer = variableSerializer;
         }
 
         public dynamic Convert(TableHeader[] tableHeaders, object[,] decisionData)
@@ -33,7 +29,6 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             {
                 test_data_and_comments = testData.Select(d => new { TestData = d.Item1, Comment = d.Item2 })
             };
-
         }
 
         private List<(string, string)> BuildTestData(TableHeader[] tableHeaders, object?[,] decisionData)
@@ -77,13 +72,9 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             {
                 data = _arraySerializer.Serialize(decisionData[i, j], dataType);
             }
-            else if (decisionData[i, j] is DecisionVariable)
-            {
-                data = _variableSerializer.Serialize(decisionData[i, j]);
-            }
             else
             {
-                data = _primitiveDataSerializer.Serialize(decisionData[i, j]);
+                data = _singularDataSerializer.Serialize(decisionData[i, j]);
             }
 
             return data;

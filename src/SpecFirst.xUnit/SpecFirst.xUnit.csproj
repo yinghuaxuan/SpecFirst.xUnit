@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Description>The source generator to auto generate tests in xUnit from decision tables written in markdown files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.0-rc.9</Version>
+    <Version>1.1.0-rc.18</Version>
     <Company></Company>
     <Product>SpecFirst.xUnit</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -55,19 +55,21 @@
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\ArrayDataSerializer.cs" Link="SpecFirst.Core\Serialization\ArrayDataSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\BooleanDataSerializer.cs" Link="SpecFirst.Core\Serialization\BooleanDataSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\DateTimeDataSerializer.cs" Link="SpecFirst.Core\Serialization\DateTimeDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\DecisionVariableSerializer.cs" Link="SpecFirst.Core\Serialization\DecisionVariableSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\IArrayDataSerializer.cs" Link="SpecFirst.Core\Serialization\IArrayDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\IPrimitiveDataSerializer.cs" Link="SpecFirst.Core\Serialization\IPrimitiveDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\ITableVariableSerializer.cs" Link="SpecFirst.Core\Serialization\ITableVariableSerializer.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\ISingularDataSerializer.cs" Link="SpecFirst.Core\Serialization\ISingularDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\NullDataSerializer.cs" Link="SpecFirst.Core\Serialization\NullDataSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\NumberDataSerializer.cs" Link="SpecFirst.Core\Serialization\NumberDataSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\PrimitiveDataSerializer.cs" Link="SpecFirst.Core\Serialization\PrimitiveDataSerializer.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\SingularDataSerializer.cs" Link="SpecFirst.Core\Serialization\SingularDataSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\StringDataSerializer.cs" Link="SpecFirst.Core\Serialization\StringDataSerializer.cs" />
-    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Serialization\TableVariableSerializer.cs" Link="SpecFirst.Core\Serialization\TableVariableSerializer.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Setting\SpecFirstSettingManager.cs" Link="SpecFirst.Core\Setting\SpecFirstSettingManager.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\Setting\SpecFirstSettings.cs" Link="SpecFirst.Core\Setting\SpecFirstSettings.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\CollectionTypeResolver.cs" Link="SpecFirst.Core\TypeResolver\CollectionTypeResolver.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecimalType.cs" Link="SpecFirst.Core\TypeResolver\DecimalType.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\BooleanDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\BooleanDecisionTree.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\CurrencyDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\CurrencyDecisionTree.cs" />
+    <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\DollarDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\DollarDecisionTree.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\NumberDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\NumberDecisionTree.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\StringDecisionTree.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\StringDecisionTree.cs" />
     <Compile Include="..\SpecFirst.Core\src\SpecFirst.Core\TypeResolver\DecisionTree\TypeDecisionNode.cs" Link="SpecFirst.Core\TypeResolver\DecisionTree\TypeDecisionNode.cs" />
