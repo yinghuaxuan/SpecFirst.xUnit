@@ -31,7 +31,7 @@
     {
         private partial string generate_class_fields_implementation(string decision_variable_name, string decision_variable_value)
         {
-            var primitiveDataSerializer = new PrimitiveDataSerializer();
+            var primitiveDataSerializer = new SingularDataSerializer();
             var generator = new ClassFieldsGenerator(primitiveDataSerializer);
             var decisionVariable =
                 new DecisionVariable(decision_variable_name, string.IsNullOrEmpty(decision_variable_value) ? typeof(object) : typeof(string), decision_variable_value);
@@ -146,10 +146,9 @@
             DecisionTableParser parser = new DecisionTableParser();
             var decisionTable = parser.Parse(XElement.Parse(decision_table), new List<DecisionVariable>());
 
-            var primitiveDataSerializer = new PrimitiveDataSerializer();
-            var arrayDataSerializer = new ArrayDataSerializer(primitiveDataSerializer);
-            var variableSerializer = new TableVariableSerializer();
-            var generator = new TestDataGenerator(primitiveDataSerializer, arrayDataSerializer, variableSerializer);
+            var singularDataSerializer = new SingularDataSerializer();
+            var arrayDataSerializer = new ArrayDataSerializer(singularDataSerializer);
+            var generator = new TestDataGenerator(singularDataSerializer, arrayDataSerializer);
 
             var template = Handlebars.Compile(XUnitTemplate.TEST_DATA_TEMPLATE);
             var data = generator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
