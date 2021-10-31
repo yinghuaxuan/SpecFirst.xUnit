@@ -7,11 +7,11 @@ namespace SpecFirst.Core.Serialization
 {
     public class ArrayDataSerializer : IArrayDataSerializer
     {
-        private readonly IPrimitiveDataSerializer _primitiveDataSerializer;
+        private readonly ISingularDataSerializer _singularDataSerializer;
 
-        public ArrayDataSerializer(IPrimitiveDataSerializer primitiveDataSerializer)
+        public ArrayDataSerializer(ISingularDataSerializer singularDataSerializer)
         {
-            _primitiveDataSerializer = primitiveDataSerializer;
+            _singularDataSerializer = singularDataSerializer;
         }
 
         public string Serialize(object data, Type targetType)
@@ -26,35 +26,35 @@ namespace SpecFirst.Core.Serialization
             string serialized;
             if (targetType == typeof(IntType[]))
             {
-                serialized = $"new int[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new int[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(DecimalType[]))
             {
-                serialized = $"new decimal[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new decimal[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(DoubleType[]))
             {
-                serialized = $"new double[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new double[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(bool[]))
             {
-                serialized = $"new bool[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new bool[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(DateTime[]))
             {
-                serialized = $"new DateTime[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new DateTime[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(string[]))
             {
-                serialized = $"new string[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new string[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else if (targetType == typeof(object[]))
             {
-                serialized = $"new object[] {{{string.Join(", ", (data as object[]).Select(_primitiveDataSerializer.Serialize))}}}";
+                serialized = $"new object[] {{{string.Join(", ", (data as object[]).Select(_singularDataSerializer.Serialize))}}}";
             }
             else
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"The type {data.GetType().Name} is not supported for array serialization");
             }
 
             return serialized;

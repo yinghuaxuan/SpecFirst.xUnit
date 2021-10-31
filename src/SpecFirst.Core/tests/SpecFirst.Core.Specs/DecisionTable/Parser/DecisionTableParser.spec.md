@@ -1,10 +1,12 @@
-﻿The decision table parser takes the html output of the markdown table and parse it to a decision table object.  
+﻿The decision table parsers take the html output of the markdown table and parse it to a decision table object.  
 
-The following parsers are used to parse a decision table:
+The decision table parsers include the following:
 - Table Type Parser
 - Table Name Parser
 - Table Header Parser
 - Table Data Parser 
+
+In the following sections, we are going to look at each parser and see what they do and how they work. But before that, let's create a few sample decision tables for illustrations.
 
 ## A few sample decision tables
 We create a few sample decision tables in HTML that are going to be used for testing all the parsers.
@@ -112,7 +114,7 @@ We create a few sample decision tables in HTML that are going to be used for tes
 ](# "$setup_decision_table")
 
 ## Table Type and Name Parser
-The table type and name are specified in the first row of the decision table.  
+The table type and name are specified in the first row of the decision table in the format of `type:name`.  
 
 There are three table types and they are defined by the corresponding word prefixed to the table name:
 - decision (this is the default table type if there is no prefix; the word 'decision' is case insensitive)
@@ -147,7 +149,7 @@ Flags specified in the comment table headers will be ignored.
 
 Below defines a couple more decision tables with headers decorated with more information:  
 
-6. Decision table with links in headers  
+6. Decision table with decorations in headers  
 [\<table>  
 &nbsp;&nbsp;\<thead>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
@@ -167,7 +169,7 @@ Below defines a couple more decision tables with headers decorated with more inf
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>    
 &nbsp;&nbsp;\</tbody>  
 \</table>
-](# "$decision_table_with_links_in_headers")
+](# "$decision_table_with_decorations_in_headers")
 
 7. Decision table with links in th headers  
 [\<table>  
@@ -189,33 +191,33 @@ Below defines a couple more decision tables with headers decorated with more inf
 &nbsp;&nbsp;&nbsp;&nbsp;\</tr>    
 &nbsp;&nbsp;\</tbody>  
 \</table>
-](# "$decision_table_with_links_in_th_headers")
+](# "$decision_table_with_decorations_in_th_headers")
 
-| Parse decision table headers                                                                                              |||||
-| #Description                   | Decision Table                           | Input Header?  | Output Header? | Comment Header? |
-| ------------------------------ | ---------------------------------------- | -------------- | -------------- | --------------- |
-| Decision table without prefix  | $decision_table_default                  | Table Header 1 | Table Header 2 | Description     |
-| Decision table                 | $decision_table                          | Table Header 1 | Table Header 2 | Description     |
-| Decision table with th headers | $decision_table_with_theader             | Table Header 1 | Table Header 2 | Description     |
-| Comment decision table         | $comment_decision_table                  | Table Header 1 | Table Header 2 | Description     |
-| Setup decision table           | $setup_decision_table                    | Table Header 1 | Table Header 2 | Description     |
-| Headers with links             | $decision_table_with_links_in_headers    | Table Header 1 | Table Header 2 | Description     |
-| th headers with links          | $decision_table_with_links_in_th_headers | Table Header 1 | Table Header 2 | Description     |
+| Parse decision table headers                                                                                                    |||||
+| #Description                   | Decision Table                                 | Input Header?  | Output Header? | Comment Header? |
+| ------------------------------ | ---------------------------------------------- | -------------- | -------------- | --------------- |
+| Decision table without prefix  | $decision_table_default                        | Table Header 1 | Table Header 2 | Description     |
+| Decision table                 | $decision_table                                | Table Header 1 | Table Header 2 | Description     |
+| Decision table with th headers | $decision_table_with_theader                   | Table Header 1 | Table Header 2 | Description     |
+| Comment decision table         | $comment_decision_table                        | Table Header 1 | Table Header 2 | Description     |
+| Setup decision table           | $setup_decision_table                          | Table Header 1 | Table Header 2 | Description     |
+| Headers with decorations       | $decision_table_with_decorations_in_headers    | Table Header 1 | Table Header 2 | Description     |
+| th headers with decorations    | $decision_table_with_decorations_in_th_headers | Table Header 1 | Table Header 2 | Description     |
 
 
-| Parse decision table headers with additional info                                                                                                                                              |||||
-| #Description                                      | Decision Table                           | Input Header Info?                   | Output Header Info?                   | Comment Header Info? |
-| ------------------------------------------------- | ---------------------------------------- | ------------------------------------ | ------------------------------------- | -------------------- |
-| Decision table without prefix                     | $decision_table_default                  |                                      |                                       |                      |
-| Decision table                                    | $decision_table                          |                                      |                                       |                      |
-| Decision table with th headers                    | $decision_table_with_theader             |                                      |                                       |                      |
-| Comment decision table                            | $comment_decision_table                  |                                      |                                       |                      |
-| Setup decision table                              | $setup_decision_table                    |                                      |                                       |                      |
-| Headers with links                                | $decision_table_with_links_in_headers    | ["ignore_case", "ignore_all_spaces"] | ["ignore_case", "ignore_line_ending"] |                      |
-| th headers with links                             | $decision_table_with_links_in_th_headers | ["ignore_case"]                      | ["ignore_case", "ignore_line_ending"] |                      |
+| Parse header decorations                                                                                                                                                                  |||||
+| #Description                           | Decision Table                                 | Input Header Info?                   | Output Header Info?                   | Comment Header Info? |
+| -------------------------------------- | ---------------------------------------------- | ------------------------------------ | ------------------------------------- | -------------------- |
+| No decorations defined                 | $decision_table_default                        |                                      |                                       |                      |
+| No decorations defined                 | $decision_table                                |                                      |                                       |                      |
+| No decorations defined                 | $decision_table_with_theader                   |                                      |                                       |                      |
+| No decorations defined                 | $comment_decision_table                        |                                      |                                       |                      |
+| No decorations defined                 | $setup_decision_table                          |                                      |                                       |                      |
+| Decorations in comment headers ignored | $decision_table_with_decorations_in_headers    | ["ignore_case", "ignore_all_spaces"] | ["ignore_case", "ignore_line_ending"] |                      |
+| Decorations in comment headers ignored | $decision_table_with_decorations_in_th_headers | ["ignore_case"]                      | ["ignore_case", "ignore_line_ending"] |                      |
 
 ## Table Data Parser
-Given the following decision table, the Table Data Parser should parse the table data into correct types and values.
+Table data are from the third row and onwards. The Table Data Parser parse the table data into correct types and values.
 
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
@@ -274,11 +276,12 @@ Given the following decision table, the Table Data Parser should parse the table
 | $decision_table_data      | 2      | Description | 12        | 12.5M     | 12.5D     | False     | 2012-03-26 12:12:12 |
 | $decision_table_data      | 3      | Description | 12        | 12        | 12        | false     | 2012-03-26 12:12:12 |
 
+### Decision table with variables
+When decision table contains references to already defined variables, the table data parser needs to be able to recognize these variables and extract the correct type and value for the variables. If the table refers to variables not defined, the table data parser will interpret them as string.
 
-## Decision table with variable
-Decision table can have reference to already defined variables in the data. The Setup decision table can also create new variables as outputs.    
+Decision tables other than setup tables can only have reference to already defined variables. The Setup decision table can also create new variables as outputs.    
 
-### Decision table with reference to defined variables
+#### Decision table with reference to defined variables
 Suppose we have two variables: [variable 1](#, "$variable_1") and [variable 2](#, "$variable_2").  
 And the below decision table has references to the above variables:  
 [\<table>  
@@ -310,13 +313,13 @@ And the below decision table has references to the above variables:
 \</table>
 ](# "$decision_table_variables")
 
-| Parse decision table data types with variables                                                                     ||||||
-| Decision Table                                 | Variables                 | Row No | Column 1? | Column 2? | Column 3? |
-| ---------------------------------------------- | ------------------------- | ------ | --------- | --------- | --------- |
-| $decision_table_variables                      | [$variable_1,$variable_2] | 1      | string    | integer   | string    |
-| $decision_table_variables                      | [$variable_1,$variable_2] | 2      | string    | string    | decimal   |
-| $decision_table_variables                      | [$variable_1,$variable_2] | 3      | string    | string    | string    |
-| $decision_table_variables                      | [$variable_1,$variable_2] | 0      | string    | object    | object    |
+| Parse decision table data types with variables                                                                                               ||||||
+| Decision Table                                 | Variables                                           | Row No | Column 1? | Column 2? | Column 3? |
+| ---------------------------------------------- | --------------------------------------------------- | ------ | --------- | --------- | --------- |
+| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 1      | string    | integer   | string    |
+| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 2      | string    | string    | decimal   |
+| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | string    | string    | string    |
+| $decision_table_variables                      | ["$variable_1:variable 1","$variable_2:variable 2"] | 0      | string    | object    | object    |
 >we use Row #0 to designate the column type
 
 | Parse decision table data with variables                                                                                                   ||||||
@@ -326,7 +329,7 @@ And the below decision table has references to the above variables:
 | $decision_table_variables                | ["$variable_1:variable 1","$variable_2:variable 2"] | 2      | variable 2  | variable 1 | 12.5M      |
 | $decision_table_variables                | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | Description | variable 2 | variable 1 |
 
-### Decision table with reference to variables not defined   
+#### Decision table with reference to variables not defined   
 If the decision table has reference to a variable not defined, the parser will ignore the variable and interpret it as a string.  
 [\<table>  
 &nbsp;&nbsp;\<tbody>  
@@ -373,7 +376,7 @@ If the decision table has reference to a variable not defined, the parser will i
 | $decision_table_variables_not_defined                | ["$variable_1:variable 1","$variable_2:variable 2"] | 2      | variable 2  | "$variable_3" | 12.5M         |
 | $decision_table_variables_not_defined                | ["$variable_1:variable 1","$variable_2:variable 2"] | 3      | Description | variable 2    | "$variable_3" |
 
-## Setup decision table with variable
+### Setup decision table with variable
 If the decision table is a setup type, it can define new variables in outputs in addition to refer to existing variables in inputs   
 
 In the following setup table, it can still refer to `$variable_1` and `$variable_2` but more importantly it defines two new variables in the output column `$variable_3` and `$variable_4`. Variables defined in the setup table are always of type `object`  

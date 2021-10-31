@@ -21,13 +21,13 @@
             Type type;
             if (value.StartsWith("["))
             {
-                type = CollectionTypeResolver.Resolve(value, out var scalaValue);
-                parsedValue = scalaValue;
+                type = CollectionTypeResolver.Resolve(value, out var collectionValue);
+                parsedValue = collectionValue;
             }
             else
             {
-                type = PrimitiveTypeResolver.Resolve(value, out var collectionValue);
-                parsedValue = collectionValue;
+                type = PrimitiveTypeResolver.Resolve(value, out var scalaValue);
+                parsedValue = scalaValue;
             }
 
             return type;
