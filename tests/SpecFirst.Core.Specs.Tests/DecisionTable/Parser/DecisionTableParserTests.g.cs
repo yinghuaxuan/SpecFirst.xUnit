@@ -57,8 +57,8 @@ namespace SpecFirst.Core.Specs.Tests
         private static readonly string decision_table_with_theader = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #Description </th>       <th> Table Header 1 </th>       <th> Table Header 2? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string comment_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> comment:Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string setup_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> setup:Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
-        private static readonly string decision_table_with_links_in_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #<a href=\"#\" title=\"ignore_case\" data-href=\"#\">Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_all_spaces\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2</a>? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
-        private static readonly string decision_table_with_links_in_th_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">#Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2?</a> </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table_with_decorations_in_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #<a href=\"#\" title=\"ignore_case\" data-href=\"#\">Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_all_spaces\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2</a>? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table_with_decorations_in_th_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">#Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2?</a> </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
 
 
         [Theory]
@@ -81,8 +81,8 @@ namespace SpecFirst.Core.Specs.Tests
                 new object[] { decision_table_with_theader, "Table Header 1", "Table Header 2", "Description" }, // Decision table with th headers
                 new object[] { comment_decision_table, "Table Header 1", "Table Header 2", "Description" }, // Comment decision table
                 new object[] { setup_decision_table, "Table Header 1", "Table Header 2", "Description" }, // Setup decision table
-                new object[] { decision_table_with_links_in_headers, "Table Header 1", "Table Header 2", "Description" }, // Headers with links
-                new object[] { decision_table_with_links_in_th_headers, "Table Header 1", "Table Header 2", "Description" }, // th headers with links
+                new object[] { decision_table_with_decorations_in_headers, "Table Header 1", "Table Header 2", "Description" }, // Headers with decorations
+                new object[] { decision_table_with_decorations_in_th_headers, "Table Header 1", "Table Header 2", "Description" }, // th headers with decorations
             };
 
             return data;
@@ -92,23 +92,23 @@ namespace SpecFirst.Core.Specs.Tests
 
     }
 
-    public partial class parse_decision_table_headers_with_additional_info
+    public partial class parse_header_decorations
     {
         private static readonly string decision_table_default = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> decision:Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string decision_table_with_theader = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #Description </th>       <th> Table Header 1 </th>       <th> Table Header 2? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string comment_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> comment:Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string setup_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> setup:Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
-        private static readonly string decision_table_with_links_in_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #<a href=\"#\" title=\"ignore_case\" data-href=\"#\">Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_all_spaces\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2</a>? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
-        private static readonly string decision_table_with_links_in_th_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">#Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2?</a> </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table_with_decorations_in_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> #<a href=\"#\" title=\"ignore_case\" data-href=\"#\">Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_all_spaces\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2</a>? </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table_with_decorations_in_th_headers = "<table>   <thead>     <tr>       <td colspan=\"3\"> Decision:Table Name </td>     </tr>     <tr>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">#Description</a> </th>       <th> <a href=\"#\" title=\"ignore_case\" data-href=\"#\">Table Header 1</a> </th>       <th> <a href=\"#\" title=\"ignore_case|ignore_line_ending\" data-href=\"#\">Table Header 2?</a> </th>     </tr>   </thead>   <tbody>     <tr>       <td> Description </td>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
 
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_headers_with_additional_info_tests(string decision_table, object[] input_header_info, object[] output_header_info, object comment_header_info)
+        public void parse_header_decorations_tests(string decision_table, object[] input_header_info, object[] output_header_info, object comment_header_info)
         {
 
-            (object[] input_header_info_output, object[] output_header_info_output, object comment_header_info_output) = parse_decision_table_headers_with_additional_info_implementation(decision_table);
+            (object[] input_header_info_output, object[] output_header_info_output, object comment_header_info_output) = parse_header_decorations_implementation(decision_table);
             Assert.Equal(input_header_info_output, input_header_info);
             Assert.Equal(output_header_info_output, output_header_info);
             Assert.Equal(comment_header_info_output, comment_header_info);
@@ -118,19 +118,19 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_default, null, null, null }, // Decision table without prefix
-                new object[] { decision_table, null, null, null }, // Decision table
-                new object[] { decision_table_with_theader, null, null, null }, // Decision table with th headers
-                new object[] { comment_decision_table, null, null, null }, // Comment decision table
-                new object[] { setup_decision_table, null, null, null }, // Setup decision table
-                new object[] { decision_table_with_links_in_headers, new object[] {"ignore_case", "ignore_all_spaces"}, new object[] {"ignore_case", "ignore_line_ending"}, null }, // Headers with links
-                new object[] { decision_table_with_links_in_th_headers, new object[] {"ignore_case"}, new object[] {"ignore_case", "ignore_line_ending"}, null }, // th headers with links
+                new object[] { decision_table_default, null, null, null }, // No decorations defined
+                new object[] { decision_table, null, null, null }, // No decorations defined
+                new object[] { decision_table_with_theader, null, null, null }, // No decorations defined
+                new object[] { comment_decision_table, null, null, null }, // No decorations defined
+                new object[] { setup_decision_table, null, null, null }, // No decorations defined
+                new object[] { decision_table_with_decorations_in_headers, new object[] {"ignore_case", "ignore_all_spaces"}, new object[] {"ignore_case", "ignore_line_ending"}, null }, // Decorations in comment headers ignored
+                new object[] { decision_table_with_decorations_in_th_headers, new object[] {"ignore_case"}, new object[] {"ignore_case", "ignore_line_ending"}, null }, // Decorations in comment headers ignored
             };
 
             return data;
         }
 
-        private partial (object[], object[], object) parse_decision_table_headers_with_additional_info_implementation(string decision_table);
+        private partial (object[], object[], object) parse_header_decorations_implementation(string decision_table);
 
     }
 
@@ -225,10 +225,10 @@ namespace SpecFirst.Core.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 1, "string", "integer", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 2, "string", "string", "decimal" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 3, "string", "string", "string" }, // 
-                new object[] { decision_table_variables, new string[] {"$variable_1", "$variable_2"}, 0, "string", "object", "object" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 1, "string", "integer", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 2, "string", "string", "decimal" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 3, "string", "string", "string" }, // 
+                new object[] { decision_table_variables, new string[] {"$variable_1:variable 1", "$variable_2:variable 2"}, 0, "string", "object", "object" }, // 
             };
 
             return data;

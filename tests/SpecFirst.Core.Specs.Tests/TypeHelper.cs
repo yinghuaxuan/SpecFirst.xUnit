@@ -36,8 +36,8 @@ namespace SpecFirst.Core.Specs.Tests
             var datetimeSerializer = new DateTimeDataSerializer();
             var booleanSerializer = new BooleanDataSerializer();
             var stringSerializer = new StringDataSerializer();
-            var primitiveDataSerializer = new PrimitiveDataSerializer();
-            var arraySerializer = new ArrayDataSerializer(primitiveDataSerializer);
+            var singularDataSerializer = new SingularDataSerializer();
+            var arraySerializer = new ArrayDataSerializer(singularDataSerializer);
 
             if (data.GetType().IsArray)
             {

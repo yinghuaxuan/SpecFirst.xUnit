@@ -35,9 +35,9 @@ namespace SpecFirst.Core.Specs.Tests
         }
     }
 
-    public partial class parse_decision_table_headers_with_additional_info
+    public partial class parse_header_decorations
     {
-        private partial (Object[], Object[], object) parse_decision_table_headers_with_additional_info_implementation(string decision_table)
+        private partial (Object[], Object[], object) parse_header_decorations_implementation(string decision_table)
         {
             DecisionTableParser parser = new DecisionTableParser();
             var decisionTable = parser.Parse(XElement.Parse(decision_table), new List<DecisionVariable>());
