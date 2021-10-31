@@ -1,6 +1,6 @@
 ﻿namespace SpecFirst.Core.Serialization
 {
-    public interface IPrimitiveDataSerializer
+    public interface ISingularDataSerializer
     {
         string Serialize(object? data);
     }
