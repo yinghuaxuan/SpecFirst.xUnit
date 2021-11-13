@@ -131,12 +131,17 @@ There are three table types and they are defined by the corresponding word prefi
 | Setup decision table           | $setup_decision_table        | Setup       | Table Name  |
 
 ## Table Header Parser
-Table headers are specified in the second row of the decision table.  
+Table headers are specified in the second row of the decision table. The Table Header Parser generates a `TableHeader` object that contains the header name, header types, as well as header decorations.  
+
+The `TableHeader` object also contains the most compatible data type for all the data in the column. However, the data type are extracted from the data in the column, not from the header text.  
+
+### Table Header Types
 There are three types of table headers:
 - comment table header (prefixed by '#' symbol to the table header name)
 - output table header (suffixed by '?' symbol to the table header name)
 - input table header
 
+### Table Header Decorations
 Table headers can be decorated with additional information in them (in the format of links). These decorations are used to pass more information (as in the title of the link) into the parser.   
 For example, a header can specify one or more flags to say that cases or spaces or line endings should be ignroed when processing data for the header/column:  
 - ignore_case
