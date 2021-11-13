@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Core.Specs.Tests
+﻿namespace SpecFirst.Core.Specs.Tests.TypeResolver.PrimitiveTypeResolver
 {
     using System;
     using SpecFirst.Core.TypeResolver;

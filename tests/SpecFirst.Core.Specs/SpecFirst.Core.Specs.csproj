@@ -11,12 +11,14 @@
 
 	<ItemGroup>
 	  <None Remove="DecisionTable\DecisionVariable.spec.md" />
+	  <None Remove="DecisionTable\Parser\DecisionTableComponentParser.spec.md" />
 	  <None Remove="DecisionTable\Parser\DecisionTableParser.spec.md" />
 	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	  <None Remove="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
 	</ItemGroup>
 
   <ItemGroup>
+	  <AdditionalFiles Include="DecisionTable\Parser\DecisionTableComponentParser.spec.md" />
 	  <AdditionalFiles Include="DecisionTable\Parser\DecisionTableParser.spec.md" />
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
@@ -28,7 +30,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
-		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.9" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.25" />
 	</ItemGroup>
 
   <ItemGroup>

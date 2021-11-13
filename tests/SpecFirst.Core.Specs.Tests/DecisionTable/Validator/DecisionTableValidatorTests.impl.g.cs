@@ -1,5 +1,5 @@
 ﻿
-namespace SpecFirst.Core.Specs.Tests
+namespace SpecFirst.Core.Specs.Tests.DecisionTable.Validator.DecisionTableValidator
 {
     using System;
     using System.Linq;

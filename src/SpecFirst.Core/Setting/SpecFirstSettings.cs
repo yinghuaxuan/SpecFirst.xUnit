@@ -4,13 +4,19 @@
     {
         public string SpecFileExtension { get; set; }
         public string TestingFramework { get; set; }
-        public TestGeneration TestGeneration { get; set; }
+        public TestProject TestProject { get; set; }
     }
 
-    public class TestGeneration
+    public class TestProject
     {
-        public string TestProject { get; set; }
+        public bool UseSpecProject { get; set; }
+        public string TestProjectName { get; set; }
+        public string TestFilePath { get; set; }
         public string TestFileName { get; set; }
-        public string TestImplFileName { get; set; }
+        public string ImplFilePath { get; set; }
+        public string ImplFileName { get; set; }
+
+        // synthetic
+        public string TestNameSpace { get; set; }
     }
 }
