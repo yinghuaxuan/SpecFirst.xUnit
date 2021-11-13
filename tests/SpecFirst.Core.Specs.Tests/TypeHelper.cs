@@ -5,12 +5,14 @@ namespace SpecFirst.Core.Specs.Tests
     using System;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using DecisionVariable;
     using SpecFirst.Core.TypeResolver;
 
     public static class TypeHelper
     {
         public static string GetTypeString(Type type)
         {
+            if (type == null) return "null";
             if (type.IsArray) return GetPrimitiveTypeString(type.GetElementType());
             return GetPrimitiveTypeString(type);
         }
@@ -27,6 +29,7 @@ namespace SpecFirst.Core.Specs.Tests
             if (type == typeof(DateTime)) return "datetime";
             if (type == typeof(bool)) return "boolean";
             if (type == typeof(object)) return "object";
+            if (type == typeof(DecisionVariable)) return "DecisionVariable";
             throw new InvalidOperationException();
         }
 

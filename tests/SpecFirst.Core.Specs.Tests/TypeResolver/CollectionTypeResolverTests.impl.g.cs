@@ -1,5 +1,5 @@
 ﻿
-namespace SpecFirst.Core.Specs.Tests
+namespace SpecFirst.Core.Specs.Tests.TypeResolver.CollectionTypeResolver
 {
     using System;
     using SpecFirst.Core.TypeResolver;
