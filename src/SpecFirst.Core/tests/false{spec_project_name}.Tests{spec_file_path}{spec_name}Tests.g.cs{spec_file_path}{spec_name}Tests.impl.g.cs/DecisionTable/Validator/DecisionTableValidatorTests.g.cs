@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpecFirst.Core.Specs.Tests.DecisionTable.Validator.DecisionTableValidator
+namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{spec_file_path}{spec_name}Tests.impl.g.cs
 {
     using System;
     using System.Collections.Generic;
