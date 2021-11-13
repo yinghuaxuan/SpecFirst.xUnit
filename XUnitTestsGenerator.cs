@@ -24,7 +24,7 @@
             object[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
             {
-                namespace_name = settings.TestGeneration.TestProject,
+                namespace_name = settings.TestProject.TestNameSpace,
                 list_of_fixtures = templateData
             };
 
@@ -42,7 +42,7 @@
             Handlebars.RegisterTemplate("TEST_NAME_TEMPLATE", XUnitTemplate.TEST_NAME_TEMPLATE);
             Handlebars.RegisterTemplate("CLASS_VARIABLE_TEMPLATE", XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
             Handlebars.RegisterTemplate("IMPL_METHOD_CALL_EXPRESSION_TEMPLATE", XUnitTemplate.IMPL_METHOD_CALL_EXPRESSION_TEMPLATE);
-            Handlebars.RegisterTemplate("IMPL_METHOD_TEMPLATE", XUnitTemplate.IMPL_METHOD_TEMPLATE);
+            Handlebars.RegisterTemplate("IMPL_METHOD_DECLARATION_TEMPLATE", XUnitTemplate.IMPL_METHOD_DECLARATION_TEMPLATE);
             Handlebars.RegisterTemplate("DECORATION_METHOD_TEMPLATE", XUnitTemplate.DECORATION_METHOD_TEMPLATE);
             Handlebars.RegisterTemplate("CLASS_VARIABLE_TEMPLATE", XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
             Handlebars.RegisterTemplate("DECORATION_VARIABLE_TEMPLATE", XUnitTemplate.DECORATION_VARIABLE_TEMPLATE);
@@ -54,6 +54,9 @@
 
         private string GenerateTestImplementations(object data)
         {
+            Handlebars.RegisterTemplate("TEST_NAME_TEMPLATE", XUnitTemplate.TEST_NAME_TEMPLATE);
+            Handlebars.RegisterTemplate("IMPL_METHOD_TEMPLATE", XUnitTemplate.IMPL_METHOD_TEMPLATE);
+
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.IMPLEMENTATION_TEMPLATE);
 
             return compiled(data);

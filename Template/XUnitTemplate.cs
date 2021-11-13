@@ -33,7 +33,7 @@ namespace {{namespace_name}}
 
         {{> TEST_DATA_TEMPLATE}}
 
-        {{> IMPL_METHOD_TEMPLATE}}
+        {{> IMPL_METHOD_DECLARATION_TEMPLATE}}
 
         {{> DECORATION_METHOD_TEMPLATE}}
     }
@@ -41,15 +41,15 @@ namespace {{namespace_name}}
     {{/each}}
 }";
 
-        public const string IMPLEMENTATION_TEMPLATE = 
+        public const string IMPLEMENTATION_TEMPLATE =
 @"namespace {{namespace_name}}
 {
     using System;
 
     {{#each list_of_fixtures}}
-    public partial class {{class_name}}
+    {{> TEST_NAME_TEMPLATE}}
     {
-        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_parameters}})
+        {{> IMPL_METHOD_TEMPLATE}}
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,7 @@ namespace {{namespace_name}}
     {{/each}}
 }";
 
-        public const string TEST_DATA_TEMPLATE = 
+        public const string TEST_DATA_TEMPLATE =
 @"        public static IEnumerable<object[]> get_test_data()
         {
             var data = new List<object[]>
@@ -75,8 +75,12 @@ namespace {{namespace_name}}
         }
 ";
 
-        public const string IMPL_METHOD_TEMPLATE =
+        public const string IMPL_METHOD_DECLARATION_TEMPLATE =
 @"        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input_parameters}});
+";
+
+        public const string IMPL_METHOD_TEMPLATE =
+@"        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_input_parameters}})
 ";
 
         public const string DECORATION_METHOD_TEMPLATE =
@@ -121,7 +125,7 @@ namespace {{namespace_name}}
 
 ";
 
-        public const string TEST_NAME_TEMPLATE = 
+        public const string TEST_NAME_TEMPLATE =
 @"    public partial class {{class_name}}
 ";
     }
