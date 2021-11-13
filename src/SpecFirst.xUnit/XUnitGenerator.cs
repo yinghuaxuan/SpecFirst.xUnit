@@ -70,7 +70,8 @@
                     context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
                 foreach (AdditionalText file in markdownFiles)
                 {
-                    ProcessMarkdownFile(file, context);
+                    var settings = _settingManager.GetSettings(file.Path);
+                    ProcessMarkdownFile(settings, file, context);
                 }
             }
             catch (Exception e)
@@ -79,22 +80,28 @@
             }
         }
 
-        private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context)
+        private void ProcessMarkdownFile(
+            SpecFirstSettings settings,
+            AdditionalText markdownFile,
+            GeneratorExecutionContext context)
         {
             if (!TryParseMarkdownFile(context, markdownFile, out List<DecisionTable> tables))
             {
                 return;
             }
 
-            if (!TryGenerateTests(context, markdownFile, tables, out List<string> sources))
+            if (!TryGenerateTests(context, settings, markdownFile, tables, out List<string> sources))
             {
                 return;
             }
 
-            PersistTestFiles(markdownFile, sources, context);
+            PersistTestFiles(markdownFile, sources, settings, context);
         }
 
-        private bool TryParseMarkdownFile(GeneratorExecutionContext context, AdditionalText markdownFile, out List<DecisionTable> tables)
+        private bool TryParseMarkdownFile(
+            GeneratorExecutionContext context,
+            AdditionalText markdownFile,
+            out List<DecisionTable> tables)
         {
             tables = new List<DecisionTable>();
             try
@@ -111,12 +118,17 @@
             return false;
         }
 
-        private bool TryGenerateTests(GeneratorExecutionContext context, AdditionalText markdownFile, List<DecisionTable> tables, out List<string> sources)
+        private bool TryGenerateTests(
+            GeneratorExecutionContext context,
+            SpecFirstSettings settings,
+            AdditionalText markdownFile,
+            List<DecisionTable> tables,
+            out List<string> sources)
         {
             sources = new List<string>();
             try
             {
-                sources.AddRange(_testsGenerator.Generate(_settingManager.Settings, tables));
+                sources.AddRange(_testsGenerator.Generate(settings, tables));
                 return true;
             }
             catch (Exception e)
@@ -127,35 +139,51 @@
             return false;
         }
 
-        private void PersistTestFiles(AdditionalText markdownFile, IEnumerable<string> sources, GeneratorExecutionContext context)
+        private void PersistTestFiles(
+            AdditionalText markdownFile,
+            IEnumerable<string> sources,
+            SpecFirstSettings settings,
+            GeneratorExecutionContext context)
         {
-            var filePath = _settingManager.GetTestFilePath(markdownFile.Path);
+            var filePath = settings.TestProject.TestFilePath;
 
             Directory.CreateDirectory(filePath); // create the directory in case it doesn't exist
 
-            PersistTestFile(markdownFile, filePath, sources.ElementAt(0), context);
+            PersistTestFile(markdownFile, settings, sources.ElementAt(0), context);
 
-            PersistTestImplFile(markdownFile, filePath, sources.ElementAt(1), context);
+            PersistTestImplFile(markdownFile, settings, sources.ElementAt(1), context);
         }
 
-        private void PersistTestFile(AdditionalText markdownFile, string filePath, string tests, GeneratorExecutionContext context)
+        private void PersistTestFile(
+            AdditionalText markdownFile,
+            SpecFirstSettings settings,
+            string tests,
+            GeneratorExecutionContext context)
         {
-            string testFileName = _settingManager.GetTestFileName(markdownFile.Path);
             //context.AddSource($"{testFileName}", SourceText.From(tests, Encoding.UTF8));
-            var testFile = Path.Combine(filePath, testFileName);
+            var testFilePath = settings.TestProject.TestFilePath;
+            Directory.CreateDirectory(testFilePath); // create the directory in case it doesn't exist
+            var testFileName = settings.TestProject.TestFileName;
+            var testFile = Path.Combine(testFilePath, testFileName);
             File.WriteAllText(testFile, tests, Encoding.UTF8);
 
             context.ReportDiagnostic(Diagnostic.Create(TestsGenerated, Location.None, testFile, markdownFile.Path));
         }
 
-        private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string implementations, GeneratorExecutionContext context)
+        private void PersistTestImplFile(
+            AdditionalText markdownFile,
+            SpecFirstSettings settings,
+            string implementations,
+            GeneratorExecutionContext context)
         {
-            string implementationFileName = _settingManager.GetTestImplFileName(markdownFile.Path);
-            var implementationFile = Path.Combine(filePath, implementationFileName);
-            if (!File.Exists(implementationFile))
+            var implFilePath = settings.TestProject.ImplFilePath;
+            Directory.CreateDirectory(implFilePath); // create the directory in case it doesn't exist
+            string implFileName = settings.TestProject.ImplFileName;
+            var implFile = Path.Combine(implFilePath, implFileName);
+            if (!File.Exists(implFile))
             {
-                //context.AddSource($"{implementationFileName}", SourceText.From(implementations, Encoding.UTF8));
-                File.WriteAllText(implementationFile, implementations, Encoding.UTF8);
+                //context.AddSource($"{implFileName}", SourceText.From(implementations, Encoding.UTF8));
+                File.WriteAllText(implFile, implementations, Encoding.UTF8);
             }
         }
     }
