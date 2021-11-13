@@ -3,11 +3,9 @@
     using SpecFirst.Core.TypeResolver;
     using SpecFirst.Core.DecisionVariable;
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
-    using System.Collections;
 
     public sealed class DecisionTableParser : IDecisionTableParser
     {
