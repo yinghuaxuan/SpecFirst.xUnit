@@ -15,7 +15,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
     
     public partial class parse_decision_table
     {
-        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data </td>       <td> DateTime data </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
+        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
 
         [Theory]
@@ -35,7 +35,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table, "Decision", "Table Name", "Table Header 1", "Table Header 2", "Description" }, // 
+                new object[] { decision_table, "Decision", "Table Name", "Integer data,Decimal data,Double data", "Boolean data,DateTime data", "String data" }, // 
             };
 
             return data;
@@ -47,7 +47,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
     public partial class parse_decision_table_data_types
     {
-        private static readonly string decision_table_data = "$decision_table_data";
+        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
 
         [Theory]
@@ -68,10 +68,10 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_data, 1, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
-                new object[] { decision_table_data, 2, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
-                new object[] { decision_table_data, 3, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
-                new object[] { decision_table_data, 0, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
+                new object[] { decision_table, 1, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
+                new object[] { decision_table, 2, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
+                new object[] { decision_table, 3, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
+                new object[] { decision_table, 0, "string", "integer", "decimal", "double", "boolean", "datetime" }, // 
             };
 
             return data;
@@ -83,7 +83,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
     public partial class parse_decision_table_data
     {
-        private static readonly string decision_table_data = "$decision_table_data";
+        private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
 
         [Theory]
@@ -104,9 +104,9 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
         {
             var data = new List<object[]>
             {
-                new object[] { decision_table_data, 1, "Description", 12, 12.5M, 12.5D, true, new DateTime(2012, 3, 26, 0, 0, 0, 0) }, // 
-                new object[] { decision_table_data, 2, "Description", 12, 12.5M, 12.5D, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // 
-                new object[] { decision_table_data, 3, "Description", 12, 12, 12, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // 
+                new object[] { decision_table, 1, "Description", 12, 12.5M, 12.5D, true, new DateTime(2012, 3, 26, 0, 0, 0, 0) }, // 
+                new object[] { decision_table, 2, "Description", 12, 12.5M, 12.5D, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // 
+                new object[] { decision_table, 3, "Description", 12, 12, 12, false, new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // 
             };
 
             return data;
@@ -123,7 +123,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
@@ -145,7 +145,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -156,7 +156,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
@@ -177,7 +177,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -188,7 +188,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, variables, row_no);
@@ -210,7 +210,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_decision_table_data_types_with_variables_not_defined_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -221,7 +221,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, variables, row_no);
@@ -242,7 +242,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_decision_table_data_with_variables_not_defined_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -253,7 +253,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, string column_2, string column_3)
+        public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
 
             (string column_1_output, string column_2_output, string column_3_output) = parse_setup_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
@@ -275,7 +275,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, string, string) parse_setup_decision_table_data_types_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 
@@ -286,7 +286,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, String[] variables, int row_no, string column_1, object column_2, object column_3)
+        public void parse_setup_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
 
             (string column_1_output, object column_2_output, object column_3_output) = parse_setup_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
@@ -307,7 +307,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, String[] variables, int row_no);
+        private partial (string, object, object) parse_setup_decision_table_data_with_variables_implementation(string decision_table, string[] variables, int row_no);
 
     }
 

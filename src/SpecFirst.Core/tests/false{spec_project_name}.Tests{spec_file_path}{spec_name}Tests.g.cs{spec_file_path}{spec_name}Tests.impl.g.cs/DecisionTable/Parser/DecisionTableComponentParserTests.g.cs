@@ -105,10 +105,10 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
 
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void parse_header_decorations_tests(string decision_table, Object[] input_header_info, Object[] output_header_info, object comment_header_info)
+        public void parse_header_decorations_tests(string decision_table, object[] input_header_info, object[] output_header_info, object comment_header_info)
         {
 
-            (Object[] input_header_info_output, Object[] output_header_info_output, object comment_header_info_output) = parse_header_decorations_implementation(decision_table);
+            (object[] input_header_info_output, object[] output_header_info_output, object comment_header_info_output) = parse_header_decorations_implementation(decision_table);
             Assert.Equal(input_header_info_output, input_header_info);
             Assert.Equal(output_header_info_output, output_header_info);
             Assert.Equal(comment_header_info_output, comment_header_info);
@@ -130,7 +130,7 @@ namespace false{spec_project_name}.Tests{spec_file_path}{spec_name}Tests.g.cs{sp
             return data;
         }
 
-        private partial (Object[], Object[], object) parse_header_decorations_implementation(string decision_table);
+        private partial (object[], object[], object) parse_header_decorations_implementation(string decision_table);
 
     }
 
