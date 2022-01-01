@@ -5,6 +5,6 @@
 
     public interface IDecisionTableParser
     {
-        DecisionTable Parse(XElement table, IEnumerable<DecisionVariable.DecisionVariable> decisionVariables);
+        DecisionTable Parse(XElement table, IList<DecisionVariable.DecisionVariable> decisionVariables);
     }
 }

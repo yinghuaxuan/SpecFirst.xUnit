@@ -2,7 +2,7 @@
 {
     using SpecFirst.Core.DecisionVariable;
 
-    public sealed class DecisionTable
+    public class DecisionTable
     {
         public DecisionTable(
             TableType tableType,
@@ -16,6 +16,7 @@
             TableHeaders = tableHeaders;
             TableData = tableData;
             DecisionVariables = decisionVariables;
+            PopulateParent();
         }
 
         public TableType TableType { get; }
@@ -23,5 +24,13 @@
         public TableHeader[] TableHeaders { get; }
         public object?[,] TableData { get; }
         public DecisionVariable[]? DecisionVariables { get; }
+
+        private void PopulateParent()
+        {
+            foreach (var tableHeader in TableHeaders)
+            {
+                tableHeader.SetParent(this);
+            }
+        }
     }
 }

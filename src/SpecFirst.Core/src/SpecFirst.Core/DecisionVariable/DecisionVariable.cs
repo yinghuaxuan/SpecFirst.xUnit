@@ -18,6 +18,7 @@
         public Type? Type { get; set; }
         public object? Value { get; set; }
         public HashSet<TableHeader> AssociatedTableHeaders { get; }
+        public string? SourceTable { get; set; }
 
         public override bool Equals(object? obj)
         {

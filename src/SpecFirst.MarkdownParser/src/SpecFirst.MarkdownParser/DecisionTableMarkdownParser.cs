@@ -35,12 +35,12 @@ namespace SpecFirst.MarkdownParser
             string html = ParseMarkdownToHtml(markdownText);
             html = html.Replace("<br>", "<br/>");
             XDocument document = ParseHtmlToXml(html);
-            var variables = ParseDeisionVariables(document);
+            var variables = ParseDecisionVariablesOnPage(document);
             List<DecisionTable> decisionTables = ParseDecisionTables(document, variables);
             return decisionTables;
         }
 
-        private List<DecisionVariable> ParseDeisionVariables(XDocument document)
+        private List<DecisionVariable> ParseDecisionVariablesOnPage(XDocument document)
         {
             List<DecisionVariable> decisionVariables = new List<DecisionVariable>();
             IEnumerable<XElement> links = document.Descendants("a");
@@ -56,7 +56,7 @@ namespace SpecFirst.MarkdownParser
             return decisionVariables;
         }
 
-        private List<DecisionTable> ParseDecisionTables(XDocument document, IEnumerable<DecisionVariable> variables)
+        private List<DecisionTable> ParseDecisionTables(XDocument document, IList<DecisionVariable> variables)
         {
             List<DecisionTable> decisionTables = new List<DecisionTable>();
             IEnumerable<XElement> tables = document.Descendants("table");

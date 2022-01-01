@@ -18,7 +18,7 @@
         {
             return new
             {
-                class_variables = table.DecisionVariables.Select(v => new
+                class_variables = table.DecisionVariables!.Select(v => new
                 {
                     VariableType = CSharpTypeAlias.Alias(v.Type),
                     VariableName = v.Name,

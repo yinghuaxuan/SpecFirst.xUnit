@@ -128,7 +128,8 @@
             sources = new List<string>();
             try
             {
-                sources.AddRange(_testsGenerator.Generate(settings, tables));
+                var tablesToGenerate = tables.Where(t => t.TableType != TableType.Comment);
+                sources.AddRange(_testsGenerator.Generate(settings, tablesToGenerate));
                 return true;
             }
             catch (Exception e)

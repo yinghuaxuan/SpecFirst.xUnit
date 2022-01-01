@@ -22,13 +22,13 @@
             _tableDataParser = new TableDataParser();
         }
 
-        public DecisionTable Parse(XElement table, IEnumerable<DecisionVariable> decisionVariables)
+        public DecisionTable Parse(XElement table, IList<DecisionVariable> decisionVariables)
         {
             var tableType = _tableTypeParser.Parse(table);
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
             object?[,] tableData = _tableDataParser.Parse(table, out Type?[,] dataTypes);
-            var variables = ParseDecisionVariables(tableData, tableType, tableHeaders, decisionVariables.ToList());
+            var variables = ParseDecisionVariablesFromTable(tableName, tableData, tableType, tableHeaders, decisionVariables);
             ReplaceVariableTypesWithRealTypes(dataTypes, tableData, variables);
             UpdateColumnTypesFromData(tableHeaders, dataTypes);
             return new DecisionTable(tableType, tableName, tableHeaders, tableData, variables);
@@ -90,13 +90,14 @@
             }
         }
 
-        private static DecisionVariable[] ParseDecisionVariables(
+        private static DecisionVariable[] ParseDecisionVariablesFromTable(
+            string tableName,
             object?[,] tableData,
             TableType tableType,
             TableHeader[] tableHeaders,
             IList<DecisionVariable> definedVariables)
         {
-            var variables = ExtractDecisionVariables(tableData, tableHeaders);
+            var variables = ExtractDecisionVariablesFromTable(tableData, tableHeaders);
             foreach (var variable in variables)
             {
                 if (tableType == TableType.Setup)
@@ -104,7 +105,7 @@
                     var header = variable.AssociatedTableHeaders.Where(h => h.TableHeaderType == TableHeaderType.Output);
                     if (header.Any())
                     {
-                        UpdateNewVariable(definedVariables, variable);
+                        UpdateNewVariable(definedVariables, variable, tableName);
                         continue;
                     }
                 }
@@ -115,15 +116,16 @@
             return variables.ToArray();
         }
 
-        private static void UpdateNewVariable(IList<DecisionVariable> definedVariables, DecisionVariable variable)
+        private static void UpdateNewVariable(IList<DecisionVariable> definedVariables, DecisionVariable variable, string tableName)
         {
             var temp = definedVariables.FirstOrDefault(v => v == variable);
             if (temp != null)
             {
-                // throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
+                throw new InvalidOperationException($"{variable.Name} variable is assigned as an output but it is already defined");
             }
 
             variable.Type = typeof(object);
+            variable.SourceTable = tableName;
             definedVariables.Add(variable);
         }
 
@@ -142,7 +144,7 @@
             }
         }
 
-        private static IEnumerable<DecisionVariable> ExtractDecisionVariables(object?[,] tableData, TableHeader[] tableHeaders)
+        private static IEnumerable<DecisionVariable> ExtractDecisionVariablesFromTable(object?[,] tableData, TableHeader[] tableHeaders)
         {
             var variables = new Dictionary<string, DecisionVariable>();
 

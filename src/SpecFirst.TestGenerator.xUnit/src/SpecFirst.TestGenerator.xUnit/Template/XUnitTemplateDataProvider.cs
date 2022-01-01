@@ -60,6 +60,8 @@
 
             return new
             {
+                is_setup_table = decisionTable.TableType == TableType.Setup,
+                setup_class_name = "",
                 testClass.class_name,
                 classVariables.class_variables,
                 testMethod.test_parameters,
