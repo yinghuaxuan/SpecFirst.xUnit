@@ -1,7 +1,11 @@
 ﻿Decision table is one of the slim tables defined in FitNesse, which "Supplies the inputs and outputs for decisions. This is similar to the Fit Column Fixture". More details can be found on [FitNesse](http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.DecisionTable) website.
 
-## Decision Table Validator
-In SpecFirst, we use the rules defined in [DecisionTableValidator](Validator\DecisionTableValidator.spec.md) to validate whether a table is a decision table.
+## Decision Table Structure
+The first row of the table can only have one column, which contains table type (optional) and table name. The table name will be translated into the test class.
+The second row of the table defines all the input and output paramters for each test. It can also include comment parameters to describe the scenario.
+The third row and onwards define all the test scenarios. Each row is a test scenario.
+
+In SpecFirst, we use the rules defined in [DecisionTableValidator](Validator\DecisionTableValidator.spec.md) to decide whether a table is a decision table.
 
 ## Decision Table Types
 SpecFirst defines three types of decision tables - decision, setup, and comment.  
@@ -11,19 +15,9 @@ The type is defined by prefix to the table name:
 - If the table name is prefixed with ```setup``` (case insensitive), it is a setup decision table
 - If the table name is prefixed with ```comment``` (case insensitive), it is a comment decision table
 
-### Setup decision table
-Setup decision table is mainly used for setting up the common logics for the tests. The setup can be done in 3 scopes:
-- Table Row
-The setup logic should be run for each row (test) of the tables. This is the default scope.
-- Table
-The setup logic should be run for each table (test class). This is equivalent to the class fixture in xUnit.
-- Page
-The setup logic should be run only once for the page. This is equivalent to the collection fixture in xUnit.
+## Decision table
+Normal decision tables are used to generate tests.
 
-A spec can have multiple setup decision tables in it.  
-
-The scope should be defined with a special column named `Scope` in the setup table.  
-If there is no `Scope` column found in the setup table, the table will be run for every table in the spec file.  
-If the setup table is only meant for a particular table or tables, it should specify all the target tables in the column `Target` with a comma separated list of all tables it is targeting.  
-
+## Comment decision table
+Comment decision tables are similar to the normal decision table - the only difference is that they must have table type `comment`. Comment decision tables won't be included for the test generation so they are useful when you have tables in draft status and you don't want tests to be generated yet.
 

@@ -1,4 +1,6 @@
-﻿The decision table has a few components - table type, table name, table header, and table data. We create a parser for each component:
+﻿The decision table has a few components - table type, table name, table header, and table data.  
+
+We create a parser for each component:
 - Table Type Parser
 - Table Name Parser
 - Table Header Parser
@@ -6,8 +8,7 @@
 
 In the following sections, we are going to look at each parser and see what they do and how they work. But before that, let's create a few sample decision tables for illustrations.
 
-## A few sample decision tables
-We create a few sample decision tables in HTML that are going to be used for testing all the parsers.
+## Set up the sample decision tables
 
 1. Decision table  
 [\<table>  
@@ -174,7 +175,7 @@ Below defines a couple more decision tables with headers decorated with more inf
 \</table>
 ](# "$decision_table_with_decorations_in_headers")
 
-7. Decision table with links in th headers  
+7. Decision table with decorations in th headers  
 [\<table>  
 &nbsp;&nbsp;\<thead>  
 &nbsp;&nbsp;&nbsp;&nbsp;\<tr>  
