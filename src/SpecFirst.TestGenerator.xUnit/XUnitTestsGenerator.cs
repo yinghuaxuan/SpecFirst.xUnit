@@ -21,7 +21,7 @@
             SpecFirstSettings settings,
             IEnumerable<DecisionTable> decisionTables)
         {
-            object[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
+            IEnumerable<object> templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
             {
                 namespace_name = settings.TestProject.TestNameSpace,

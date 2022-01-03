@@ -9,7 +9,6 @@
 
     public class XUnitTemplateDataProvider
     {
-        private readonly SnakeCaseNamingStrategy _namingStrategy;
         private readonly TestDataGenerator _testDataGenerator;
         private readonly TestMethodGenerator _testMethodGenerator;
         private readonly TestClassDeclarationGenerator _testClassDeclarationGenerator;
@@ -25,9 +24,9 @@
             var singularDataSerializer = new SingularDataSerializer();
             var arraySerializer = new ArrayDataSerializer(singularDataSerializer);
             _testDataGenerator = new TestDataGenerator(singularDataSerializer, arraySerializer);
-            _namingStrategy = new SnakeCaseNamingStrategy();
-            var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
-            var classNameConverter = new TableNameToClassNameConverter(_namingStrategy);
+            var namingStrategy = new SnakeCaseNamingStrategy();
+            var parameterConverter = new TableHeaderToParameterConverter(namingStrategy);
+            var classNameConverter = new TableNameToClassNameConverter(namingStrategy);
             _testMethodGenerator = new TestMethodGenerator(parameterConverter, classNameConverter);
             _testClassDeclarationGenerator = new TestClassDeclarationGenerator(classNameConverter);
             _classFieldGenerator = new ClassFieldsGenerator(singularDataSerializer);
@@ -38,35 +37,26 @@
             _decorationVariablesGenerator = new DecorationVariablesGenerator(parameterConverter);
         }
 
-        public object[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
+        public IEnumerable<object> GetTemplateData(IEnumerable<DecisionTable> decisionTables)
         {
-            object[] templateData = new object[decisionTables.Count()];
-            for (int i = 0; i < decisionTables.Count(); i++)
+            foreach (var table in decisionTables)
             {
-                DecisionTable decisionTable = decisionTables.ElementAt(i);
-                object singleTemplateData = GetTemplateData(decisionTable);
-                templateData[i] = singleTemplateData;
+                object singleTemplateData = GetTemplateData(table);
+                yield return singleTemplateData;
             }
-
-            return templateData;
         }
 
         private object GetTemplateData(DecisionTable decisionTable)
         {
-            var testClass = _testClassDeclarationGenerator.Convert(decisionTable.TableName);
-            var classVariables =
-                _classFieldGenerator.Convert(decisionTable.DecisionVariables);
-            var testMethod = 
-                _testMethodGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
-            var implMethodCallExpression =
-                _implMethodCallExpressionGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
-            var assertStatements = _assertStatementGenerator.Convert(decisionTable.TableHeaders);
-            var testData = _testDataGenerator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
-            var implMethodDeclaration =
-                _implMethodDeclarationGenerator.Convert(decisionTable.TableName, decisionTable.TableHeaders);
-            var decorationMethodDeclaration =
-                _decorationMethodDeclarationGenerator.Convert(decisionTable.TableHeaders);
-            var decorationVariables = _decorationVariablesGenerator.Convert(decisionTable.TableHeaders);
+            var testClass = _testClassDeclarationGenerator.Convert(decisionTable);
+            var classVariables = _classFieldGenerator.Convert(decisionTable);
+            var testMethod = _testMethodGenerator.Convert(decisionTable);
+            var implMethodCallExpression = _implMethodCallExpressionGenerator.Convert(decisionTable);
+            var assertStatements = _assertStatementGenerator.Convert(decisionTable);
+            var testData = _testDataGenerator.Convert(decisionTable);
+            var implMethodDeclaration = _implMethodDeclarationGenerator.Convert(decisionTable);
+            var decorationMethodDeclaration = _decorationMethodDeclarationGenerator.Convert(decisionTable);
+            var decorationVariables = _decorationVariablesGenerator.Convert(decisionTable);
 
             return new
             {
