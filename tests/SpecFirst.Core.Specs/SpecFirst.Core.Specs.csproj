@@ -24,7 +24,6 @@
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
-	  <AdditionalFiles Include="specfirst.config" />
 	</ItemGroup>
 
 	<ItemGroup>
