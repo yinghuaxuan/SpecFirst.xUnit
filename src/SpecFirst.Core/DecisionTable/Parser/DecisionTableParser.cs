@@ -67,31 +67,27 @@
             var types = ResolveColumnTypes(dataTypes);
             for (int i = 0; i < headers.Count(); i++)
             {
-                headers[i].UpdateDataType(types[i]);
+                headers[i].UpdateDataType(types.ElementAt(i));
             }
         }
 
-        private static Type[] ResolveColumnTypes(Type?[,] dataTypes)
+        private static IEnumerable<Type> ResolveColumnTypes(Type?[,] dataTypes)
         {
             var columns = dataTypes.GetLength(1);
-            var columnTypes = new Type[columns];
             for (int i = 0; i < columns; i++)
             {
-                columnTypes[i] = CollectionTypeResolver.Resolve(ExtractColumnTypes(dataTypes, i));
+                var columnTypes = ExtractColumnTypes(dataTypes, i).ToArray();
+                yield return CollectionTypeResolver.Resolve(columnTypes);
             }
-
-            return columnTypes;
         }
 
-        private static Type?[] ExtractColumnTypes(Type?[,] dataTypes, int column)
+        private static IEnumerable<Type?> ExtractColumnTypes(Type?[,] dataTypes, int column)
         {
             var rows = dataTypes.GetLength(0);
-            var types = new Type?[rows];
             for (int i = 0; i < rows; ++i)
             {
-                types[i] = dataTypes[i, column];
+                yield return dataTypes[i, column];
             }
-            return types;
         }
 
         private static DecisionVariable[] ParseDecisionVariables(
