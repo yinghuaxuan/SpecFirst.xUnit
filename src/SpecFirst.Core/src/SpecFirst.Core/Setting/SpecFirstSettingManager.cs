@@ -85,14 +85,14 @@
 
             if (paths.Length == 1) // spec file is at the root of the project
             {
-                return GetTestProject();
+                return $"{GetTestProject()}.{GetSpecName(specFile)}";
             }
             if (paths.Length == 2)
             {
                 return $"{GetTestProject()}.{paths[1].Trim('\\').Replace('\\', '.')}.{GetSpecName(specFile)}";
             }
 
-            return GetTestProject();
+            throw new InvalidOperationException($"The path {specFile} is not valid");
         }
 
         private string GetTestFileName(string specFile)
