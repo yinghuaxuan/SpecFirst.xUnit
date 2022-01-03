@@ -21,9 +21,9 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             _arraySerializer = arraySerializer;
         }
 
-        public dynamic Convert(TableHeader[] tableHeaders, object[,] decisionData)
+        public dynamic Convert(DecisionTable table)
         {
-            var testData = BuildTestData(tableHeaders, decisionData);
+            var testData = BuildTestData(table.TableHeaders, table.TableData);
 
             return new
             {
@@ -31,9 +31,8 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
             };
         }
 
-        private List<(string, string)> BuildTestData(TableHeader[] tableHeaders, object?[,] decisionData)
+        private IEnumerable<(string, string)> BuildTestData(TableHeader[] tableHeaders, object?[,] decisionData)
         {
-            List<(string, string)> testData = new List<(string, string)>();
             StringBuilder builder = new StringBuilder();
 
             for (int i = 0; i < decisionData.GetLength(0); i++)
@@ -54,10 +53,8 @@ namespace SpecFirst.TestGenerator.xUnit.Generator
                 }
 
                 var dataString = builder.Remove(builder.Length - 2, 2).ToString();
-                testData.Add((dataString, comment));
+                yield return (dataString, comment);
             }
-
-            return testData;
         }
 
         private string Convert(object?[,] decisionData, int i, int j, Type dataType)

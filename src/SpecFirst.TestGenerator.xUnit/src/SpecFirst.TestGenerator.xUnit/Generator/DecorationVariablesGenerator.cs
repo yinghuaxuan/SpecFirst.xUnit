@@ -12,9 +12,9 @@
             _parameterConverter = parameterConverter;
         }
 
-        public dynamic Convert(TableHeader[] tableHeaders)
+        public dynamic Convert(DecisionTable table)
         {
-            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h)).Where(p => !string.IsNullOrWhiteSpace(p.Decoration));
+            var parameters = table.TableHeaders.Select(h => _parameterConverter.Convert(h)).Where(p => !string.IsNullOrWhiteSpace(p.Decoration));
             var decorationVariables = parameters.Select(p => $"string {p.Name}_decoration = \"{p.Decoration}\"");
             
             return new

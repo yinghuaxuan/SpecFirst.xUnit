@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Core.Serialization;
+    using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionVariable;
 
     public class ClassFieldsGenerator
@@ -13,11 +14,11 @@
             _singularDataSerializer = singularDataSerializer;
         }
 
-        public dynamic Convert(DecisionVariable[] variables)
+        public dynamic Convert(DecisionTable table)
         {
             return new
             {
-                class_variables = variables.Select(v => new
+                class_variables = table.DecisionVariables.Select(v => new
                 {
                     VariableType = CSharpTypeAlias.Alias(v.Type),
                     VariableName = v.Name,

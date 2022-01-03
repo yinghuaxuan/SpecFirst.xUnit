@@ -12,9 +12,9 @@
             _parameterConverter = parameterConverter;
         }
 
-        public dynamic Convert(TableHeader[] tableHeaders)
+        public dynamic Convert(DecisionTable table)
         {
-            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
+            var parameters = table.TableHeaders.Select(h => _parameterConverter.Convert(h));
             var assertStatements = parameters
                 .Where(p => p.Direction == ParameterDirection.Output)
                 .Select(p =>

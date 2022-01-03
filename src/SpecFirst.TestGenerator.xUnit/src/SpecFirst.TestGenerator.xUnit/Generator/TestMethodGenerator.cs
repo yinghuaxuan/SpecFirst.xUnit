@@ -14,14 +14,14 @@
             _classNameConverter = classNameConverter;
         }
 
-        public dynamic Convert(string tableName, TableHeader[] tableHeaders)
+        public dynamic Convert(DecisionTable table)
         {
-            var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
+            var parameters = table.TableHeaders.Select(h => _parameterConverter.Convert(h));
             var parameterString = string.Join(", ", parameters.Where(p => p.Direction != ParameterDirection.Comment).Select(p => p));
 
             return new
             {
-                class_name = _classNameConverter.Convert(tableName),
+                class_name = _classNameConverter.Convert(table.TableName),
                 test_parameters = parameterString
             };
         }
