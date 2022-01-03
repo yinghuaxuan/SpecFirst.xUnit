@@ -24,13 +24,12 @@
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionVariableValidator.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\PrimitiveTypeResolver.spec.md" />
-	  <AdditionalFiles Include="specfirst.config" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
-		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.10" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.1.0-rc.11" />
 	</ItemGroup>
 
   <ItemGroup>

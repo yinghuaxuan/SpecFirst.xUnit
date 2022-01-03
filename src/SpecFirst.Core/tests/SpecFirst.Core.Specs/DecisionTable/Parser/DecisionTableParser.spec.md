@@ -1,13 +1,15 @@
 The `DecisionTableParser` takes the html output of the markdown parser, extracts all the decision tables, and parse each decision table to a decision table object.  
 
-The `DecisionTableParser` utilizes the [component parsers]("DecisionTableComponentParser.spec.md") to parse each componen in the decision table. But it is more than just to assemble the results from each component parser - it performs the following additional actions:
+The `DecisionTableParser` utilizes the [component parsers](DecisionTableComponentParser.spec.md) to parse each componen in the decision table. In addition, the `DecisionTableParser` performs the following actions:
 
-- Parse Decision Variables
-    - Go through each decision variable and replace the varialbe with its real type and value
+- Parse Decision Variables in the table
+    - It takes all the pre-defined decision variables on the page as input
+    - If it is a Setup table and there are variables defined in the table, it creates the variable with type as `object` and value as `null` and add it to the list of pre-defined variables
+    - It goes through all variables referenced in the table and and replace the varialbe with its real type and value (during the initial parsing, all variables are assigned as type `string`)
     - If the decision variable is not already defined, it will ignore the varialbe and interpret it as a string unless the varialbe is located in a Setup table
-    - If the decision variable is in a Setup table and is not already defined, it will create the variable with type as `object` and value as `null`
+    
 - Update column types
-    - Go through each data type in the column and figure out the most compatible type for the column
+    - Go through each colum to figure out the most compatible type for the column by checking all the data types in the column
 
 ## Vanilla Decision Table
 
@@ -52,9 +54,9 @@ The `DecisionTableParser` utilizes the [component parsers]("DecisionTableCompone
 \</table>
 ](# "$decision_table")
 
-| Parse decision table                                                                                                                  ||||||
-| Decision Table       | Table Type? | Table Name? | Input Header?                           | Output Header?              | Comment Header? |
-| -------------------- | ----------- | ----------- | --------------------------------------- | --------------------------- | --------------- |
+| Parse decision table                                                                                                               ||||||
+| Decision Table       | Table Type? | Table Name? | Input Header?                         | Output Header?             | Comment Header? |
+| -------------------- | ----------- | ----------- | ------------------------------------- | -------------------------- | --------------- |
 | $decision_table      | Decision    | Table Name  | Integer data,Decimal data,Double data | Boolean data,DateTime data | String data     |
 
 
@@ -66,6 +68,7 @@ The `DecisionTableParser` utilizes the [component parsers]("DecisionTableCompone
 | $decision_table                 | 3      | string    | integer   | decimal   | double    | boolean   | datetime  |
 | $decision_table                 | 0      | string    | integer   | decimal   | double    | boolean   | datetime  |
 >we use Row #0 to designate the column type
+
 
 | Parse decision table data                                                                                       ||||||||
 | Decision Table            | Row No | Column 1?   | Column 2? | Column 3? | Column 4? | Column 5? | Column 6?           |
