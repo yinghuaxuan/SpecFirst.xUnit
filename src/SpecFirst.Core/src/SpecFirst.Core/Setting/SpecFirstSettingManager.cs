@@ -83,16 +83,12 @@
                 new[] { _specProject },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            if (paths.Length == 1) // spec file is at the root of the project
-            {
-                return GetTestProject();
-            }
             if (paths.Length == 2)
             {
                 return $"{GetTestProject()}.{paths[1].Trim('\\').Replace('\\', '.')}.{GetSpecName(specFile)}";
             }
 
-            return GetTestProject();
+            return $"{GetTestProject()}.{GetSpecName(specFile)}";
         }
 
         private string GetTestFileName(string specFile)
