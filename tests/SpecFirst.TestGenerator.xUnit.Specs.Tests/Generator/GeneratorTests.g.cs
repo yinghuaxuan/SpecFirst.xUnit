@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
+namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
     
     public partial class generate_test_class_name
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void generate_test_class_name_tests(string decision_table_name, string test_class_name)
@@ -42,7 +41,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
 
     public partial class generate_class_fields
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void generate_class_fields_tests(string decision_variable_name, string decision_variable_value, string field)
@@ -69,10 +67,9 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
 
     public partial class generate_test_method
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_test_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string test_method)
+        public void generate_test_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string test_method)
         {
 
             string test_method_output = generate_test_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
@@ -91,16 +88,15 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial string generate_test_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_test_method_implementation(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types);
 
     }
 
     public partial class generate_implementation_method
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_implementation_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string implementation_method)
+        public void generate_implementation_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string implementation_method)
         {
 
             string implementation_method_output = generate_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
@@ -111,24 +107,23 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
         {
             var data = new List<object[]>
             {
-                new object[] { "decision table name", new string[] {"#Comment", "Header 1", "Header 2", "Header 3?", "Header 4?"}, new string[] {"string", "int", "string", "decimal", "object"}, "private partial (decimal, object) decision_table_name_implementation(int header_1, string header_2);" }, // It ingores comment columns
-                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 3?", "Header 4?"}, new string[] {"string", "decimal", "object"}, "private partial (decimal, object) decision_table_name_implementation();" }, // it is ok not to have input columns
-                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 1", "Header 2"}, new string[] {"string", "int", "string"}, "private partial void decision_table_name_implementation(int header_1, string header_2);" }, // it is ok not to have output columns
+                new object[] { "decision table name", new string[] {"#Comment", "Header 1", "Header 2", "Header 3?", "Header 4?"}, new string[] {"string", "int", "string", "decimal", "object"}, "private partial (decimal, object) decision_table_name_implementation(int header_1, string header_2)" }, // It ingores comment columns
+                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 3?", "Header 4?"}, new string[] {"string", "decimal", "object"}, "private partial (decimal, object) decision_table_name_implementation()" }, // it is ok not to have input columns
+                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 1", "Header 2"}, new string[] {"string", "int", "string"}, "private partial void decision_table_name_implementation(int header_1, string header_2)" }, // it is ok not to have output columns
             };
 
             return data;
         }
 
-        private partial string generate_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_implementation_method_implementation(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types);
 
     }
 
     public partial class generate_the_expression_to_call_the_implementation_method
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_the_expression_to_call_the_implementation_method_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string expression_for_calling_implementation_method)
+        public void generate_the_expression_to_call_the_implementation_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string expression_for_calling_implementation_method)
         {
 
             string expression_for_calling_implementation_method_output = generate_the_expression_to_call_the_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
@@ -147,16 +142,15 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             return data;
         }
 
-        private partial string generate_the_expression_to_call_the_implementation_method_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_the_expression_to_call_the_implementation_method_implementation(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types);
 
     }
 
     public partial class generate_assert_statement
     {
-
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void generate_assert_statement_tests(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types, string assert_statement)
+        public void generate_assert_statement_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string assert_statement)
         {
             string assert_statement_decoration = "ignore_case|ignore_all_spaces";
 
@@ -170,13 +164,13 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
             {
                 new object[] { "decision table name", new string[] {"#Comment", "Header 1", "Header 2", "Header 3?", "Header 4?"}, new string[] {"string", "int", "string", "decimal", "object"}, "Assert.Equal(header_3_output, header_3); Assert.Equal(header_4_output, header_4);" }, // It ingores comment columns
                 new object[] { "Decision Table Name", new string[] {"#Comment", "Header 3?", "Header 4?"}, new string[] {"string", "decimal", "object"}, "Assert.Equal(header_3_output, header_3); Assert.Equal(header_4_output, header_4);" }, // it is ok not to have input columns
-                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 1", "Header 2"}, new string[] {"string", "int", "string"}, "" }, // it is ok not to have output columns
+                new object[] { "Decision Table Name", new string[] {"#Comment", "Header 1", "Header 2"}, new string[] {"string", "int", "string"}, null }, // it is ok not to have output columns
             };
 
             return data;
         }
 
-        private partial string generate_assert_statement_implementation(string decision_table_name, String[] decision_table_headers, String[] decision_table_data_types);
+        private partial string generate_assert_statement_implementation(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types);
 
         private partial string assert_statement_decoration_implementation(string assert_statement, string assert_statement_decoration);
     }
@@ -185,6 +179,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
     {
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Integer </td>       <td> Decimal </td>       <td> Double </td>       <td> Boolean? </td>       <td> String? </td>       <td> DateTime? </td>     </tr>     <tr>       <td> Row 1 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 2 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 3 </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>   </tbody> </table> ";
         private static readonly string test_data = "public static IEnumerable<object[]> get_test_data() {     var data = new List<object[]>     {         new object[] { 12, 12.5M, 12.5D, true, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 1         new object[] { 12, 12.5M, 12.5D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 2         new object[] { 12, 12M, 12D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 3     }; <br/>     return data; }";
+
 
         [Theory]
         [MemberData(nameof(get_test_data))]

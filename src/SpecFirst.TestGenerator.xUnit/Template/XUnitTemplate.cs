@@ -84,10 +84,12 @@ namespace {{namespace_name}}
 ";
 
         public const string DECORATION_METHOD_TEMPLATE =
-@"        {{#each decoration_methods}}
+@"        {{#if decoration_methods}}
+        {{#each decoration_methods}}
         private partial {{this.ReturnType}} {{this.ParameterName}}_implementation({{this.InputParameters}});
         {{/each}}
-";
+
+        {{/if}}";
 
         public const string CLASS_VARIABLE_TEMPLATE =
 @"        {{#if class_variables}}
@@ -98,7 +100,6 @@ namespace {{namespace_name}}
         private static readonly {{this.VariableType}} {{this.VariableName}};
         {{/if}}
         {{/each}}
-
 
         {{/if}}";
 
@@ -119,11 +120,12 @@ namespace {{namespace_name}}
             {{/each}}";
 
         public const string DECORATION_VARIABLE_TEMPLATE =
-@"          {{#each decoration_variables}}
+@"            {{#if decoration_variables}}
+            {{#each decoration_variables}}
             {{{this}}};
             {{/each}}
 
-";
+            {{/if}}";
 
         public const string TEST_NAME_TEMPLATE =
 @"    public partial class {{class_name}}
