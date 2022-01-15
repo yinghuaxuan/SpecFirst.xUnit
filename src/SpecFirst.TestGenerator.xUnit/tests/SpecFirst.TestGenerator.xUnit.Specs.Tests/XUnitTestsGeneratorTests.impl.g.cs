@@ -1,12 +1,13 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
+﻿namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.XUnitTestsGenerator
 {
     using System;
     using System.Linq;
     using System.Xml.Linq;
-    using Core.DecisionTable.Parser;
-    using Core.DecisionVariable;
-    using Core.Setting;
-    using Core.Utils;
+    using SpecFirst.Core.DecisionTable.Parser;
+    using SpecFirst.Core.DecisionVariable;
+    using SpecFirst.Core.Setting;
+    using SpecFirst.Core.Utils;
+    using SpecFirst.TestGenerator.xUnit;
 
     public partial class generate_xunit_tests
     {
@@ -14,7 +15,7 @@
         {
             var decisionTable = new DecisionTableParser().Parse(XElement.Parse(decision_table), Enumerable.Empty<DecisionVariable>());
             var generator = new XUnitTestsGenerator();
-            var sources = generator.Generate(new SpecFirstSettings{TestGeneration = new TestGeneration{TestProject = "TestProject"}}, new[] { decisionTable });
+            var sources = generator.Generate(new SpecFirstSettings{TestProject = new TestProject{TestNameSpace = "TestProject"}}, new[] { decisionTable });
             return sources.ElementAt(0);
         }
 

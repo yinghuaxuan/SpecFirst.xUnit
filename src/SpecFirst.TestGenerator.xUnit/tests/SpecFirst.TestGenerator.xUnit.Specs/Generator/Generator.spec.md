@@ -81,12 +81,12 @@ The return value can be:
 - the type of the column if there is only one output column
 - a tuple of types if there are multiple output columns
 
-| Generate implementation method                                                                                                                                                                                                                                               |||||
-| #Description                        | Decision Table Name | Decision Table Headers                                     | Decision Table Data Types                        | Implementation Method?                                                                               |
-| ----------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| It ingores comment columns          | decision table name | ["#Comment","Header 1","Header 2","Header 3?","Header 4?"] | ["string", "int", "string", "decimal", "object"] | private partial (decimal, object) decision_table_name_implementation(int header_1, string header_2); |
-| it is ok not to have input columns  | Decision Table Name | ["#Comment","Header 3?","Header 4?"]                       | ["string", "decimal", "object"]                  | private partial (decimal, object) decision_table_name_implementation();                              |
-| it is ok not to have output columns | Decision Table Name | ["#Comment","Header 1","Header 2"]                         | ["string", "int", "string"]                      | private partial void decision_table_name_implementation(int header_1, string header_2);              |
+| Generate implementation method                                                                                                                                                                                                                                              |||||
+| #Description                        | Decision Table Name | Decision Table Headers                                     | Decision Table Data Types                        | Implementation Method?                                                                              |
+| ----------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| It ingores comment columns          | decision table name | ["#Comment","Header 1","Header 2","Header 3?","Header 4?"] | ["string", "int", "string", "decimal", "object"] | private partial (decimal, object) decision_table_name_implementation(int header_1, string header_2) |
+| it is ok not to have input columns  | Decision Table Name | ["#Comment","Header 3?","Header 4?"]                       | ["string", "decimal", "object"]                  | private partial (decimal, object) decision_table_name_implementation()                              |
+| it is ok not to have output columns | Decision Table Name | ["#Comment","Header 1","Header 2"]                         | ["string", "int", "string"]                      | private partial void decision_table_name_implementation(int header_1, string header_2)              |
 
 ### ImplMethodCallExpressionGenerator
 The `ImplMethodCallExpressionGenerator` is responsible for generating the expression to call the implementation method.  

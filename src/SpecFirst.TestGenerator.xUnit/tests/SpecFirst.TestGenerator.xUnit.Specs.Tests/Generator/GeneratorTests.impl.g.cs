@@ -1,17 +1,17 @@
-﻿namespace SpecFirst.TestGenerator.xUnit.Specs.Tests
+﻿namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
 {
     using System;
     using System.Collections.Generic;
     using System.Xml.Linq;
-    using Core.Serialization;
-    using Core.Utils;
+    using SpecFirst.Core.Serialization;
+    using SpecFirst.Core.Utils;
     using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.DecisionTable.Parser;
     using SpecFirst.Core.DecisionVariable;
     using SpecFirst.Core.NamingStrategy;
     using SpecFirst.TestGenerator.xUnit.Generator;
-    using Template;
+    using SpecFirst.TestGenerator.xUnit.Template;
 
     public partial class generate_test_class_name
     {
@@ -21,7 +21,7 @@
                 new TestClassDeclarationGenerator(new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.TEST_NAME_TEMPLATE);
-            var data = generator.Convert(decision_table_name);
+            var data = generator.Convert(new DecisionTable(TableType.Decision, decision_table_name, null, null));
 
             return template(data).Trim();
         }
@@ -37,7 +37,7 @@
                 new DecisionVariable(decision_variable_name, string.IsNullOrEmpty(decision_variable_value) ? typeof(object) : typeof(string), decision_variable_value);
 
             var template = Handlebars.Compile(XUnitTemplate.CLASS_VARIABLE_TEMPLATE);
-            var data = generator.Convert(new[] { decisionVariable });
+            var data = generator.Convert(new DecisionTable(TableType.Decision, "decision_table_name", null, null, new[] { decisionVariable }));
 
             return template(data).Trim();
         }
@@ -57,7 +57,7 @@
                 new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.TEST_METHOD_TEMPLATE);
-            var data = generator.Convert(decision_table_name, headers.ToArray());
+            var data = generator.Convert(new DecisionTable(TableType.Decision, decision_table_name, headers.ToArray(), null));
 
             return template(data).Trim();
         }
@@ -76,7 +76,7 @@
                 new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.IMPL_METHOD_TEMPLATE);
-            var data = generator.Convert(decision_table_name, headers.ToArray());
+            var data = generator.Convert(new DecisionTable(TableType.Decision, decision_table_name, headers.ToArray(), null));
 
             return template(data).Trim();
 
@@ -97,7 +97,7 @@
                 new TableNameToClassNameConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.IMPL_METHOD_CALL_EXPRESSION_TEMPLATE);
-            var data = generator.Convert(decision_table_name, headers.ToArray());
+            var data = generator.Convert(new DecisionTable(TableType.Decision, decision_table_name, headers.ToArray(), null));
 
             return template(data).Trim();
         }
@@ -116,7 +116,7 @@
                 new TableHeaderToParameterConverter(new SnakeCaseNamingStrategy()));
 
             var template = Handlebars.Compile(XUnitTemplate.ASSERT_STATEMENT_TEMPLATE);
-            var data = generator.Convert(headers.ToArray());
+            var data = generator.Convert(new DecisionTable(TableType.Decision, "table name", headers.ToArray(), null));
 
             return template(data).Trim();
         }
@@ -134,8 +134,8 @@
             {
                 options = options | StringProcessingOptions.IgnoreCase;
             }
-            assert_statement = assert_statement.Normalize(options);
-            return assert_statement;
+            assert_statement = assert_statement?.Normalize(options);
+            return assert_statement ?? string.Empty;
         }
     }
 
@@ -151,7 +151,7 @@
             var generator = new TestDataGenerator(singularDataSerializer, arrayDataSerializer);
 
             var template = Handlebars.Compile(XUnitTemplate.TEST_DATA_TEMPLATE);
-            var data = generator.Convert(decisionTable.TableHeaders, decisionTable.TableData);
+            var data = generator.Convert(decisionTable);
             
             return template(data).TrimStart('\r', '\n').TrimEnd('\r', '\n').Replace("\r", "");
         }
