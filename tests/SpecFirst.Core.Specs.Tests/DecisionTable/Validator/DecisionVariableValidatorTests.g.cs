@@ -19,7 +19,6 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Validator.DecisionVariableVal
         [MemberData(nameof(get_test_data))]
         public void validate_decision_variables_from_links_tests(string text, bool contain_variable, string variable_name, string variable_type, string variable_value)
         {
-
             (bool contain_variable_output, string variable_name_output, string variable_type_output, string variable_value_output) = validate_decision_variables_from_links_implementation(text);
             Assert.Equal(contain_variable_output, contain_variable);
             Assert.Equal(variable_name_output, variable_name);

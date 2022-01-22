@@ -19,7 +19,6 @@ namespace SpecFirst.Core.Specs.Tests.TypeResolver.PrimitiveTypeResolver
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_number_text_tests(string text_value, string actual_type, string serialized_value)
         {
-
             (string actual_type_output, string serialized_value_output) = infer_type_from_number_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
             Assert.Equal(serialized_value_output, serialized_value);
@@ -79,7 +78,6 @@ namespace SpecFirst.Core.Specs.Tests.TypeResolver.PrimitiveTypeResolver
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_boolean_text_tests(string text_value, string actual_type, string serialized_value)
         {
-
             (string actual_type_output, string serialized_value_output) = infer_type_from_boolean_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
             Assert.Equal(serialized_value_output, serialized_value);
@@ -114,7 +112,6 @@ namespace SpecFirst.Core.Specs.Tests.TypeResolver.PrimitiveTypeResolver
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_datetime_text_tests(string text_value, string actual_type, string serialized_value)
         {
-
             (string actual_type_output, string serialized_value_output) = infer_type_from_datetime_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
             Assert.Equal(serialized_value_output, serialized_value);
@@ -146,7 +143,6 @@ namespace SpecFirst.Core.Specs.Tests.TypeResolver.PrimitiveTypeResolver
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_string_text_tests(string text_value, string actual_type, string serialized_value)
         {
-
             (string actual_type_output, string serialized_value_output) = infer_type_from_string_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
             Assert.Equal(serialized_value_output, serialized_value);

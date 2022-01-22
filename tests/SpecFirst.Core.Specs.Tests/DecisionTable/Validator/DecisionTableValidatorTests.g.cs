@@ -25,12 +25,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Validator.DecisionTableValida
         private static readonly string comment_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"2\"> comment:Table Name </td>     </tr>     <tr>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
         private static readonly string setup_decision_table = "<table>   <tbody>     <tr>       <td colspan=\"2\"> setup:Column 1 </td>     </tr>     <tr>       <td> Table Header 1 </td>       <td> Table Header 2? </td>     </tr>     <tr>       <td> Table Data 1 </td>       <td> Table Data 2 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void is_table_a_decision_table_tests(string decision_table, bool is_valid, string validation_error)
         {
-
             (bool is_valid_output, string validation_error_output) = is_table_a_decision_table_implementation(decision_table);
             Assert.Equal(is_valid_output, is_valid);
             Assert.Equal(validation_error_output, validation_error);
