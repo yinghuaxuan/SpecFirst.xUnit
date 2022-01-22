@@ -19,7 +19,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         [MemberData(nameof(get_test_data))]
         public void generate_test_class_name_tests(string decision_table_name, string test_class_name)
         {
-
             string test_class_name_output = generate_test_class_name_implementation(decision_table_name);
             Assert.Equal(test_class_name_output, test_class_name);
         }
@@ -45,7 +44,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         [MemberData(nameof(get_test_data))]
         public void generate_class_fields_tests(string decision_variable_name, string decision_variable_value, string field)
         {
-
             string field_output = generate_class_fields_implementation(decision_variable_name, decision_variable_value);
             Assert.Equal(field_output, field);
         }
@@ -71,7 +69,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         [MemberData(nameof(get_test_data))]
         public void generate_test_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string test_method)
         {
-
             string test_method_output = generate_test_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(test_method_output, test_method);
         }
@@ -98,7 +95,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         [MemberData(nameof(get_test_data))]
         public void generate_implementation_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string implementation_method)
         {
-
             string implementation_method_output = generate_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(implementation_method_output, implementation_method);
         }
@@ -125,7 +121,6 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         [MemberData(nameof(get_test_data))]
         public void generate_the_expression_to_call_the_implementation_method_tests(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types, string expression_for_calling_implementation_method)
         {
-
             string expression_for_calling_implementation_method_output = generate_the_expression_to_call_the_implementation_method_implementation(decision_table_name, decision_table_headers, decision_table_data_types);
             Assert.Equal(expression_for_calling_implementation_method_output, expression_for_calling_implementation_method);
         }
@@ -173,13 +168,13 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         private partial string generate_assert_statement_implementation(string decision_table_name, string[] decision_table_headers, string[] decision_table_data_types);
 
         private partial string assert_statement_decoration_implementation(string assert_statement, string assert_statement_decoration);
+
     }
 
     public partial class generate_test_data
     {
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Description </td>       <td> Integer </td>       <td> Decimal </td>       <td> Double </td>       <td> Boolean? </td>       <td> String? </td>       <td> DateTime? </td>     </tr>     <tr>       <td> Row 1 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 2 </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>     <tr>       <td> Row 3 </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> \"text\" </td>       <td> 2012-03-26 12:12:12 </td>     </tr>   </tbody> </table> ";
         private static readonly string test_data = "public static IEnumerable<object[]> get_test_data() {     var data = new List<object[]>     {         new object[] { 12, 12.5M, 12.5D, true, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 1         new object[] { 12, 12.5M, 12.5D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 2         new object[] { 12, 12M, 12D, false, \"text\", new DateTime(2012, 3, 26, 12, 12, 12, 0) }, // Row 3     }; <br/>     return data; }";
-
 
         [Theory]
         [MemberData(nameof(get_test_data))]
@@ -204,6 +199,7 @@ namespace SpecFirst.TestGenerator.xUnit.Specs.Tests.Generator.Generator
         private partial string generate_test_data_implementation(string decision_table);
 
         private partial string test_data_decoration_implementation(string test_data, string test_data_decoration);
+
     }
 
 }
