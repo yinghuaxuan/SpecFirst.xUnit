@@ -19,7 +19,6 @@ namespace SpecFirst.Core.Specs.Tests.TypeResolver.CollectionTypeResolver
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_collection_text_tests(string collection, string collection_type, string parsed_collection)
         {
-
             (string collection_type_output, string parsed_collection_output) = infer_type_from_collection_text_implementation(collection);
             Assert.Equal(collection_type_output, collection_type);
             Assert.Equal(parsed_collection_output, parsed_collection);

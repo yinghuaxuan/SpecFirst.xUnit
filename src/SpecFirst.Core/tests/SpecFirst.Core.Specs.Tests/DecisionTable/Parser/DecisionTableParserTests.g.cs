@@ -17,12 +17,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_tests(string decision_table, string table_type, string table_name, string input_header, string output_header, string comment_header)
         {
-
             (string table_type_output, string table_name_output, string input_header_output, string output_header_output, string comment_header_output) = parse_decision_table_implementation(decision_table);
             Assert.Equal(table_type_output, table_type);
             Assert.Equal(table_name_output, table_name);
@@ -49,12 +47,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_types_tests(string decision_table, int row_no, string column_1, string column_2, string column_3, string column_4, string column_5, string column_6)
         {
-
             (string column_1_output, string column_2_output, string column_3_output, string column_4_output, string column_5_output, string column_6_output) = parse_decision_table_data_types_implementation(decision_table, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -85,12 +81,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #String data </td>       <td> Integer data </td>       <td> Decimal data </td>       <td> Double data </td>       <td> Boolean data? </td>       <td> DateTime data? </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5 </td>       <td> True </td>       <td> 2012-03-26 </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12.5M </td>       <td> 12.5D </td>       <td> False </td>       <td> 2012-03-26 12:12:12</td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> 12M </td>       <td> 12D </td>       <td> false </td>       <td> 2012-03-26 12:12:12</td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_tests(string decision_table, int row_no, string column_1, int column_2, decimal column_3, double column_4, bool column_5, DateTime column_6)
         {
-
             (string column_1_output, int column_2_output, decimal column_3_output, double column_4_output, bool column_5_output, DateTime column_6_output) = parse_decision_table_data_implementation(decision_table, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -120,12 +114,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table_variables = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_2 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_1 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> $variable_2 </td>       <td> $variable_1 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -153,12 +145,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table_variables = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_2 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_1 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> $variable_2 </td>       <td> $variable_1 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -185,12 +175,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table_variables_not_defined = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_2 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_3 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> $variable_2 </td>       <td> $variable_3 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_types_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-
             (string column_1_output, string column_2_output, string column_3_output) = parse_decision_table_data_types_with_variables_not_defined_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -218,12 +206,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string decision_table_variables_not_defined = "<table>   <tbody>     <tr>       <td colspan=\"3\"> Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_2 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_3 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> $variable_2 </td>       <td> $variable_3 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_decision_table_data_with_variables_not_defined_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-
             (string column_1_output, object column_2_output, object column_3_output) = parse_decision_table_data_with_variables_not_defined_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -250,12 +236,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string setup_decision_table_variables = "<table>   <tbody>     <tr>       <td colspan=\"3\"> setup:Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_3 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_1 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> $variable_4 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_setup_decision_table_data_types_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, string column_2, string column_3)
         {
-
             (string column_1_output, string column_2_output, string column_3_output) = parse_setup_decision_table_data_types_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
@@ -283,12 +267,10 @@ namespace SpecFirst.Core.Specs.Tests.DecisionTable.Parser.DecisionTableParser
     {
         private static readonly string setup_decision_table_variables = "<table>   <tbody>     <tr>       <td colspan=\"3\"> setup:Table Name </td>     </tr>     <tr>       <td> #Column 1 </td>       <td> Column 2 </td>       <td> Column 3? </td>     </tr>     <tr>       <td> $variable_1 </td>       <td> 12 </td>       <td> $variable_3 </td>     </tr>     <tr>       <td> $variable_2 </td>       <td> $variable_1 </td>       <td> 12.5M </td>     </tr>     <tr>       <td> Description </td>       <td> 12 </td>       <td> $variable_4 </td>     </tr>   </tbody> </table> ";
 
-
         [Theory]
         [MemberData(nameof(get_test_data))]
         public void parse_setup_decision_table_data_with_variables_tests(string decision_table, string[] variables, int row_no, string column_1, object column_2, object column_3)
         {
-
             (string column_1_output, object column_2_output, object column_3_output) = parse_setup_decision_table_data_with_variables_implementation(decision_table, variables, row_no);
             Assert.Equal(column_1_output, column_1);
             Assert.Equal(column_2_output, column_2);
